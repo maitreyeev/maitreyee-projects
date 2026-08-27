@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+:root {
+  --background: #faf9f7;
+  --surface: #ffffff;
+  --surface-muted: #f3f1ed;
+  --foreground: #16151a;
+  --muted: #6f6d78;
+  --border: rgba(20, 18, 30, 0.09);
+  --accent: #5b53f0;
+  --accent-ink: #ffffff;
+  --accent-soft: #edebfe;
+  --success: #1f9d63;
+  --success-soft: #e4f6ec;
+  --warning: #b5790a;
+  --warning-soft: #fbf0dc;
+  --danger: #d8493a;
+  --danger-soft: #fbe9e6;
+  --shadow-color: 240 30% 20%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #100f14;
+    --surface: #18171e;
+    --surface-muted: #1f1e26;
+    --foreground: #f1efee;
+    --muted: #9997a6;
+    --border: rgba(255, 255, 255, 0.09);
+    --accent: #8b84ff;
+    --accent-ink: #100f14;
+    --accent-soft: #262244;
+    --success: #37c785;
+    --success-soft: #163326;
+    --warning: #e0a836;
+    --warning-soft: #392a10;
+    --danger: #e8695c;
+    --danger-soft: #3a1f1c;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.card-shadow {
+  box-shadow: 0 1px 2px hsl(var(--shadow-color) / 0.04),
+    0 12px 28px -12px hsl(var(--shadow-color) / 0.14);
+}
+
+.card-shadow-lg {
+  box-shadow: 0 2px 4px hsl(var(--shadow-color) / 0.05),
+    0 24px 48px -16px hsl(var(--shadow-color) / 0.22);
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}

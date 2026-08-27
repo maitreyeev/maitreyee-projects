@@ -1,0 +1,737 @@
+{
+  "Google": {
+    "product_management": {
+      "displayRole": "Product Manager (PM)",
+      "rounds": [
+        {
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min phone/video call with a technical recruiter",
+          "focus": "Background, motivation, resume walkthrough, level calibration. India note: Google's APM (Associate Product Manager) rotational program recently expanded to India (Bangalore); for APM applicants this screen also checks academic background and internship experience. For all India candidates the full loop is usually conducted virtually and the end-to-end process commonly takes 10-12 weeks with roughly a 2-week gap between onsite days.",
+          "evaluates": "Communication clarity, motivation for PM/Google, basic role and level fit",
+          "questions": [
+            "Walk me through your resume and your path into product management",
+            "Why do you want to work at Google, and why this team?",
+            "What's a product you've shipped that you're most proud of?",
+            "What level are you interviewing for and why do you think that's the right fit?",
+            "Tell me about a time you had to learn a new domain quickly",
+            "What other companies/roles are you interviewing for?",
+            "What's your favorite Google product and why?"
+          ]
+        },
+        {
+          "id": "product-sense-phone-screen",
+          "name": "Product Sense Phone Screen",
+          "format": "45 min video call with a senior PM, structured product case",
+          "focus": "Ability to reason about users, ambiguity, and product trade-offs in a single structured case",
+          "evaluates": "Product sense, user empathy, structured thinking under ambiguity",
+          "questions": [
+            "What's your favorite product? How would you improve it?",
+            "Design a new feature for Google Maps for a specific user segment",
+            "How would you improve Google Calendar for remote/hybrid teams?",
+            "Build a product for Waymo's fully driverless car experience",
+            "Design a shopping experience for elderly or low-tech-literacy users",
+            "How would you redesign Google Photos' yearly recap feature?",
+            "Walk me through how you'd prioritize features for a 0-to-1 product",
+            "What metrics would you use to know if this new feature succeeded?"
+          ]
+        },
+        {
+          "id": "onsite-product-design",
+          "name": "Product Design / Product Sense",
+          "format": "45 min 1:1 onsite (virtual) interview with a PM on the hiring team",
+          "focus": "Deeper product design case, often tied to Google's own product surfaces",
+          "evaluates": "Product sense, creativity, user-centric design, prioritization",
+          "questions": [
+            "Design an AI assistant inside Gemini for college students; sketch a rough prototype",
+            "Users say Gemini answers are confident but wrong - how would you fix this?",
+            "Improve Google Search results for a specific query type of your choosing",
+            "Design a product to help small businesses in India go online",
+            "How would you design Google Photos for a first-time smartphone user?",
+            "Pick a Google product and identify its biggest UX flaw; how would you fix it?",
+            "Design a feature for YouTube to increase watch time among teenagers"
+          ]
+        },
+        {
+          "id": "onsite-analytical-execution",
+          "name": "Analytical / Execution",
+          "format": "45 min 1:1 onsite interview, metrics- and execution-heavy",
+          "focus": "Root-cause diagnosis, metrics definition, trade-off analysis, estimation",
+          "evaluates": "Analytical rigor, structured problem solving, data fluency, execution judgment",
+          "questions": [
+            "In the last 24 hours, engagement on YouTube comments dropped 10% - diagnose why",
+            "Estimate the number of Google Maps navigation queries per day in India",
+            "How would you measure the success of Google Search?",
+            "How would you measure the success of a new ticketing/support system like Asana's?",
+            "A key metric for your product is flat quarter-over-quarter - what do you do?",
+            "Estimate the market size for a premium Google smart speaker in India",
+            "Walk me through how you'd set up an A/B test for a new onboarding flow",
+            "Which metric would you cut if you could only track one for this product?"
+          ]
+        },
+        {
+          "id": "onsite-product-strategy",
+          "name": "Product Strategy",
+          "format": "45 min 1:1 onsite interview with a senior/director-level PM",
+          "focus": "Long-horizon strategic thinking, competitive positioning, business trade-offs",
+          "evaluates": "Strategic thinking, business acumen, competitive awareness",
+          "questions": [
+            "Imagine you're CPO of Zoom facing heavy competition from Google Meet - what's your strategy?",
+            "Should Google compete with StubHub/BookMyShow on ticket sales?",
+            "How would you grow Google Search revenue 5x over five years?",
+            "How would you help Google regain market share from Apple Maps?",
+            "Why did Google build Chrome, and what's the biggest threat to it today?",
+            "How should Google respond to a well-funded AI-search startup?",
+            "Pick an industry Google isn't in and pitch whether Google should enter it"
+          ]
+        },
+        {
+          "id": "onsite-googleyness-leadership",
+          "name": "Googleyness & Leadership",
+          "format": "45 min 1:1 onsite behavioral interview",
+          "focus": "Values fit, emergent leadership, collaboration without formal authority",
+          "evaluates": "Googleyness (comfort with ambiguity, bias to action, collaborative nature), leadership, general cognitive ability",
+          "questions": [
+            "Tell me about a product decision that frustrated you and how you handled it",
+            "Describe a time you led a cross-functional team through disagreement",
+            "Tell me about a time you influenced a decision without formal authority",
+            "How would you get buy-in for a controversial product change?",
+            "Tell me about a time you improved team culture or morale",
+            "Give an example of when you prioritized team success over personal recognition",
+            "Describe a difficult conversation you had about a launch timeline",
+            "Tell me about a time you disagreed with legal/policy on a feature and how you resolved it"
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "displayRole": "Technical Program Manager (TPM)",
+      "rounds": [
+        {
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min phone/video call",
+          "focus": "Scope of past programs, level fit, motivation, domain alignment. India note: most TPM hiring in India is out of Bangalore/Hyderabad; loop is fully virtual and follows the same global structure.",
+          "evaluates": "Communication clarity, program scope/level fit, motivation",
+          "questions": [
+            "Tell me about yourself and your current day-to-day as a TPM",
+            "Why Google, and why this role?",
+            "What's the scope of the programs and teams you currently lead?",
+            "Walk me through your career progression into program management",
+            "What size and complexity of programs have you managed?",
+            "Why are you looking to leave your current role?"
+          ]
+        },
+        {
+          "id": "hiring-manager-screen",
+          "name": "Hiring Manager Screen",
+          "format": "45 min video call; gates entry to the final loop",
+          "focus": "Technical judgment, applied reasoning, team fit under uncertainty",
+          "evaluates": "Technical judgment, motivation, communication under ambiguity",
+          "questions": [
+            "Tell me about a time you exercised technical judgment that changed a project's direction",
+            "What makes a design review successful, and how often should one happen?",
+            "Walk me through a technical trade-off you made under a tight timeline",
+            "Describe the most technically complex program you've managed",
+            "How do you evaluate whether a proposed technical solution is the right one?",
+            "What's your process for onboarding onto a new technical domain quickly?"
+          ]
+        },
+        {
+          "id": "onsite-program-management",
+          "name": "Role-Related Knowledge: Program Management",
+          "format": "45 min onsite (virtual) interview",
+          "focus": "Cross-functional program execution, dependency management, stakeholder alignment",
+          "evaluates": "Program management fundamentals, execution rigor, stakeholder management",
+          "questions": [
+            "Tell me about the most complex program you've managed and the trade-offs you navigated",
+            "How do you keep a cross-functional project on time when teams span multiple time zones?",
+            "Walk a product from concept to production and describe how you'd ensure a successful rollout",
+            "Describe a time a key dependency slipped - how did you manage the downstream impact?",
+            "How do you decide which risks to escalate versus manage yourself?",
+            "Tell me about a program where stakeholders disagreed on priorities - how did you resolve it?",
+            "How do you structure a program plan for a launch with unclear requirements?"
+          ]
+        },
+        {
+          "id": "onsite-technical-judgment",
+          "name": "Role-Related Knowledge: Technical/Domain",
+          "format": "45 min onsite interview, often with a Software Engineer or SWE Manager",
+          "focus": "Technical depth relevant to the team (systems, infra, or hardware)",
+          "evaluates": "Technical fluency, ability to hold engineers accountable, systems reasoning",
+          "questions": [
+            "Two vendors offer similar components but different distribution models - how would you choose?",
+            "Walk me through the hardware product lifecycle stages (EVT, DVT, PVT) if relevant to your domain",
+            "Design a high-level system for a service handling millions of requests per day",
+            "How would you evaluate a proposed architecture for scalability and risk?",
+            "Explain a technical concept from your last program to a non-technical stakeholder",
+            "What technical red flags would make you pause a launch?"
+          ]
+        },
+        {
+          "id": "onsite-general-cognitive-ability",
+          "name": "General Cognitive Ability (GCA)",
+          "format": "45 min onsite interview, structured problem-solving case",
+          "focus": "Structured reasoning and decision-making under ambiguity or incomplete data",
+          "evaluates": "Problem structuring, prioritization, decision-making under uncertainty",
+          "questions": [
+            "You're two years into building a subsea cable and war breaks out in the landing country - what do you do?",
+            "What's your general approach to prioritization when facing many competing priorities?",
+            "How do you make a decision when you don't have enough data? Give an example",
+            "How do you stay current as tools and technology change, including AI?",
+            "Walk me through how you'd triage a P0 incident affecting multiple teams",
+            "How would you estimate the timeline for a program with significant unknowns?"
+          ]
+        },
+        {
+          "id": "onsite-leadership-googleyness",
+          "name": "Leadership & Googleyness",
+          "format": "45 min onsite behavioral interview",
+          "focus": "Values fit, influence without authority, coaching and growth mindset",
+          "evaluates": "Leadership, Googleyness, collaboration, resilience",
+          "questions": [
+            "Tell me about a project where you gave your best effort and still failed",
+            "Tell me about a time you influenced a stakeholder or delivered a difficult message",
+            "Tell me about a time you saw something broken and fixed it without being asked",
+            "Tell me about a disagreement between two teams and how you resolved it",
+            "Tell me about a time you coached or supported someone who wasn't performing",
+            "Describe a time you had to say no to a senior stakeholder"
+          ]
+        }
+      ]
+    }
+  },
+  "Anthropic": {
+    "product_management": {
+      "displayRole": "Product Manager (PM)",
+      "rounds": [
+        {
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30-45 min video call",
+          "focus": "Motivation, mission alignment, resume walkthrough. India note: Anthropic announced its first India office in Bengaluru (opening early 2026, led by India MD Irina Ghose); India-specific PM hiring is nascent and roles have mostly been filled via SF/remote-US postings to date, so expect the process to still be forming and largely virtual for India-based candidates.",
+          "evaluates": "Motivation, mission fit, basic communication",
+          "questions": [
+            "Why Anthropic, and what draws you to AI safety?",
+            "Walk me through your resume and the products you've led",
+            "How does Anthropic's mission resonate with you personally?",
+            "What do you know about Claude and Anthropic's product suite?",
+            "What other AI companies are you interviewing with, and why Anthropic over them?"
+          ]
+        },
+        {
+          "id": "hiring-manager-conversation",
+          "name": "Hiring Manager Conversation",
+          "format": "45-60 min video call with the hiring manager",
+          "focus": "Depth on shipped products, metrics ownership, and judgment from past failures",
+          "evaluates": "Product judgment, ownership, self-awareness",
+          "questions": [
+            "Tell me about recent products you've led and the KPIs you owned",
+            "Walk me through a failure and what you learned from it",
+            "If your team described you in one word, what would it be and why?",
+            "Tell me about a product decision you made that you'd reverse today",
+            "How do you decide what NOT to build?",
+            "What's the hardest trade-off you've had to make as a PM?"
+          ]
+        },
+        {
+          "id": "product-business-case",
+          "name": "Product / Business Case",
+          "format": "45-60 min case interview, sometimes folded into the panel day",
+          "focus": "Ambiguous product/strategy prompt specific to AI products",
+          "evaluates": "Structured thinking under ambiguity, AI product judgment, safety-aware reasoning",
+          "questions": [
+            "How would you define success metrics for a new Claude feature that balances user value and risk?",
+            "How do you approach safety trade-offs in a consumer-facing AI product?",
+            "How would you handle a Claude feature that gives confident but incorrect answers in high-stakes contexts?",
+            "How would you prioritize capability improvements versus safety improvements on the same roadmap?",
+            "Design a Claude feature for a specific enterprise use case (e.g., legal or healthcare)",
+            "How would you decide whether a new model capability should ship to consumers immediately or be gated?",
+            "What would you build next for Claude, and why?"
+          ]
+        },
+        {
+          "id": "cross-functional-panel",
+          "name": "Cross-Functional Panel",
+          "format": "Multiple back-to-back interviews on the same day with PMs, engineers, researchers, and designers",
+          "focus": "Coordination, disagreement resolution, cross-functional influence",
+          "evaluates": "Collaboration, influence without authority, technical partnership",
+          "questions": [
+            "Tell me about a time you drove alignment across teams that disagreed",
+            "How do you prioritize competing feature requests under resource constraints?",
+            "Describe a time you influenced a decision you didn't own",
+            "How do you work with research/engineering teams when timelines are uncertain (e.g., model training)?",
+            "Tell me about a time you had to say no to an engineering partner",
+            "How do you communicate technical trade-offs to non-technical stakeholders?"
+          ]
+        },
+        {
+          "id": "culture-interview",
+          "name": "Culture / Values Interview",
+          "format": "~45 min standalone interview, often with a non-technical interviewer",
+          "focus": "Values, intellectual honesty, conviction under discomfort",
+          "evaluates": "Values alignment, intellectual honesty, willingness to defend beliefs",
+          "questions": [
+            "What slightly unusual beliefs do you hold, and how have you defended them in uncomfortable situations?",
+            "Tell me about a time you did something that conflicted with your values",
+            "Describe a time you changed your mind about something you felt strongly about",
+            "How would you weigh values against commercial pressure in a product decision?",
+            "What concerns do you have about Anthropic's direction or approach?",
+            "Who do you respect but disagree with on values, and why?",
+            "How do you think about AI safety trade-offs personally, beyond the company line?"
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "displayRole": "Technical Program Manager (TPM) / Program Manager",
+      "rounds": [
+        {
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min video call",
+          "focus": "Background, scale of past programs, motivation. Note: Anthropic does not run a distinct branded APM/TPM rotational program the way Google or Amazon do; job titles are simply 'Program Manager' or 'Technical Program Manager' and the process is notably fast, often compressed into one week of final-round conversations.",
+          "evaluates": "Communication, program scale/level fit, motivation",
+          "questions": [
+            "Tell me about yourself and the programs you've run",
+            "Why Anthropic, and why now?",
+            "What's the largest/most complex program you've delivered end-to-end?",
+            "What's your experience with research operations or infrastructure scaling programs, if any?",
+            "Why are you interested in moving from [current company/industry] to an AI safety lab?"
+          ]
+        },
+        {
+          "id": "hiring-manager-screen",
+          "name": "Hiring Manager Screen",
+          "format": "45-60 min video call",
+          "focus": "Core program management fundamentals and technical literacy",
+          "evaluates": "Program management fundamentals, technical literacy, domain-specific execution",
+          "questions": [
+            "Tell me about a time you had a conflict with someone and how you resolved it",
+            "How do you prioritize tasks across multiple competing programs?",
+            "Tell me about a time you received negative feedback and how you handled it",
+            "Describe the most technically complex project you've worked on and why it was complex",
+            "How would you explain a technical concept to a non-technical stakeholder?",
+            "Tell me about your interest in AI and what you know about Anthropic's approach"
+          ]
+        },
+        {
+          "id": "program-technical-round",
+          "name": "Program Management & Technical Execution",
+          "format": "45-60 min panel or 1:1 with a peer Program Manager or engineer",
+          "focus": "Risk management, resource planning, milestone tracking for technical/research programs",
+          "evaluates": "Execution rigor, risk management, technical partnership",
+          "questions": [
+            "Walk me through how you'd structure a program for a complex software launch under a tight deadline",
+            "Tell me about a time you had to deliver negative feedback to a partner team",
+            "Describe a time you had to pivot a plan mid-execution when priorities changed",
+            "How do you track and communicate risk on a program with many unknowns (e.g., involving model training timelines)?",
+            "Tell me about a time you took on a task outside your job description to unblock a program",
+            "How do you balance protecting team focus against responding to urgent, high-priority asks?"
+          ]
+        },
+        {
+          "id": "cross-functional-panel",
+          "name": "Cross-Functional Partner Panel",
+          "format": "Back-to-back interviews with engineering and research partners",
+          "focus": "Cross-functional coordination and stakeholder alignment",
+          "evaluates": "Collaboration, communication, ability to structure chaotic environments",
+          "questions": [
+            "Tell me about a time you led a cross-functional team through ambiguity",
+            "How do you encourage collaboration among teams that don't naturally talk to each other?",
+            "Describe a time you had to convince team members to adopt an approach they initially resisted",
+            "How do you handle a research/engineering dependency that's slipping with no clear owner?",
+            "Tell me about a time you protected a team's focus from scope creep"
+          ]
+        },
+        {
+          "id": "culture-values-interview",
+          "name": "Culture / Values Interview",
+          "format": "45 min standalone interview; commonly reported as the round where most candidates are screened out",
+          "focus": "Cultural alignment, safety-mindedness, conviction",
+          "evaluates": "Values alignment, judgment under pressure, honesty",
+          "questions": [
+            "How do you think about delivering results quickly without sacrificing safety or quality?",
+            "Tell me about a time you disagreed with a decision on ethical or safety grounds",
+            "What would you do if you were asked to accelerate a timeline in a way that felt risky?",
+            "Describe a belief you hold that most of your peers would disagree with",
+            "What concerns, if any, do you have about working at an AI safety lab?"
+          ]
+        }
+      ]
+    }
+  },
+  "Amazon": {
+    "product_management": {
+      "displayRole": "Product Manager (PM) / Product Manager - Technical (PM-T)",
+      "rounds": [
+        {
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min phone call",
+          "focus": "Background, motivation, basic fit. India note: Amazon India (Hyderabad/Bangalore) hires heavily for PM-T roles from IIMs/IITs and top engineering schools; the loop mirrors the global process but is almost always fully virtual, and interviewers/Bar Raiser may dial in from other geographies.",
+          "evaluates": "Communication, motivation, basic role fit",
+          "questions": [
+            "Tell me about yourself",
+            "Why do you want to work at Amazon?",
+            "How would you define the role of a product manager?",
+            "What product that you led are you most proud of, and why?",
+            "Walk me through your background and what you're working on now"
+          ]
+        },
+        {
+          "id": "hiring-manager-screen",
+          "name": "Hiring Manager / Peer Screen",
+          "format": "30-60 min phone/video call",
+          "focus": "Product ownership, business context, technical fluency (deeper for PM-T)",
+          "evaluates": "Product experience, business acumen, technical fluency, conflict resolution",
+          "questions": [
+            "Tell me about a product you've worked on end-to-end",
+            "Walk me through your current role and its broader business context",
+            "Who are your customers, and what experiences are you building for them?",
+            "What's a major business goal you're tackling right now?",
+            "Tell me about a time you had a conflict with a colleague over a product decision",
+            "Tell me about a time you made a decision with limited information"
+          ]
+        },
+        {
+          "id": "writing-assessment",
+          "name": "Written Assessment (Take-Home)",
+          "format": "1-2 page written narrative, due within 48 hours, read by all onsite interviewers",
+          "focus": "Structured writing, narrative clarity (Amazon's 'no PowerPoint' culture)",
+          "evaluates": "Written communication, structured thinking, data-driven narrative",
+          "questions": [
+            "Write a narrative proposing a new product or feature and the customer problem it solves",
+            "Include the metrics you'd use to define and measure success",
+            "Address likely objections/trade-offs a bar raiser or VP might raise",
+            "Frame the business opportunity using a rough market-sizing estimate",
+            "Describe the launch plan and how you'd sequence the rollout"
+          ]
+        },
+        {
+          "id": "onsite-leadership-principles",
+          "name": "Leadership Principles / Behavioral",
+          "format": "60 min 1:1 onsite interview, ~2-3 Leadership Principles per interviewer",
+          "focus": "Deep behavioral stories mapped to Amazon's 16 Leadership Principles",
+          "evaluates": "Customer Obsession, Ownership, Bias for Action, Earn Trust, Dive Deep, Deliver Results",
+          "questions": [
+            "Tell me about a time you disagreed with a decision and had to commit anyway (Have Backbone; Disagree and Commit)",
+            "Describe a time you dug into data that contradicted the prevailing anecdote (Dive Deep)",
+            "Tell me about a customer-first decision you made under business pressure (Customer Obsession)",
+            "Tell me about a time you aligned conflicting stakeholders around one plan (Earn Trust)",
+            "Describe how you negotiated priorities without formal authority (Ownership)",
+            "Tell me about a time you used AI to drive innovation or simplify a process (Invent and Simplify)",
+            "Tell me about a time you sacrificed short-term results for long-term strategy (Think Big)",
+            "Give an example of building trust with a skeptical partner team"
+          ]
+        },
+        {
+          "id": "onsite-functional-product",
+          "name": "Functional Product Skills",
+          "format": "60 min 1:1 onsite interview with a PM/PM-T",
+          "focus": "Product sense, roadmap ownership, prioritization case",
+          "evaluates": "Product sense, prioritization, vision-setting",
+          "questions": [
+            "Tell me about a time you influenced a product roadmap",
+            "How do you decide what to build when requirements conflict?",
+            "Walk me through how you set and defended a product vision",
+            "Improve or design a product in your domain (live product sense case)",
+            "How would you prioritize a backlog with three equally-loud stakeholders?",
+            "Design a feature to increase Prime adoption among first-time Amazon India shoppers"
+          ]
+        },
+        {
+          "id": "onsite-technical-depth",
+          "name": "Technical Depth (PM-T specific)",
+          "format": "60 min 1:1 onsite interview, sometimes includes a system-design component",
+          "focus": "Technical/architectural fluency for Product Manager - Technical candidates",
+          "evaluates": "Technical judgment, systems thinking, ability to partner credibly with engineers",
+          "questions": [
+            "What core technologies power your product domain?",
+            "How did you identify gaps or opportunities across features or system architectures?",
+            "Share an example where you used data and technical judgment to drive a decision",
+            "Describe the high-level system components of a product like YouTube or LinkedIn",
+            "Walk me through how you'd design a recommendation system for a retail product page",
+            "How technical do your PM-T stories need to be - describe a time you pushed back on an engineering approach"
+          ]
+        },
+        {
+          "id": "bar-raiser",
+          "name": "Bar Raiser",
+          "format": "60 min 1:1 onsite interview with a trained interviewer from outside the hiring org (holds veto power)",
+          "focus": "Long-term culture and leadership fit independent of team-level bias",
+          "evaluates": "Leadership Principles fit, long-term potential, culture add",
+          "questions": [
+            "Tell me about a time you weren't able to deliver on a commitment",
+            "Tell me about a decision you'd revisit, and how you'd approach it differently now",
+            "Walk me through a time you took responsibility for a team failure",
+            "Which Leadership Principle do you personally struggle with the most?",
+            "Tell me about a time you raised the bar on a team that was comfortable with the status quo"
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "displayRole": "Technical Program Manager (TPM)",
+      "rounds": [
+        {
+          "id": "recruiter-screen",
+          "name": "Recruiter Screening",
+          "format": "30 min phone call",
+          "focus": "Background verification, role/level fit, motivation. India note: Amazon India TPM hiring is centered in Hyderabad and Bangalore; process and structure mirror the global loop, fully virtual, with Bar Raiser sometimes dialing in from the US or EU.",
+          "evaluates": "Communication, background fit, motivation",
+          "questions": [
+            "Tell me about your background and current scope as a TPM",
+            "Why Amazon, and why this team?",
+            "What's the most complex technical program you've managed?",
+            "Walk me through your experience with distributed/technical teams"
+          ]
+        },
+        {
+          "id": "hiring-manager-phone-screen",
+          "name": "Hiring Manager Phone Interview",
+          "format": "1 hour call, split into three ~15-min segments: program management, technical, Leadership Principles",
+          "focus": "Program management expertise, technical assessment, LP evaluation - determines technical vs. non-technical track",
+          "evaluates": "Program management scenarios, technical depth, Leadership Principles",
+          "questions": [
+            "Walk me through a program where you had to manage significant technical ambiguity",
+            "How do you evaluate technical trade-offs you don't have deep expertise in?",
+            "Tell me about a time you had to deliver a major technical program under a tight deadline",
+            "Describe your approach to identifying and mitigating program risk",
+            "Tell me about a time you found a critical flaw by digging into logs or code yourself (Dive Deep)"
+          ]
+        },
+        {
+          "id": "onsite-program-management",
+          "name": "Program Management Round",
+          "format": "60 min 1:1 onsite interview (5-min intro, 50-min interview, 5-min Q&A)",
+          "focus": "Cross-team dependency management, scheduling, stakeholder communication",
+          "evaluates": "Execution rigor, dependency management, communication",
+          "questions": [
+            "Describe a program with dependencies across 3+ teams - how did you manage it?",
+            "Tell me about a time a program was at risk of missing a deadline - what did you do?",
+            "How do you communicate program status to senior leadership?",
+            "Walk me through how you'd build a program plan for a launch with unclear requirements",
+            "Describe a time you had to descope a program to hit a critical date",
+            "How do you decide which risks to escalate versus own yourself?"
+          ]
+        },
+        {
+          "id": "onsite-technical-system-design",
+          "name": "Technical / System Design",
+          "format": "60 min 1:1 onsite interview with an SDE, SDM, or PM-T",
+          "focus": "System design and architecture reasoning appropriate to a technical program",
+          "evaluates": "Technical depth, systems thinking, architecture fluency",
+          "questions": [
+            "Design a high-level system for a service that must scale to millions of requests per day",
+            "How would you evaluate two competing technical approaches for the same program?",
+            "Walk me through a technical trade-off you influenced without being the subject-matter expert",
+            "Explain a complex technical concept from a recent program to a non-technical stakeholder",
+            "What technical red flags would make you delay a launch?"
+          ]
+        },
+        {
+          "id": "onsite-leadership-principles",
+          "name": "Leadership Principles / Behavioral",
+          "format": "60 min 1:1 onsite interview, each interviewer assigned specific principles",
+          "focus": "Deep behavioral stories across Amazon's 16 Leadership Principles",
+          "evaluates": "Customer Obsession, Ownership, Invent and Simplify, Dive Deep, Deliver Results, Bias for Action",
+          "questions": [
+            "Tell me about declining a customer requirement and why",
+            "Describe your most innovative project and the challenges you faced",
+            "Describe a decision made with incomplete information",
+            "Share a recently learned skill and how you learned it",
+            "Discuss a time you raised the bar on a successful initiative unprompted",
+            "Describe a bold, difficult decision you pushed through despite opposition",
+            "Discuss a personal mistake and how you managed the fallout",
+            "Describe your proudest accomplishment and what made it hard"
+          ]
+        },
+        {
+          "id": "bar-raiser",
+          "name": "Bar Raiser",
+          "format": "60 min 1:1 onsite interview with a cross-org trained interviewer (veto power)",
+          "focus": "Long-term leadership potential and culture fit independent of the hiring team",
+          "evaluates": "Leadership Principles fit, long-term potential",
+          "questions": [
+            "Tell me about a time you disagreed with your manager on something important",
+            "Which Leadership Principles resonate most and least with you, and why?",
+            "Tell me about a time you tackled a challenge outside your role's scope",
+            "Describe a time you persisted on a program when teammates wanted to abandon it",
+            "Walk me through a time your program failed - what would you do differently?"
+          ]
+        }
+      ]
+    }
+  },
+  "Microsoft": {
+    "product_management": {
+      "displayRole": "Product Manager (PM)",
+      "rounds": [
+        {
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min video call (Microsoft Teams)",
+          "focus": "Background, motivation for Microsoft, basic role fit. Note: Microsoft historically uses 'Program Manager' as its core product-definition title (see project_management track below); the separate 'Product Manager' title at Microsoft leans more toward GTM, positioning, and marketing strategy for a product line. India note: Hyderabad and Bangalore are Microsoft's largest India R&D hubs (Azure, Windows, Bing, Dynamics, M365); loops there follow the same global structure and are commonly fully virtual.",
+          "evaluates": "Communication, motivation, cultural alignment",
+          "questions": [
+            "Walk me through your resume and your path into product",
+            "Why Microsoft, and why this team?",
+            "What's your favorite Microsoft product, and how would you improve it?",
+            "Tell me about a time you launched or positioned a product in market",
+            "Where do you see yourself in five years?"
+          ]
+        },
+        {
+          "id": "hiring-manager-screen",
+          "name": "Hiring Manager Screen",
+          "format": "30-45 min video call",
+          "focus": "Deeper behavioral questions with light product thinking",
+          "evaluates": "Communication quality, product reasoning, experience alignment with team needs",
+          "questions": [
+            "Tell me about a product launch you owned end-to-end",
+            "Describe a time you had to make the case for a product's positioning against a competitor",
+            "How do you balance customer needs with business constraints?",
+            "Tell me about a time you were unable to meet a customer's needs - what happened?",
+            "Discuss a challenge or roadblock you faced on a recent product initiative"
+          ]
+        },
+        {
+          "id": "onsite-product-design",
+          "name": "Product Design",
+          "format": "45-50 min 1:1 onsite (virtual) interview",
+          "focus": "Ambiguous product problem, GTM/positioning trade-offs, ecosystem-scale reasoning",
+          "evaluates": "Problem definition, user prioritization, trade-off reasoning, business/technical lifecycle planning",
+          "questions": [
+            "How would you improve Microsoft Teams for hybrid meetings?",
+            "Design a new feature for Microsoft 365 aimed at small businesses in India",
+            "How would you position a new Copilot feature against a competitor's AI assistant?",
+            "Walk me through how you'd launch a product into a market with an established incumbent",
+            "How would you decide whether to build, buy, or partner for a new capability?",
+            "Design an onboarding experience for a first-time Azure customer"
+          ]
+        },
+        {
+          "id": "onsite-behavioral-collaboration",
+          "name": "Behavioral / Collaboration",
+          "format": "45-50 min 1:1 onsite interview",
+          "focus": "Leadership, cross-functional collaboration, customer empathy, influence",
+          "evaluates": "Leadership, communication, decision-making, customer obsession, growth mindset",
+          "questions": [
+            "Tell me about a time you had to influence a decision without direct authority",
+            "Describe a time you disagreed with an engineering partner on scope",
+            "Tell me about a time you received difficult feedback and how you responded",
+            "How do you handle ambiguity when requirements keep changing?",
+            "Tell me about a time you had to say no to a stakeholder's request",
+            "Describe a situation where you demonstrated a growth mindset after a setback"
+          ]
+        },
+        {
+          "id": "as-appropriate-round",
+          "name": "As Appropriate (AA) Round",
+          "format": "30-45 min interview with a senior manager, only triggered if earlier rounds went well",
+          "focus": "Adaptive, gap-closing round tailored to whatever signal is weakest from earlier interviews (technical depth, strategy, or culture fit); if signal is strong, the interviewer also 'sells' the candidate on the team",
+          "evaluates": "Whatever is unresolved from prior rounds - commonly strategic thinking and culture fit",
+          "questions": [
+            "Tell me more about your product philosophy and how you approach ambiguity",
+            "What questions do you have about the team, the product, or Microsoft's direction?",
+            "How would you describe your working style to a new manager?",
+            "What's a strategic bet you'd make for this product area over the next 2 years?",
+            "Why should we hire you over other strong candidates in this loop?",
+            "What are you most excited about, and what's your biggest concern about this role?"
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "displayRole": "Program Manager (PM) / Technical Program Manager (TPM)",
+      "rounds": [
+        {
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "Phone/video call",
+          "focus": "Communication, cultural fit, motivation. Note: at Microsoft, 'Program Manager' is the traditional, core product-definition role (spec ownership, working daily with engineering) - closer to a PM/TPM hybrid elsewhere - while 'Technical Program Manager' is used for more infrastructure/cross-org execution-heavy programs (common in Azure/Cloud+AI). India note: onsite loops in Hyderabad/Bangalore commonly run all rounds back-to-back in a single day, including the AA round.",
+          "evaluates": "Communication skills, cultural fit, motivation",
+          "questions": [
+            "Why Microsoft, and what appeals to you about this Program Manager role?",
+            "Walk me through your background and the programs/products you've owned",
+            "Why this particular product area or team?",
+            "Tell me about your experience working directly with engineering teams"
+          ]
+        },
+        {
+          "id": "hiring-manager-screen",
+          "name": "Hiring Manager Phone Interview",
+          "format": "1 hour call",
+          "focus": "Deeper experience assessment, behavioral competencies, role/team fit",
+          "evaluates": "Experience depth, behavioral competencies, alignment with team culture",
+          "questions": [
+            "Tell me about yourself and your PM/program journey",
+            "Where do you see yourself in five years?",
+            "What's your favorite Microsoft product, and how would you improve it?",
+            "Describe the most technically complex program you've delivered",
+            "How do you work with engineers to turn an ambiguous spec into a shippable feature?"
+          ]
+        },
+        {
+          "id": "onsite-systems-design",
+          "name": "Systems Design",
+          "format": "45-50 min 1:1 onsite interview",
+          "focus": "Program/product-level system design and architecture reasoning",
+          "evaluates": "Technical depth, systems thinking, scalability reasoning",
+          "questions": [
+            "Design a high-level system for a notification service used across Microsoft 365",
+            "How would you design a feature rollout system that supports staged/ring-based deployment?",
+            "Walk me through the architecture considerations for a multi-tenant SaaS feature",
+            "What trade-offs would you weigh when designing for reliability versus speed of shipping?",
+            "Design a data pipeline to power a new product's usage analytics"
+          ]
+        },
+        {
+          "id": "onsite-data-structures-algorithms",
+          "name": "Data Structures, Algorithms & Data Sourcing",
+          "format": "45-50 min 1:1 onsite interview",
+          "focus": "Core CS fundamentals and data-sourcing reasoning appropriate to a technical PM/TPM",
+          "evaluates": "Technical/coding fluency, data fluency, structured problem-solving",
+          "questions": [
+            "Walk through a data structure choice you'd make for a specific product scenario and why",
+            "How would you source and validate data to make a product decision when no dashboard exists?",
+            "Solve a basic algorithmic problem and discuss its time/space complexity",
+            "How would you design a database schema for tracking feature usage across teams?",
+            "What questions would you ask before trusting a metric reported by another team?"
+          ]
+        },
+        {
+          "id": "onsite-behavioral-leadership",
+          "name": "Behavioral / Leadership",
+          "format": "45-50 min 1:1 onsite interview (often with hiring manager or head of group)",
+          "focus": "Customer obsession, growth mindset, cross-team collaboration under ambiguity",
+          "evaluates": "Leadership, customer obsession, growth mindset, collaboration",
+          "questions": [
+            "Tell me about a time you had to rally a team around a decision they initially resisted",
+            "Describe a situation where you had to manage a program with conflicting stakeholder goals",
+            "Tell me about a time you failed to meet a customer's needs - what did you learn?",
+            "How do you handle ambiguity when a product's direction from leadership is unclear?",
+            "Discuss a challenge or roadblock you faced and how you overcame it",
+            "Tell me about a time you had to hold engineering accountable to a commitment"
+          ]
+        },
+        {
+          "id": "as-appropriate-round",
+          "name": "As Appropriate (AA) Round",
+          "format": "30-45 min interview with a Principal PM or senior executive; often the final round of the day",
+          "focus": "Gap-closing round on product vision, goals, roadmap, and Microsoft fit; also discusses compensation/level fit in India loops",
+          "evaluates": "Whatever signal is weakest from earlier rounds - typically vision, technology understanding, and process maturity",
+          "questions": [
+            "Walk me through your product vision for an area you've owned",
+            "How do you think about setting goals and measuring a roadmap's success?",
+            "What's your process for turning ambiguous leadership direction into an execution plan?",
+            "How would you use data to defend a roadmap decision to skeptical stakeholders?",
+            "What questions do you have about the team or Microsoft's direction?",
+            "Why should we hire you for this role specifically?"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,683 @@
+{
+  "Qualcomm": {
+    "product_management": {
+      "displayRole": "Product Manager",
+      "rounds": [
+        {
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min phone call with a Talent Acquisition recruiter",
+          "focus": "Background, motivation, logistics",
+          "evaluates": "Basic fit, career trajectory, comp/location expectations, and understanding of the specific business unit (Handsets/QCT, IoT, Automotive, XR) the role sits in.",
+          "questions": [
+            "Walk me through your resume and why you're interested in Qualcomm.",
+            "Why do you want to move into (or continue in) product management in the semiconductor/chipset industry?",
+            "What do you know about Qualcomm's business units (QCT, QTL, IoT, Automotive)?",
+            "What is your notice period, and what are your compensation expectations?",
+            "Are you open to relocating to Hyderabad/Bangalore, or is this role hybrid/remote?",
+            "What products have you managed, and what was the hardware/software split?",
+            "Why are you leaving your current company?"
+          ]
+        },
+        {
+          "id": "hiring-manager-technical-domain",
+          "name": "Hiring Manager / Technical-Domain Round",
+          "format": "45-60 min video call with the hiring manager (Sr PM or Director), sometimes with a live whiteboard",
+          "focus": "Technical fluency in wireless/chipset concepts plus core PM fundamentals",
+          "evaluates": "Whether the candidate can hold a credible technical conversation with silicon/RF/systems engineers and translate that into product requirements and roadmap decisions.",
+          "questions": [
+            "Explain, at a level a non-engineer would understand, how a modem/RF front-end fits into a smartphone SoC.",
+            "How would you evaluate a trade-off between power, performance, and area (PPA) when defining requirements for a new chipset?",
+            "Walk me through how you'd build a product roadmap for a new IoT or automotive chipset given competing OEM requirements.",
+            "How do you gather and prioritize requirements from OEM customers, carriers, and internal engineering teams simultaneously?",
+            "What do you know about Qualcomm's Snapdragon platform strategy and how it competes with MediaTek/Apple Silicon?",
+            "Describe a time you had to make a product decision with incomplete technical information.",
+            "How would you decide which features to cut if a chip tape-out deadline was at risk?",
+            "How do you think about the difference between managing a hardware-adjacent product versus a pure software product?"
+          ]
+        },
+        {
+          "id": "product-case-roadmap-presentation",
+          "name": "Case Study / Roadmap Presentation",
+          "format": "45-60 min presentation (take-home case prepared in advance, presented live to a panel including senior leadership)",
+          "focus": "Structured product thinking, prioritization, and executive communication",
+          "evaluates": "Ability to structure ambiguity into a roadmap, defend prioritization calls under questioning, and present crisply to senior stakeholders — candidates on Blind/Glassdoor report being asked to prepare and present exactly this kind of case to senior leadership as part of the Qualcomm India loop.",
+          "questions": [
+            "Present a product strategy/roadmap for a hypothetical Qualcomm chipset line entering a new market segment (e.g., mid-range 5G IoT).",
+            "How did you prioritize the features in your roadmap, and what did you deliberately leave out?",
+            "What metrics would you use to judge whether this product roadmap succeeded?",
+            "How would this roadmap change if a key competitor announced a similar product six months earlier?",
+            "What risks do you see in this plan, and how would you mitigate them?",
+            "How would you sequence collaboration with engineering, marketing, and OEM customers to execute this roadmap?",
+            "If you had to cut your roadmap by 30% due to engineering capacity, what would you cut and why?"
+          ]
+        },
+        {
+          "id": "cross-functional-stakeholder-behavioral",
+          "name": "Cross-Functional & Stakeholder Behavioral Round",
+          "format": "45 min video call with a peer PM or cross-functional partner (engineering/marketing lead)",
+          "focus": "Stakeholder management, influence without authority, conflict resolution",
+          "evaluates": "How the candidate operates in Qualcomm's matrixed, engineering-heavy org where PMs often have to drive alignment across hardware, software, and OEM/carrier stakeholders without direct authority.",
+          "questions": [
+            "Tell me about a time you had a conflict with an engineering lead over scope or timeline. How did you resolve it?",
+            "Describe a situation where you had to align multiple cross-functional teams with competing deadlines.",
+            "Tell me about a time you had to say no to a major customer or stakeholder request.",
+            "How do you handle a stakeholder who consistently escalates over your head?",
+            "Give an example of when you used data to change a stakeholder's mind.",
+            "Tell me about a time a project you managed slipped. What happened and what did you learn?",
+            "How do you build trust with engineering teams who are skeptical of PM input on technical decisions?"
+          ]
+        },
+        {
+          "id": "director-leadership-round",
+          "name": "Director / Senior Leadership Round",
+          "format": "30-45 min call, often with a Director or Senior Director (sometimes US-based, joining a Hyderabad/Bangalore loop virtually)",
+          "focus": "Strategic vision, culture fit, leadership potential",
+          "evaluates": "Long-term potential, executive presence, and alignment with Qualcomm's engineering-first culture — India R&D candidates frequently report final rounds with US-based Directors joining virtually alongside local India panel members.",
+          "questions": [
+            "Where do you see the mobile/IoT chipset market heading in the next 3-5 years, and how should Qualcomm respond?",
+            "Why Qualcomm, and why this business unit specifically?",
+            "Tell me about the biggest professional risk you've taken and its outcome.",
+            "How do you handle ambiguity when senior leadership hasn't yet aligned on strategic direction?",
+            "What would you do in your first 90 days in this role?",
+            "Tell me about a time you influenced a decision several levels above your role.",
+            "How do you balance the needs of global headquarters (San Diego) against the realities of an India-based product/engineering team?"
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "displayRole": "Program Manager (Technical / Hardware Program Management)",
+      "rounds": [
+        {
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min phone call with a Talent Acquisition recruiter",
+          "focus": "Background, motivation, logistics",
+          "evaluates": "Fit for a hardware/silicon program management role, prior experience with chip/hardware product lifecycles, and India-hub logistics.",
+          "questions": [
+            "Walk me through your program management experience — is it hardware, software, or both?",
+            "Have you managed a program through a full silicon/chipset development lifecycle (tape-out to production)?",
+            "Why are you interested in program management at Qualcomm specifically versus a software-only company?",
+            "What tools have you used for program tracking (Jira, MS Project, internal PLM systems)?",
+            "Are you comfortable working across time zones with the San Diego headquarters?",
+            "What is your notice period and compensation expectation?"
+          ]
+        },
+        {
+          "id": "technical-fundamentals-round",
+          "name": "Technical Fundamentals Round",
+          "format": "45-60 min video call with a Program Manager or Engineering Manager",
+          "focus": "Baseline technical literacy in wireless/silicon concepts and core program management theory",
+          "evaluates": "Whether the candidate has enough technical depth to hold engineering conversations and manage schedule/risk on a chip or systems program. Candidates report this round sometimes leans surprisingly technical/in-depth for a PgM role — expect basics of wireless standards, SoC development, and the 'triple constraint' (scope-cost-schedule).",
+          "questions": [
+            "Explain the triple constraint in project management and how you've applied it in a real program.",
+            "At a high level, how does a cellular modem/CDMA or 5G system work?",
+            "Walk me through the typical phases of a chipset development program, from architecture definition to tape-out to mass production.",
+            "How do you track and manage risk across hardware, firmware, and software workstreams that all have different timelines?",
+            "What's the difference between managing a hardware program and a pure software program?",
+            "How would you build a schedule for a new SoC variant that reuses 80% of an existing design?",
+            "What is a critical path, and how do you protect it when a dependency slips?"
+          ]
+        },
+        {
+          "id": "program-case-study-presentation",
+          "name": "Program Case Study Presentation",
+          "format": "45-60 min presentation to a panel, sometimes prepared as a take-home beforehand",
+          "focus": "Structuring and presenting a real program plan to senior leadership",
+          "evaluates": "Executive communication and program-planning rigor — Qualcomm India candidates have reported being asked to prepare a case study/status presentation of 'what a Program Manager would take care of' and present it directly to senior leadership.",
+          "questions": [
+            "Present a program plan for launching a new chipset variant into a new OEM device, covering milestones, dependencies, and risks.",
+            "What would your program status dashboard look like, and what metrics would you track weekly?",
+            "How would you communicate a schedule slip to senior leadership before it becomes a crisis?",
+            "What is your escalation path when two engineering teams disagree on a technical dependency blocking your schedule?",
+            "How do you build in schedule margin for unknown risks in a hardware program?",
+            "Walk through how you'd manage a program that spans teams in India, the US, and Taiwan/China simultaneously.",
+            "What would you do if a key supplier or foundry partner announced a delay two months before a planned tape-out?"
+          ]
+        },
+        {
+          "id": "cross-functional-behavioral-round",
+          "name": "Cross-Functional & Stakeholder Behavioral Round",
+          "format": "45 min behavioral interview with a peer Program Manager or cross-functional partner",
+          "focus": "Influence without authority, negotiation, conflict resolution",
+          "evaluates": "Ability to drive alignment across hardware, software, product marketing, and OEM/carrier customers without formal authority over any of them.",
+          "questions": [
+            "Tell me about a time you negotiated with a senior engineering leader over a schedule or resourcing conflict.",
+            "Describe a time you had to manage a stakeholder with a very different priority from yours.",
+            "Tell me about a time you identified and mitigated a major program risk before it materialized.",
+            "How do you keep a cross-functional team motivated when a program is behind schedule?",
+            "Tell me about a mistake you made on a program and how you recovered.",
+            "How do you handle a situation where an engineering estimate you were given turns out to be wildly optimistic?",
+            "Describe how you've managed a program with unclear or shifting requirements."
+          ]
+        },
+        {
+          "id": "director-panel-round",
+          "name": "Director / Senior Director Panel",
+          "format": "30-45 min panel, often 4-6 interviewers including India-based and US-based Directors joining virtually",
+          "focus": "Strategic judgment, leadership presence, culture fit",
+          "evaluates": "Whether the candidate can operate at a strategic level and represent the India program organization credibly to global leadership — India R&D candidates commonly report multi-round panels with Directors and Senior Directors, including some joining from the US.",
+          "questions": [
+            "Why do you want to work at Qualcomm, and why program management over product or engineering management?",
+            "Tell me about the largest, most complex program you've run — scope, team size, budget, and outcome.",
+            "How do you prioritize across multiple programs competing for the same engineering resources?",
+            "What would you do in your first 90 days leading this program?",
+            "Tell me about a time you disagreed with a decision from senior leadership. What did you do?",
+            "How do you build credibility with a global engineering team from an India-based program management seat?",
+            "What's your approach to managing up when a program is at risk of missing a customer commitment?"
+          ]
+        }
+      ]
+    }
+  },
+  "Meta": {
+    "product_management": {
+      "displayRole": "Product Manager",
+      "rounds": [
+        {
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min phone call with a Meta recruiter",
+          "focus": "Background, motivation, and alignment with Meta's core values",
+          "evaluates": "Basic fit, story clarity, and cultural alignment before investing further interview cycles.",
+          "questions": [
+            "Walk me through your background and why you're interested in Meta.",
+            "Why product management, and why now?",
+            "What products have you shipped that you're most proud of?",
+            "What do you know about Meta's mission and the app/product you're interviewing for (Family of Apps, Reality Labs, etc.)?",
+            "What is your visa/work authorization status (relevant for India-based roles in Gurugram/Bangalore hiring)?",
+            "What are your compensation expectations and notice period?"
+          ]
+        },
+        {
+          "id": "product-sense-round",
+          "name": "Product Sense Interview",
+          "format": "45 min video call with a Product Manager (phone screen and/or onsite loop)",
+          "focus": "User empathy, creativity, structured product design thinking",
+          "evaluates": "Ability to identify user needs, generate and prioritize solutions, and reason about trade-offs for an ambiguous product design prompt.",
+          "questions": [
+            "What is your favorite product and why?",
+            "How would you improve Instagram Stories?",
+            "Design a parking solution for Google Maps.",
+            "Create a tool to connect handymen with consumers.",
+            "Design a solution for contractors on an existing Meta platform.",
+            "Create a tool to connect volunteers with opportunities.",
+            "Design a map application for Meta.",
+            "How would you improve WhatsApp for small businesses in India?"
+          ]
+        },
+        {
+          "id": "execution-analytical-round",
+          "name": "Execution / Analytical Thinking Interview",
+          "format": "45 min video call with a Product Manager",
+          "focus": "Goal-setting, metrics definition, prioritization, and data-driven decision-making",
+          "evaluates": "Whether the candidate can define success metrics, diagnose a metrics problem, and prioritize a roadmap under constraints.",
+          "questions": [
+            "Define a north star metric for Instagram Reels, and explain the trade-offs of your choice.",
+            "You're the PM for Facebook notifications on mobile. Why would Meta build this, and how would you measure success?",
+            "Define north star metrics for live events on Facebook.",
+            "Daily active users for a Meta product dropped 10% overnight — how do you investigate?",
+            "How would you prioritize a roadmap for a product with three equally compelling opportunities and limited engineering capacity?",
+            "How would you decide whether to launch a feature to 100% of users or run a staged rollout?",
+            "What metrics would you track for WhatsApp Business in an emerging market like India?"
+          ]
+        },
+        {
+          "id": "leadership-drive-round",
+          "name": "Leadership & Drive Interview",
+          "format": "45 min behavioral interview with a Product Manager or cross-functional leader",
+          "focus": "Leadership without authority, resilience, ownership, conflict handling",
+          "evaluates": "Whether the candidate can lead teams, handle setbacks, and drive execution — mapped against Meta's core values (move fast, be bold, focus on impact).",
+          "questions": [
+            "Tell me about a product you're most proud of and your specific role in its success.",
+            "Tell me about a time you received harsh or critical feedback from your manager. How did you respond?",
+            "Tell me about a time you had to convince other stakeholders to move forward with your recommendation.",
+            "Describe a time you disagreed with your engineering lead. How did you resolve it?",
+            "Tell me about a time you failed. What did you learn?",
+            "Give an example of when you had to make a decision with incomplete data.",
+            "Tell me about a time you had to influence a peer or leader without formal authority."
+          ]
+        },
+        {
+          "id": "team-matching",
+          "name": "Team Matching",
+          "format": "Series of 30 min informal calls with hiring managers from different Meta orgs after passing the main loop",
+          "focus": "Fit between the candidate's interests/background and specific open team needs",
+          "evaluates": "Team-specific fit; this is not a pass/fail interview so much as a mutual-fit conversation, common at Meta for PM hires (including India-based roles in Family of Apps/Reality Labs/Payments) once the core loop is cleared.",
+          "questions": [
+            "Which of our product areas are you most excited about and why?",
+            "What kind of ambiguity are you most comfortable operating in — 0-to-1 or scaling an existing product?",
+            "Tell me about your experience with the specific product area this team owns (e.g., monetization, growth, integrity, messaging).",
+            "What questions do you have about how this team operates day to day?",
+            "How do you feel about relocating or working with a distributed team across US and India time zones?",
+            "What would make you choose this team over another team you're also matching with?",
+            "How would your prior experience translate to the problems this specific org is solving right now?"
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "displayRole": "Technical Program Manager (TPM)",
+      "rounds": [
+        {
+          "id": "recruiter-technical-screen",
+          "name": "Recruiter Screen + Technical Phone Screen",
+          "format": "30 min recruiter call, followed by a separate 45 min technical phone screen with a Meta TPM",
+          "focus": "Background fit plus an initial gauge of technical depth tied to real programs",
+          "evaluates": "Whether the candidate's program history has real technical substance worth advancing to the onsite loop.",
+          "questions": [
+            "Walk me through a past project you led, focusing on the technical systems involved.",
+            "What requirements did you define for this project, and how did you prioritize them?",
+            "What tradeoffs did you face when designing or scoping this system?",
+            "How did you define success for this project? What metrics did you use?",
+            "Why did you (or your team) choose this architecture? What were the pros and cons?",
+            "What's the most technically complex program you've managed end-to-end?"
+          ]
+        },
+        {
+          "id": "architecture-system-design",
+          "name": "Architecture, Product & System Design",
+          "format": "45 min whiteboard/video call with a Meta TPM or engineer",
+          "focus": "Ability to reason about system architecture, scale, and trade-offs outside your own domain",
+          "evaluates": "Technical depth and structured thinking when designing a large-scale system from scratch — not hands-on coding, but architecture judgment.",
+          "questions": [
+            "Design Instagram.",
+            "Design WhatsApp.",
+            "Design an online chess game.",
+            "How would you design parking features on Google Maps?",
+            "Design a solution for the world of online learning.",
+            "Design Twitter.",
+            "Design a travel service.",
+            "Design YouTube."
+          ]
+        },
+        {
+          "id": "program-sense-round",
+          "name": "Program Management / Program Sense",
+          "format": "45 min video call with a Meta TPM",
+          "focus": "Program execution, prioritization, risk management, planning, and stakeholder influence",
+          "evaluates": "Core TPM competencies: how a candidate kicks off, plans, de-risks, and drives a program to completion.",
+          "questions": [
+            "Tell me about your program execution style.",
+            "Describe a situation where you changed a process to make it better.",
+            "Tell me about a time you took a strategic risk on a program.",
+            "How would you start a new program from scratch?",
+            "Tell me about a time you managed significant risk in a project.",
+            "How do you sunset a project or program?",
+            "Tell me about a time you negotiated with senior leaders over resourcing or scope.",
+            "Tell me about a time you dealt with conflicting stakeholder priorities."
+          ]
+        },
+        {
+          "id": "partnership-collaboration",
+          "name": "Partnership / Cross-Functional Collaboration",
+          "format": "45 min behavioral interview with a cross-functional partner (engineering, product, or another TPM)",
+          "focus": "Cross-functional collaboration, conflict resolution, and stakeholder management",
+          "evaluates": "How the candidate builds trust and resolves friction with partner teams that don't report to them.",
+          "questions": [
+            "Tell me about a time you had to build trust with a skeptical engineering team.",
+            "Describe a conflict between two teams you had to mediate.",
+            "Tell me about a time a partner team missed a commitment that affected your program. What did you do?",
+            "How do you handle a partner who consistently deprioritizes your program's needs?",
+            "Tell me about a time you had to say no to a partner's request.",
+            "How do you keep multiple partner teams aligned on a shared roadmap?"
+          ]
+        },
+        {
+          "id": "behavioral-leadership-round",
+          "name": "Behavioral & Leadership",
+          "format": "45 min interview with a senior TPM or cross-functional leader",
+          "focus": "Cultural fit against Meta's core values and leadership maturity",
+          "evaluates": "Whether the candidate embodies being bold, focusing on impact, learning from feedback/failure, and motivating others.",
+          "questions": [
+            "Tell me about a time you made short-term sacrifices for long-term gains.",
+            "Give an example of a difficult stakeholder interaction and how you worked through it.",
+            "Tell me about a time you made a significant mistake on a program.",
+            "Tell me about a time you proposed an idea that wasn't initially agreed upon.",
+            "Tell me about a time you convinced someone to change their mind.",
+            "What motivates you, and how do you motivate the people around you?",
+            "Tell me about a time you dealt with significant ambiguity in a program's scope."
+          ]
+        }
+      ]
+    }
+  },
+  "Apple": {
+    "product_management": {
+      "displayRole": "Product Manager",
+      "rounds": [
+        {
+          "id": "recruiter-call",
+          "name": "Recruiter Call",
+          "format": "15-20 min phone/video call with an Apple recruiter",
+          "focus": "Logistics, motivation, high-level fit",
+          "evaluates": "Whether the candidate's background and expectations align with the role before scheduling further rounds; Apple's process is notably more opaque and team-specific than peers.",
+          "questions": [
+            "Tell me about yourself and your current role.",
+            "Why Apple?",
+            "What products or teams at Apple are you most interested in?",
+            "What is your visa/work authorization status and location flexibility (relevant for Bengaluru/Hyderabad-based roles)?",
+            "What are your salary expectations and notice period?",
+            "What do you currently know about this specific role, and what questions do you have about it?",
+            "Why are you looking to leave your current company?"
+          ]
+        },
+        {
+          "id": "hiring-manager-round",
+          "name": "Hiring Manager Round",
+          "format": "30-45 min video call with the hiring manager",
+          "focus": "Product ownership experience and cultural/values alignment",
+          "evaluates": "Whether the candidate has genuinely owned a product 0-to-1 or through significant iteration, and whether their motivation for Apple is authentic rather than generic.",
+          "questions": [
+            "Tell me about a product you were responsible for from zero to one. What customer problem were you solving, and how did you identify it?",
+            "How do you work with design in the early stages of a product?",
+            "Why Apple?",
+            "What interests you in this specific role/team?",
+            "Tell me about the most difficult product decision you've made.",
+            "How do you balance user experience with business or technical constraints?"
+          ]
+        },
+        {
+          "id": "product-sense-round",
+          "name": "Product Sense Round",
+          "format": "45 min video call with a PM or cross-functional partner",
+          "focus": "Product design instincts grounded in Apple's ecosystem and design principles",
+          "evaluates": "Whether the candidate can design within Apple's constraints of simplicity, privacy, and ecosystem coherence rather than generic growth-hacking instincts.",
+          "questions": [
+            "How would you design a product or feature that helps people attend events together?",
+            "How would you design an educational product for a platform of your choice?",
+            "How would you improve a product for a specific underserved user segment?",
+            "How would you improve Siri, or add an AI capability to it, while preserving user privacy?",
+            "What's a recent Apple product or feature you'd change, and how?",
+            "How do you think about designing for both a global audience and specific markets like India?"
+          ]
+        },
+        {
+          "id": "technical-pm-round",
+          "name": "Technical PM / Engineering Depth Round",
+          "format": "45 min video call with an engineering lead or technical PM",
+          "focus": "Technical fluency relevant to the team (AI/ML, hardware, services)",
+          "evaluates": "Whether the candidate can hold a credible technical conversation and make sound trade-off calls with engineers, without needing to write code themselves.",
+          "questions": [
+            "Tell me about a product you built that involved AI or ML at scale. What influenced the model choice you made?",
+            "How do you design evaluations to measure the accuracy of a model?",
+            "How do you decide when a model or feature is ready for production?",
+            "How would you approach a problem where you don't have enough data to train a model?",
+            "Why did you (or your team) choose a specific technical architecture, and what would you do differently?",
+            "How would you handle a feature that needs to run on-device for privacy reasons versus in the cloud?"
+          ]
+        },
+        {
+          "id": "final-panel-strategy-culture",
+          "name": "Final Panel: Strategy, Operations & Culture Fit",
+          "format": "4-5 back-to-back 30-45 min interviews (onsite or virtual) covering product strategy, engineering leadership, and operations/strategy",
+          "focus": "Strategic thinking within Apple's ecosystem, cross-functional collaboration, and deep cultural fit",
+          "evaluates": "Whether the candidate thinks like an Apple PM: ecosystem-aware, privacy-first, detail-obsessed, and able to build genuine cross-functional alignment.",
+          "questions": [
+            "Why Apple, and why this team specifically?",
+            "How would you measure success for a new feature while preserving user privacy?",
+            "Tell me about a time you had a disagreement with a stakeholder. How did you handle it?",
+            "Tell me about a time you drove cross-functional collaboration to get a product over the finish line.",
+            "How would you approach scenario planning if a key supplier or dependency were constrained?",
+            "What are ways AI could help this team do its work better?",
+            "Where do you see yourself in five years?",
+            "Tell me about a time you had to deal with significant ambiguity."
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "displayRole": "Program Manager",
+      "rounds": [
+        {
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "20-30 min phone/video call with an Apple recruiter",
+          "focus": "Background, motivation, logistics",
+          "evaluates": "Whether the candidate's program management background (engineering, hardware/NPI, or supply chain) matches what the specific Apple team needs.",
+          "questions": [
+            "Walk me through your program management experience.",
+            "Why Apple, and why program management here specifically?",
+            "Have you worked on hardware/NPI (new product introduction) programs or purely software programs?",
+            "What is your location flexibility (Bengaluru/Hyderabad/Gurugram) and work authorization status?",
+            "What are your compensation expectations?",
+            "What size teams and budgets have you managed programs for?",
+            "What do you know about the team you're interviewing with?"
+          ]
+        },
+        {
+          "id": "hiring-manager-round",
+          "name": "Hiring Manager Round",
+          "format": "30-45 min conversational call with the hiring manager",
+          "focus": "Depth and scope of programs previously managed",
+          "evaluates": "Whether the candidate has run programs of comparable complexity, ambiguity, and cross-functional scope to what Apple expects.",
+          "questions": [
+            "Tell me about the largest program you've managed — scope, team size, and outcome.",
+            "Why do you want to work here, and why should we hire you?",
+            "How do you structure a program plan when requirements are still evolving?",
+            "Tell me about a time a program you managed missed a deadline. What happened?",
+            "How do you keep engineering, design, and operations aligned on a shared timeline?",
+            "What does a typical week look like for you as a program manager?",
+            "How do you decide what level of detail to bring to a status update for executives versus for your working team?"
+          ]
+        },
+        {
+          "id": "case-study-mock-proposal",
+          "name": "Mock Project Proposal / Case Study",
+          "format": "45-60 min presentation where the candidate presents a project/program proposal to the interview panel and fields questions",
+          "focus": "Structured planning and executive-level communication under scrutiny",
+          "evaluates": "Whether the candidate can build a credible, well-reasoned program plan and defend it live — several Apple Program Manager candidates report this exact format as part of the loop.",
+          "questions": [
+            "Present a program plan for launching a new product/feature, including milestones, dependencies, and risks.",
+            "How did you decide on the sequencing of workstreams in this plan?",
+            "What are the biggest risks in this plan, and how would you mitigate them?",
+            "How would this plan change if a key supplier or component were delayed by six weeks?",
+            "What metrics would you track to know this program is on track?",
+            "How would you communicate a schedule risk to senior leadership before it becomes critical?"
+          ]
+        },
+        {
+          "id": "functional-deep-dive",
+          "name": "Functional / Domain Deep-Dive",
+          "format": "30-45 min interview with a domain specialist (engineering, supply chain, or operations lead), format varies significantly by team",
+          "focus": "Domain-specific program management skill (hardware NPI, supply chain, software release, etc.)",
+          "evaluates": "Practical competence in the specific functional area — Apple's PgM interviews are notably team-dependent, so this round's content shifts based on whether the role is hardware NPI, software release management, or supply chain.",
+          "questions": [
+            "Walk me through how you'd manage a new product introduction (NPI) from engineering validation to mass production.",
+            "How do you manage schedule risk when a supplier is a single point of failure?",
+            "Estimate the market size for a new accessory category — walk me through your approach.",
+            "How do you handle a scope change requested by engineering late in a program?",
+            "What's your approach to managing a program with a hard, immovable launch date?",
+            "How would you approach a project planning exercise if I only gave you 30 minutes?"
+          ]
+        },
+        {
+          "id": "final-panel-culture-fit",
+          "name": "Final Panel: Behavioral & Culture Fit",
+          "format": "Several back-to-back 30 min interviews with team members and leadership (candidates have reported as many as 7 separate 30-min interviews)",
+          "focus": "Cultural fit, attention to detail, cross-functional influence",
+          "evaluates": "Deep alignment with Apple's culture of secrecy, precision, and cross-functional ownership across a wide range of interviewers and personalities.",
+          "questions": [
+            "Why do you want to work here, and why should we hire you?",
+            "Tell me about a time you had to convince someone of something without having authority over them.",
+            "Tell me about a time you had to deal with significant ambiguity.",
+            "What are your greatest strengths and weaknesses?",
+            "Where do you see yourself in five years?",
+            "Tell me about a time you disagreed with a decision from leadership. What did you do?",
+            "How do you handle confidential or highly secretive projects?"
+          ]
+        }
+      ]
+    }
+  },
+  "Netflix": {
+    "product_management": {
+      "displayRole": "Product Manager",
+      "rounds": [
+        {
+          "id": "recruiter-phone-screen",
+          "name": "Recruiter Phone Screen",
+          "format": "30 min phone call with a Netflix recruiter",
+          "focus": "Background, motivation, high-level fit",
+          "evaluates": "Basic alignment with the role and Netflix's talent density philosophy; purely behavioral, no PM-specific questions.",
+          "questions": [
+            "Tell me about the last product you worked on.",
+            "What's an obstacle you've overcome in your previous role?",
+            "Why Netflix, and why this role?",
+            "What is your understanding of the team/product area you're applying to?",
+            "What are your compensation expectations?",
+            "What drew you to apply for this specific role at this point in your career?",
+            "What questions do you have about Netflix's product organization?"
+          ]
+        },
+        {
+          "id": "hiring-manager-screen",
+          "name": "Hiring Manager Screen",
+          "format": "45 min video call with the hiring manager",
+          "focus": "Core PM skills through a mix of product sense, behavioral, and culture questions",
+          "evaluates": "Whether the candidate has genuine product ownership experience and communicates with the directness Netflix's culture expects.",
+          "questions": [
+            "Tell me about a time you used data to influence people.",
+            "Describe a time you showed ownership of your work or project.",
+            "Tell me something that isn't on your resume, LinkedIn, or anywhere online.",
+            "Tell me about a time you came up with a creative solution to a challenging problem.",
+            "How would you develop a new feature for an existing Netflix product?",
+            "What's a product decision you made that you'd reverse if you could?"
+          ]
+        },
+        {
+          "id": "culture-fit-screen",
+          "name": "Culture Fit Screen",
+          "format": "45 min session with an HR Business Partner acting as steward of Netflix's culture",
+          "focus": "Alignment with the Netflix Culture Memo and 'freedom and responsibility' operating model",
+          "evaluates": "Whether the candidate's working style fits Netflix's high-performance, direct-feedback culture — this round carries unusually high weight compared to peer companies.",
+          "questions": [
+            "Why do you want to work at Netflix?",
+            "What do you think about the Netflix culture memo?",
+            "What resonates with you about the culture memo, and what resonates less?",
+            "How do you give feedback to a colleague who isn't performing well?",
+            "Tell me about a time you received tough feedback. How did you respond?",
+            "Tell me about a time you disagreed with your manager and how you handled it.",
+            "How do you feel about radical candor and 'farewell with dignity' as a norm?"
+          ]
+        },
+        {
+          "id": "panel-collaboration-product-sense",
+          "name": "Onsite Panel: Collaboration & Product Sense",
+          "format": "Two to three 45 min panel interviews with engineers, designers, and data scientists",
+          "focus": "Cross-functional collaboration style and structured product thinking",
+          "evaluates": "Whether the candidate can drive clarity from ambiguity, partner well with engineering/design, and reason about product decisions end-to-end.",
+          "questions": [
+            "Tell me about a conflict between you and your engineering manager or designer. How did you resolve it?",
+            "Your engineer tells you your PRD is too vague and they don't understand what you're asking for. How do you handle that?",
+            "Tell me about a time you had a very demanding stakeholder. How did you manage that relationship?",
+            "What do you look for in an ideal engineering counterpart?",
+            "Tell me about an example where you had to drive clarity from a very ambiguous problem statement.",
+            "How do you measure success for a product, and how do you bring other teams along on those metrics?",
+            "How would you enhance Netflix's recommendations for a market like India?",
+            "Tell me about your greatest product innovation and how you made trade-offs between tech debt and features."
+          ]
+        },
+        {
+          "id": "cross-functional-stakeholder-screen",
+          "name": "Cross-Functional Stakeholder Screen",
+          "format": "45 min interview with a partner from content, marketing, or data science",
+          "focus": "Stakeholder alignment across non-engineering functions",
+          "evaluates": "Whether the candidate can partner effectively with content/marketing/data teams that have very different incentives from engineering.",
+          "questions": [
+            "Tell me about a time you had a conflict with someone. How did you resolve it, and what did you learn?",
+            "What would you do to mediate a conflict between two cross-functional teams?",
+            "Tell me about a time you had to build alignment with a stakeholder who had very different priorities from yours.",
+            "As a PM, how would you promote a new Netflix show, and what success metrics would you use?",
+            "If you were the CEO of Netflix, what new product line or service would you build to increase revenue?",
+            "How would you approach redesigning the Netflix experience for a specific audience segment (e.g., first-time smart-TV users in India)?"
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "displayRole": "Technical Program Manager (TPM)",
+      "rounds": [
+        {
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min phone call with a Netflix recruiter",
+          "focus": "Background, motivation, culture alignment",
+          "evaluates": "Whether the candidate's program background fits the team, and initial cultural fit — Netflix has far fewer formal PgM/TPM roles than peers, so this role is the closest real analog and typically sits inside engineering operations.",
+          "questions": [
+            "Tell me about yourself.",
+            "What stands out to you about Netflix's culture?",
+            "Walk me through your program management background — hardware, software, or content operations?",
+            "Why Netflix, and why this specific team?",
+            "What size and complexity of programs have you managed?",
+            "What are your compensation expectations and notice period?"
+          ]
+        },
+        {
+          "id": "hiring-manager-screen",
+          "name": "Hiring Manager Screen",
+          "format": "45 min video call with the hiring manager",
+          "focus": "Program management depth and judgment",
+          "evaluates": "Whether the candidate has run large-scale, technically complex programs and can articulate their own working style clearly.",
+          "questions": [
+            "Walk me through a couple of large-scale programs you've run.",
+            "What's your approach to scope creep?",
+            "Tell me about a time you failed at work.",
+            "What kind of working environment helps you do your best work?",
+            "What programs have you run that you're most proud of?",
+            "How do you decide when a program needs a dedicated TPM versus being managed by the team itself?"
+          ]
+        },
+        {
+          "id": "technical-systems-screen",
+          "name": "Technical / Systems Screen",
+          "format": "45-60 min video call, often with a senior engineer or TPM, focused on system design at TPM depth",
+          "focus": "Architectural judgment and trade-off reasoning, not hands-on coding",
+          "evaluates": "Whether the candidate can reason credibly about system design, trade-offs, and technical risk for programs they'd be running.",
+          "questions": [
+            "Design a dynamic recommendation system for Netflix.",
+            "Design a system for optimizing content delivery networks.",
+            "If you had to design a collaborative online editor like Google Docs, how would you approach it?",
+            "Architect a recommendation engine for an online shopping platform.",
+            "Walk through a complex program you owned, including the architecture and the trade-offs you made.",
+            "How would you decide on a KPI for a system you're improving, and what KPI would you track at Netflix?"
+          ]
+        },
+        {
+          "id": "program-sense-peer-screen",
+          "name": "TPM Peer / Program Sense Screen",
+          "format": "45 min video call with a peer TPM",
+          "focus": "Prioritization, conflict resolution between teams, risk management",
+          "evaluates": "Practical program-sense judgment: how the candidate resolves conflict, estimates uncertain work, and manages risk day to day.",
+          "questions": [
+            "How would you resolve a conflict between two teams that can't deliver a feature together?",
+            "Tell me about a time you disagreed with a technical decision, how you handled it, and the outcome.",
+            "How do you assess the impact of a change in timelines?",
+            "How would you handle new requirements that surface in the middle of a program you're managing?",
+            "How would you estimate the workload for a new project with no historical baseline?",
+            "Tell me about a time you ran over budget on a program and what you learned.",
+            "How would you prioritize if you could only complete six of ten allocated tasks?"
+          ]
+        },
+        {
+          "id": "culture-leadership-panel",
+          "name": "Culture & Senior Leadership Panel",
+          "format": "One or more 45 min interviews with People Ops, a senior leader, and/or a peer of the hiring manager — total loop can run 7-9 conversations since Netflix's process is highly team-dependent",
+          "focus": "Netflix Culture Memo principles ('disagree then commit,' 'informed captains'), earning trust, navigating uncertainty",
+          "evaluates": "Deep culture fit against the Keeper Test and Netflix's freedom-and-responsibility model, alongside senior-level judgment.",
+          "questions": [
+            "Tell us about a way you don't map to our culture.",
+            "What feedback have you received consistently throughout your career?",
+            "How do you earn trust from your team?",
+            "How would you work with a very opinionated coworker?",
+            "You have a strong idea to improve the product but worry about stepping on someone's work. What do you do?",
+            "Talk about a time you navigated uncertainty or took a bold approach to solve a challenge.",
+            "How do you handle conflicting priorities as a TPM?",
+            "Tell me about a time you identified an opportunity that needed a lot of buy-in to move forward."
+          ]
+        }
+      ]
+    }
+  }
+}
