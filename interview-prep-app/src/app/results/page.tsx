@@ -127,26 +127,34 @@ export default function ResultsPage() {
         </Card>
 
         <Card className="p-6">
-          <div className="flex items-center gap-2 text-sm font-medium mb-3 text-success">
-            <ShieldCheck size={16} /> Keep leaning on
-          </div>
-          <ul className="flex flex-col gap-1.5 mb-5">
-            {v.topStrengths.map((s, i) => (
-              <li key={i} className="text-sm leading-relaxed">
-                · {s}
-              </li>
-            ))}
-          </ul>
-          <div className="flex items-center gap-2 text-sm font-medium mb-3 text-danger">
-            <Target size={16} /> Fix before the real thing
-          </div>
-          <ul className="flex flex-col gap-1.5">
-            {v.priorityFixes.map((s, i) => (
-              <li key={i} className="text-sm leading-relaxed">
-                · {s}
-              </li>
-            ))}
-          </ul>
+          {v.topStrengths.length > 0 && (
+            <>
+              <div className="flex items-center gap-2 text-sm font-medium mb-3 text-success">
+                <ShieldCheck size={16} /> Keep leaning on
+              </div>
+              <ul className="flex flex-col gap-1.5 mb-5">
+                {v.topStrengths.map((s, i) => (
+                  <li key={i} className="text-sm leading-relaxed">
+                    · {s}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          {v.priorityFixes.length > 0 && (
+            <>
+              <div className="flex items-center gap-2 text-sm font-medium mb-3 text-danger">
+                <Target size={16} /> Fix before the real thing
+              </div>
+              <ul className="flex flex-col gap-1.5">
+                {v.priorityFixes.map((s, i) => (
+                  <li key={i} className="text-sm leading-relaxed">
+                    · {s}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </Card>
 
         <div className="flex flex-col gap-3">

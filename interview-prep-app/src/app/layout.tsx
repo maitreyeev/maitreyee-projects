@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "CrackIt — Interview Prep",
   description:
-    "Practice real Product Management and Project Management interview rounds for Google, Amazon, Meta, Microsoft, Apple, Netflix, Qualcomm and Anthropic, with AI feedback tailored for Indian candidates.",
+    "Practice real Product Management and Project Management interview rounds for Google, Amazon, Meta, Microsoft, Apple, Netflix, Qualcomm and Anthropic, with instant structured feedback tailored for Indian candidates.",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",

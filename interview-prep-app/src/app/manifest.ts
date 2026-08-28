@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "CrackIt — Interview Prep",
     short_name: "CrackIt",
     description:
-      "Practice real PM & Program Management interview rounds with AI feedback, built for Indian candidates.",
+      "Practice real PM & Program Management interview rounds with instant structured feedback, built for Indian candidates.",
     start_url: "/",
     display: "standalone",
     background_color: "#faf9f7",

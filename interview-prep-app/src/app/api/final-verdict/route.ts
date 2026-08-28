@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { finalVerdict } from "@/lib/anthropic";
+import { computeFinalVerdict } from "@/lib/scoring";
 
 export async function POST(request: Request) {
   try {
@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const result = await finalVerdict({
+    const result = computeFinalVerdict({
       company,
       displayRole,
       candidateName: candidateName || "Candidate",

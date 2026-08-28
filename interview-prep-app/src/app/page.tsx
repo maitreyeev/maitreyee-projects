@@ -77,8 +77,8 @@ export default function Home() {
                   <p className="text-muted mt-3 leading-relaxed">
                     Practice real PM &amp; Program Management interview
                     rounds from Google, Amazon, Meta, Microsoft, Apple,
-                    Netflix, Qualcomm and Anthropic — with AI feedback built
-                    for Indian candidates.
+                    Netflix, Qualcomm and Anthropic — with instant, structured
+                    feedback built for Indian candidates.
                   </p>
                 </div>
                 <Button size="lg" className="w-full mt-2" onClick={next}>
@@ -217,8 +217,9 @@ export default function Home() {
                 <Building2 size={16} className="shrink-0 mt-0.5" />
                 <span>
                   You&apos;ll go through each round with real, commonly-asked
-                  questions. An AI interviewer scores every answer, and at the
-                  end you get a selection-probability rating with what to fix.
+                  questions. Every answer gets scored instantly on structure,
+                  specificity and length, and at the end you get a
+                  selection-probability rating with what to fix.
                 </span>
               </div>
               <Button size="lg" className="w-full mt-6" onClick={startInterview}>

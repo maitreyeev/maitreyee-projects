@@ -1,29 +1,19 @@
 import { NextResponse } from "next/server";
-import { gradeAnswer } from "@/lib/anthropic";
+import { gradeAnswer } from "@/lib/scoring";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const {
-      company,
-      displayRole,
-      roundName,
-      roundFocus,
-      roundEvaluates,
-      question,
-      answer,
-    } = body ?? {};
+    const { roundName, roundFocus, roundEvaluates, question, answer } = body ?? {};
 
-    if (!company || !displayRole || !roundName || !question) {
+    if (!roundName || !question) {
       return NextResponse.json(
         { error: "Missing required fields." },
         { status: 400 }
       );
     }
 
-    const result = await gradeAnswer({
-      company,
-      displayRole,
+    const result = gradeAnswer({
       roundName,
       roundFocus: roundFocus ?? "",
       roundEvaluates: roundEvaluates ?? "",
