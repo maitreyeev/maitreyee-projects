@@ -16,6 +16,16 @@ is *correct*, only whether it's built the way a strong answer is usually
 built. Trade-off: zero cost and instant feedback, but less nuanced than an
 LLM grading your actual content.
 
+**Live:** https://interview-prep-app-lac.vercel.app — free to share, since
+there's no API key and no per-use cost. Installable as a PWA (open on your
+phone → browser menu → "Add to Home Screen").
+
+## Deployment
+
+Hosted on Vercel (project: `crack-it4/interview-prep-app`), linked via
+`vercel link`. To ship a change: `npx vercel --prod` from this directory.
+No environment variables needed — the app has no secrets.
+
 ## Setup
 
 ```bash
