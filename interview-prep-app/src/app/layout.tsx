@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -16,6 +16,18 @@ export const metadata: Metadata = {
   title: "CrackIt — Interview Prep",
   description:
     "Practice real Product Management and Project Management interview rounds for Google, Amazon, Meta, Microsoft, Apple, Netflix, Qualcomm and Anthropic, with AI feedback tailored for Indian candidates.",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "CrackIt",
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#5b53f0",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
