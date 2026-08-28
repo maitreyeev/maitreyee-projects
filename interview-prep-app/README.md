@@ -7,6 +7,17 @@ interview data (Glassdoor, Blind, Exponent, IGotAnOffer, etc.), tailored for
 Indian candidates. An AI interviewer (Claude) grades every answer live and
 gives a final selection-probability verdict.
 
+**Live:** https://interview-prep-app-seven-teal.vercel.app — installable as
+a PWA (open on your phone → browser menu → "Add to Home Screen").
+
+## Deployment
+
+Hosted on Vercel, linked via `vercel link` (project: `crack-it4/interview-prep-app`).
+To ship a change: `npx vercel --prod` from this directory. The production
+deployment needs `ANTHROPIC_API_KEY` set in the Vercel dashboard under
+**Project Settings → Environment Variables** — it isn't in git, so add it
+there directly (not via CLI, so the key never passes through a shell/chat).
+
 ## Setup
 
 1. **Install dependencies** (already done if you're picking this up fresh):
