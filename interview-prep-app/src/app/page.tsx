@@ -3,11 +3,12 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, ArrowLeft, Sparkles, Briefcase, Building2, History } from "lucide-react";
+import { ArrowRight, ArrowLeft, Sparkles, Briefcase, Building2, History, Timer } from "lucide-react";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import ProgressBar from "@/components/ProgressBar";
 import CompanyBadge from "@/components/CompanyBadge";
+import Toggle from "@/components/Toggle";
 import { COMPANIES, ROLE_OPTIONS } from "@/data";
 import type { RoleKey } from "@/data/types";
 import { emptySession, saveSession } from "@/lib/session";
@@ -23,6 +24,7 @@ export default function Home() {
   const [role, setRole] = useState<RoleKey | null>(null);
   const [companyId, setCompanyId] = useState<string>("");
   const [hasHistory, setHasHistory] = useState(false);
+  const [timedMode, setTimedMode] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -48,6 +50,7 @@ export default function Home() {
       name: name.trim(),
       companyId,
       role,
+      timedMode,
     });
     router.push("/interview");
   }
@@ -233,6 +236,19 @@ export default function Home() {
                   specificity and length, and at the end you get a
                   selection-probability rating with what to fix.
                 </span>
+              </div>
+              <div className="mt-3 flex items-center gap-3 bg-surface-muted rounded-2xl p-4">
+                <div className="h-9 w-9 rounded-xl bg-accent-soft text-accent flex items-center justify-center shrink-0">
+                  <Timer size={17} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-medium">Timed mode</div>
+                  <div className="text-xs text-muted mt-0.5 leading-relaxed">
+                    2 minutes per question, auto-submitted. Feedback is held until each round ends
+                    — closer to real interview pressure.
+                  </div>
+                </div>
+                <Toggle checked={timedMode} onChange={setTimedMode} label="Timed mode" />
               </div>
               <Button size="lg" className="w-full mt-6" onClick={startInterview}>
                 Start interview <ArrowRight size={18} />

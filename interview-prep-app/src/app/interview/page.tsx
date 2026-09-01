@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -15,6 +15,10 @@ import {
   Mic,
   Square,
   TriangleAlert,
+  BookOpen,
+  ChevronDown,
+  Timer as TimerIcon,
+  ListChecks,
 } from "lucide-react";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
@@ -23,6 +27,7 @@ import CompanyBadge from "@/components/CompanyBadge";
 import { getCompany, getRoleTrack } from "@/data";
 import { pickQuestions } from "@/lib/pickQuestions";
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
+import { getModelAnswer } from "@/lib/modelAnswers";
 import {
   loadSession,
   saveSession,
@@ -31,9 +36,18 @@ import {
 } from "@/lib/session";
 import { appendHistoryEntry, previousAttemptFor } from "@/lib/history";
 
-type Phase = "loading" | "round-intro" | "answering" | "grading" | "feedback" | "finishing" | "error";
+type Phase =
+  | "loading"
+  | "round-intro"
+  | "answering"
+  | "grading"
+  | "feedback"
+  | "round-summary"
+  | "finishing"
+  | "error";
 
 const QUESTIONS_PER_ROUND = 3;
+const TIMED_SECONDS = 120;
 
 export default function InterviewPage() {
   const router = useRouter();
@@ -42,6 +56,7 @@ export default function InterviewPage() {
   const [answer, setAnswer] = useState("");
   const [grade, setGrade] = useState<QuestionResult | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [timeLeft, setTimeLeft] = useState(TIMED_SECONDS);
   const speech = useSpeechRecognition((finalChunk) => {
     setAnswer((prev) => (prev.trim() ? `${prev.trim()} ${finalChunk}` : finalChunk));
   });
@@ -116,6 +131,22 @@ export default function InterviewPage() {
         ...session,
         results: [...session.results, result],
       };
+
+      if (session.timedMode) {
+        // No per-question feedback under time pressure — advance straight
+        // through, and surface everything together once the round ends.
+        const isLastQuestionInRound = session.currentQuestionIndex + 1 >= questionsForRound.length;
+        const advanced: SessionState = isLastQuestionInRound
+          ? next
+          : { ...next, currentQuestionIndex: session.currentQuestionIndex + 1 };
+        setSession(advanced);
+        saveSession(advanced);
+        setAnswer("");
+        speech.dismissLooksOff();
+        setPhase(isLastQuestionInRound ? "round-summary" : "answering");
+        return;
+      }
+
       setSession(next);
       saveSession(next);
       setGrade(result);
@@ -214,6 +245,31 @@ export default function InterviewPage() {
     }
   }
 
+  // Kept fresh every render so the interval below always submits the
+  // latest typed/dictated answer, not whatever was in the box when the
+  // countdown started (the classic stale-closure trap with setInterval).
+  const submitAnswerRef = useRef(submitAnswer);
+  useEffect(() => {
+    submitAnswerRef.current = submitAnswer;
+  });
+
+  useEffect(() => {
+    if (!session?.timedMode || phase !== "answering") return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTimeLeft(TIMED_SECONDS);
+    const interval = setInterval(() => {
+      setTimeLeft((t) => {
+        if (t <= 1) {
+          clearInterval(interval);
+          submitAnswerRef.current();
+          return 0;
+        }
+        return t - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [phase, session?.timedMode, session?.currentRoundIndex, session?.currentQuestionIndex]);
+
   if (phase === "loading" || !session || !company || !roleTrack || !round) {
     return <FullScreenLoader label="Setting up your interview…" />;
   }
@@ -240,15 +296,32 @@ export default function InterviewPage() {
 
         <AnimatePresence mode="wait" initial={false}>
           {phase === "round-intro" && (
-            <RoundIntro key="intro" round={round} onStart={() => setPhase("answering")} />
+            <RoundIntro
+              key="intro"
+              round={round}
+              timedMode={session.timedMode}
+              onStart={() => setPhase("answering")}
+            />
           )}
 
           {(phase === "answering" || phase === "grading") && question && (
             <FadeIn key={`q-${session.currentRoundIndex}-${session.currentQuestionIndex}`}>
               <Card className="p-6">
-                <div className="flex items-center gap-2 text-xs text-muted mb-3">
-                  <MessageCircleQuestion size={14} />
-                  Question {session.currentQuestionIndex + 1} of {questionsForRound.length}
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2 text-xs text-muted">
+                    <MessageCircleQuestion size={14} />
+                    Question {session.currentQuestionIndex + 1} of {questionsForRound.length}
+                  </div>
+                  {session.timedMode && phase === "answering" && (
+                    <div
+                      className={`flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full ${
+                        timeLeft <= 15 ? "bg-danger-soft text-danger" : "bg-accent-soft text-accent"
+                      }`}
+                    >
+                      <TimerIcon size={12} />
+                      {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, "0")}
+                    </div>
+                  )}
                 </div>
                 <p className="text-lg font-medium leading-snug mb-5">{question}</p>
                 <textarea
@@ -321,7 +394,16 @@ export default function InterviewPage() {
           )}
 
           {phase === "feedback" && grade && (
-            <FeedbackCard key="feedback" grade={grade} onNext={goNext} />
+            <FeedbackCard key="feedback" grade={grade} round={round} onNext={goNext} />
+          )}
+
+          {phase === "round-summary" && (
+            <RoundSummary
+              key="round-summary"
+              roundName={round.name}
+              results={session.results.filter((r) => r.roundId === round.id)}
+              onContinue={goNext}
+            />
           )}
 
           {phase === "error" && (
@@ -345,9 +427,11 @@ export default function InterviewPage() {
 
 function RoundIntro({
   round,
+  timedMode,
   onStart,
 }: {
   round: { name: string; format: string; focus: string };
+  timedMode: boolean;
   onStart: () => void;
 }) {
   return (
@@ -364,6 +448,12 @@ function RoundIntro({
           <span className="font-medium">What this round is really testing: </span>
           {round.focus}
         </div>
+        {timedMode && (
+          <div className="flex items-center gap-2.5 text-sm text-accent bg-accent-soft rounded-2xl p-4">
+            <TimerIcon size={16} className="shrink-0" />
+            <span>Timed — 2 minutes per question, auto-submitted. Feedback shows after the round.</span>
+          </div>
+        )}
         <Button size="lg" onClick={onStart} className="w-full">
           Begin round <ArrowRight size={16} />
         </Button>
@@ -372,15 +462,74 @@ function RoundIntro({
   );
 }
 
+function RoundSummary({
+  roundName,
+  results,
+  onContinue,
+}: {
+  roundName: string;
+  results: QuestionResult[];
+  onContinue: () => void;
+}) {
+  const avg = results.length ? results.reduce((s, r) => s + r.score, 0) / results.length : 0;
+  return (
+    <FadeIn key="round-summary">
+      <Card className="p-6 flex flex-col gap-5">
+        <div className="flex items-center gap-3">
+          <div className="h-11 w-11 rounded-xl bg-accent-soft text-accent flex items-center justify-center shrink-0">
+            <ListChecks size={20} />
+          </div>
+          <div>
+            <h2 className="text-lg font-semibold tracking-tight">{roundName} — done</h2>
+            <p className="text-xs text-muted mt-0.5">Averaged {avg.toFixed(1)}/10 across this round</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          {results.map((r, i) => {
+            const color =
+              r.score >= 8 ? "var(--success)" : r.score >= 5 ? "var(--warning)" : "var(--danger)";
+            return (
+              <div key={i} className="border-t border-border pt-4 first:border-t-0 first:pt-0">
+                <div className="flex items-start justify-between gap-3 mb-2">
+                  <p className="text-sm font-medium leading-snug">{r.question}</p>
+                  <div
+                    className="h-8 w-8 rounded-full flex items-center justify-center text-xs font-semibold shrink-0"
+                    style={{ background: `${color}1a`, color }}
+                  >
+                    {r.score}
+                  </div>
+                </div>
+                {r.improvements[0] && (
+                  <p className="text-xs text-muted leading-relaxed">· {r.improvements[0]}</p>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <Button size="lg" onClick={onContinue} className="w-full">
+          Continue <ArrowRight size={16} />
+        </Button>
+      </Card>
+    </FadeIn>
+  );
+}
+
 function FeedbackCard({
   grade,
+  round,
   onNext,
 }: {
   grade: QuestionResult;
+  round?: { focus: string; evaluates: string };
   onNext: () => void;
 }) {
+  const [showExample, setShowExample] = useState(false);
   const color =
     grade.score >= 8 ? "var(--success)" : grade.score >= 5 ? "var(--warning)" : "var(--danger)";
+  const modelAnswer = round ? getModelAnswer(round.focus, round.evaluates) : null;
+
   return (
     <FadeIn key="feedback">
       <Card className="p-6 flex flex-col gap-5">
@@ -404,6 +553,44 @@ function FeedbackCard({
           <Lightbulb size={16} className="shrink-0 mt-0.5" />
           <span>{grade.modelAnswerTip}</span>
         </div>
+
+        {modelAnswer && (
+          <div>
+            <button
+              type="button"
+              onClick={() => setShowExample((v) => !v)}
+              className="flex items-center gap-2 text-sm font-medium text-accent cursor-pointer w-full"
+            >
+              <BookOpen size={15} />
+              {showExample ? "Hide" : "See"} a strong example answer
+              <ChevronDown size={15} className={`ml-auto transition-transform ${showExample ? "rotate-180" : ""}`} />
+            </button>
+            {showExample && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden"
+              >
+                <div className="mt-3 bg-surface-muted rounded-2xl p-4 flex flex-col gap-3">
+                  <div className="text-xs font-medium text-muted uppercase tracking-wide">{modelAnswer.title}</div>
+                  <p className="text-sm leading-relaxed italic">&ldquo;{modelAnswer.example}&rdquo;</p>
+                  <div className="border-t border-border pt-3 flex flex-col gap-1.5">
+                    <div className="text-xs font-medium text-muted">Why this works</div>
+                    {modelAnswer.whyItWorks.map((w, i) => (
+                      <p key={i} className="text-xs text-muted leading-relaxed">
+                        · {w}
+                      </p>
+                    ))}
+                  </div>
+                  <p className="text-xs text-muted leading-relaxed pt-1">
+                    This is a pattern to adapt with your own real example — not a script to recite.
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </div>
+        )}
 
         <Button size="lg" onClick={onNext} className="w-full">
           Next <ArrowRight size={16} />

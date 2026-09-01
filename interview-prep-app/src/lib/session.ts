@@ -21,6 +21,10 @@ export interface SessionState {
   currentRoundIndex: number;
   currentQuestionIndex: number;
   finalVerdict: FinalVerdict | null;
+  // Optional: countdown per question + feedback withheld until the round
+  // ends, to simulate real interview time pressure instead of untimed
+  // reflection.
+  timedMode: boolean;
   // Probability score from the last completed attempt at this same
   // company+role, captured at completion time so the results page can show
   // a trend without re-deriving it from history (and getting an off-by-one
@@ -49,6 +53,7 @@ export const emptySession: SessionState = {
   currentRoundIndex: 0,
   currentQuestionIndex: 0,
   finalVerdict: null,
+  timedMode: false,
   previousProbability: null,
 };
 
