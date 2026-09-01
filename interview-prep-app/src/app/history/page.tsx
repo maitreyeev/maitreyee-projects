@@ -20,11 +20,20 @@ const BAND_COLOR: Record<string, string> = {
 export default function HistoryPage() {
   const router = useRouter();
   const [entries, setEntries] = useState<HistoryEntry[] | null>(null);
+  const [confirmingClear, setConfirmingClear] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setEntries(loadHistory());
   }, []);
+
+  // Auto-cancel the confirm state if left untouched, so the button doesn't
+  // stay armed to delete everything if you wander off and come back.
+  useEffect(() => {
+    if (!confirmingClear) return;
+    const timeout = setTimeout(() => setConfirmingClear(false), 4000);
+    return () => clearTimeout(timeout);
+  }, [confirmingClear]);
 
   if (!entries) {
     return (
@@ -34,9 +43,14 @@ export default function HistoryPage() {
     );
   }
 
-  function handleClear() {
+  function handleClearClick() {
+    if (!confirmingClear) {
+      setConfirmingClear(true);
+      return;
+    }
     clearHistory();
     setEntries([]);
+    setConfirmingClear(false);
   }
 
   return (
@@ -78,8 +92,14 @@ export default function HistoryPage() {
                 <HistoryRow key={entry.id} entry={entry} index={i} />
               ))}
             </div>
-            <Button variant="ghost" size="sm" onClick={handleClear} className="self-center text-muted">
-              <Trash2 size={14} /> Clear history
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleClearClick}
+              onBlur={() => setConfirmingClear(false)}
+              className={confirmingClear ? "self-center text-danger" : "self-center text-muted"}
+            >
+              <Trash2 size={14} /> {confirmingClear ? "Tap again to confirm" : "Clear history"}
             </Button>
           </>
         )}
