@@ -46,13 +46,23 @@ const ERROR_MESSAGES: Record<string, string> = {
   network: "Voice input needs an internet connection.",
 };
 
+// If you spoke for at least this long, we expect a real number of words back.
+const MIN_SESSION_MS_TO_JUDGE = 4000;
+// Natural speech is roughly 2-3 words/sec even slow and deliberate; well under
+// half a word/sec for a several-second session means recognition likely
+// dropped most of what was said, not that you paused a lot.
+const MIN_WORDS_PER_SEC = 0.5;
+
 export function useSpeechRecognition(onFinalResult: (text: string) => void) {
   const [supported, setSupported] = useState(false);
   const [listening, setListening] = useState(false);
   const [interimText, setInterimText] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [looksOff, setLooksOff] = useState(false);
   const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
   const onFinalResultRef = useRef(onFinalResult);
+  const sessionStartRef = useRef(0);
+  const sessionWordsRef = useRef(0);
 
   useEffect(() => {
     onFinalResultRef.current = onFinalResult;
@@ -74,6 +84,9 @@ export function useSpeechRecognition(onFinalResult: (text: string) => void) {
 
     setError(null);
     setInterimText("");
+    setLooksOff(false);
+    sessionStartRef.current = Date.now();
+    sessionWordsRef.current = 0;
     const recognition = new Ctor();
     recognition.continuous = true;
     recognition.interimResults = true;
@@ -88,7 +101,11 @@ export function useSpeechRecognition(onFinalResult: (text: string) => void) {
         if (result.isFinal) finalChunk += transcript;
         else interim += transcript;
       }
-      if (finalChunk.trim()) onFinalResultRef.current(finalChunk.trim());
+      const trimmed = finalChunk.trim();
+      if (trimmed) {
+        sessionWordsRef.current += trimmed.split(/\s+/).length;
+        onFinalResultRef.current(trimmed);
+      }
       setInterimText(interim);
     };
 
@@ -100,6 +117,11 @@ export function useSpeechRecognition(onFinalResult: (text: string) => void) {
     recognition.onend = () => {
       setListening(false);
       setInterimText("");
+      const durationMs = Date.now() - sessionStartRef.current;
+      if (durationMs >= MIN_SESSION_MS_TO_JUDGE) {
+        const wordsPerSec = sessionWordsRef.current / (durationMs / 1000);
+        if (wordsPerSec < MIN_WORDS_PER_SEC) setLooksOff(true);
+      }
     };
 
     recognitionRef.current = recognition;
@@ -109,5 +131,7 @@ export function useSpeechRecognition(onFinalResult: (text: string) => void) {
 
   useEffect(() => stop, [stop]);
 
-  return { supported, listening, interimText, error, start, stop };
+  const dismissLooksOff = useCallback(() => setLooksOff(false), []);
+
+  return { supported, listening, interimText, error, looksOff, dismissLooksOff, start, stop };
 }

@@ -14,6 +14,7 @@ import {
   X,
   Mic,
   Square,
+  TriangleAlert,
 } from "lucide-react";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
@@ -137,6 +138,7 @@ export default function InterviewPage() {
       saveSession(next);
       setAnswer("");
       setGrade(null);
+      speech.dismissLooksOff();
       setPhase("answering");
       return;
     }
@@ -152,6 +154,7 @@ export default function InterviewPage() {
       saveSession(next);
       setAnswer("");
       setGrade(null);
+      speech.dismissLooksOff();
       setPhase("round-intro");
       return;
     }
@@ -233,7 +236,10 @@ export default function InterviewPage() {
                 <p className="text-lg font-medium leading-snug mb-5">{question}</p>
                 <textarea
                   value={answer}
-                  onChange={(e) => setAnswer(e.target.value)}
+                  onChange={(e) => {
+                    setAnswer(e.target.value);
+                    speech.dismissLooksOff();
+                  }}
                   disabled={phase === "grading"}
                   placeholder="Type your answer as you would say it out loud. Be specific — use real examples, numbers, and structure."
                   rows={8}
@@ -247,6 +253,15 @@ export default function InterviewPage() {
                 )}
                 {speech.error && (
                   <div className="mt-2 text-xs text-danger">{speech.error}</div>
+                )}
+                {speech.looksOff && !speech.listening && (
+                  <div className="flex items-start gap-2 mt-2 text-xs text-warning bg-warning-soft rounded-xl px-3 py-2">
+                    <TriangleAlert size={14} className="shrink-0 mt-0.5" />
+                    <span>
+                      That recording seems short for how long you were speaking — voice input may have missed
+                      some of it. Worth a re-read before you submit.
+                    </span>
+                  </div>
                 )}
                 <div className="flex items-center justify-between mt-4">
                   <div className="flex items-center gap-3">
