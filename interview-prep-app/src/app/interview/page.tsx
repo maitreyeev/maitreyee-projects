@@ -211,7 +211,7 @@ export default function InterviewPage() {
         </header>
         <ProgressBar value={overallProgress} />
 
-        <AnimatePresence mode="popLayout" initial={false}>
+        <AnimatePresence mode="wait" initial={false}>
           {phase === "round-intro" && (
             <RoundIntro key="intro" round={round} onStart={() => setPhase("answering")} />
           )}
