@@ -263,7 +263,7 @@ export default function InterviewPage() {
                     </span>
                   </div>
                 )}
-                <div className="flex items-center justify-between mt-4">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mt-4">
                   <div className="flex items-center gap-3">
                     <span className="text-xs text-muted">{answer.trim().length} characters</span>
                     {speech.supported && (
@@ -273,7 +273,7 @@ export default function InterviewPage() {
                         disabled={phase === "grading"}
                         aria-label={speech.listening ? "Stop voice input" : "Answer by speaking"}
                         title={speech.listening ? "Stop voice input" : "Answer by speaking"}
-                        className={`h-8 w-8 rounded-full flex items-center justify-center transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
+                        className={`h-8 w-8 rounded-full flex items-center justify-center transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shrink-0 ${
                           speech.listening
                             ? "bg-danger text-white"
                             : "bg-surface-muted text-muted hover:text-foreground hover:bg-border/60 border border-border"
@@ -286,6 +286,7 @@ export default function InterviewPage() {
                   <Button
                     onClick={submitAnswer}
                     disabled={answer.trim().length < 15 || phase === "grading"}
+                    className="w-full sm:w-auto whitespace-nowrap"
                   >
                     {phase === "grading" ? (
                       <>

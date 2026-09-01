@@ -48,7 +48,7 @@ export default function Home() {
   const selectedCompany = COMPANIES.find((c) => c.id === companyId);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-10">
+    <div className="min-h-screen flex flex-col items-center px-6 py-10 pt-16 sm:pt-24">
       <div className="w-full max-w-md">
         {step !== "welcome" && (
           <div className="mb-8 flex items-center gap-3">
