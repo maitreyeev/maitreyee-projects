@@ -1,0 +1,183 @@
+{
+  "roles": {
+    "product_management": {
+      "roleLabel": "Product Management",
+      "displayRole": "Product Manager",
+      "rounds": [
+        {
+          "order": 1,
+          "id": "recruiter-phone-screen",
+          "name": "Recruiter Phone Screen",
+          "format": "30 min phone call with a Netflix recruiter",
+          "focus": "Background, motivation, high-level fit",
+          "evaluates": "Basic alignment with the role and Netflix's talent density philosophy; purely behavioral, no PM-specific questions.",
+          "questions": [
+            "Tell me about the last product you worked on.",
+            "What's an obstacle you've overcome in your previous role?",
+            "Why Netflix, and why this role?",
+            "What is your understanding of the team/product area you're applying to?",
+            "What are your compensation expectations?",
+            "What drew you to apply for this specific role at this point in your career?",
+            "What questions do you have about Netflix's product organization?"
+          ]
+        },
+        {
+          "order": 2,
+          "id": "hiring-manager-screen",
+          "name": "Hiring Manager Screen",
+          "format": "45 min video call with the hiring manager",
+          "focus": "Core PM skills through a mix of product sense, behavioral, and culture questions",
+          "evaluates": "Whether the candidate has genuine product ownership experience and communicates with the directness Netflix's culture expects.",
+          "questions": [
+            "Tell me about a time you used data to influence people.",
+            "Describe a time you showed ownership of your work or project.",
+            "Tell me something that isn't on your resume, LinkedIn, or anywhere online.",
+            "Tell me about a time you came up with a creative solution to a challenging problem.",
+            "How would you develop a new feature for an existing Netflix product?",
+            "What's a product decision you made that you'd reverse if you could?"
+          ]
+        },
+        {
+          "order": 3,
+          "id": "culture-fit-screen",
+          "name": "Culture Fit Screen",
+          "format": "45 min session with an HR Business Partner acting as steward of Netflix's culture",
+          "focus": "Alignment with the Netflix Culture Memo and 'freedom and responsibility' operating model",
+          "evaluates": "Whether the candidate's working style fits Netflix's high-performance, direct-feedback culture — this round carries unusually high weight compared to peer companies.",
+          "questions": [
+            "Why do you want to work at Netflix?",
+            "What do you think about the Netflix culture memo?",
+            "What resonates with you about the culture memo, and what resonates less?",
+            "How do you give feedback to a colleague who isn't performing well?",
+            "Tell me about a time you received tough feedback. How did you respond?",
+            "Tell me about a time you disagreed with your manager and how you handled it.",
+            "How do you feel about radical candor and 'farewell with dignity' as a norm?"
+          ]
+        },
+        {
+          "order": 4,
+          "id": "panel-collaboration-product-sense",
+          "name": "Onsite Panel: Collaboration & Product Sense",
+          "format": "Two to three 45 min panel interviews with engineers, designers, and data scientists",
+          "focus": "Cross-functional collaboration style and structured product thinking",
+          "evaluates": "Whether the candidate can drive clarity from ambiguity, partner well with engineering/design, and reason about product decisions end-to-end.",
+          "questions": [
+            "Tell me about a conflict between you and your engineering manager or designer. How did you resolve it?",
+            "Your engineer tells you your PRD is too vague and they don't understand what you're asking for. How do you handle that?",
+            "Tell me about a time you had a very demanding stakeholder. How did you manage that relationship?",
+            "What do you look for in an ideal engineering counterpart?",
+            "Tell me about an example where you had to drive clarity from a very ambiguous problem statement.",
+            "How do you measure success for a product, and how do you bring other teams along on those metrics?",
+            "How would you enhance Netflix's recommendations for a market like India?",
+            "Tell me about your greatest product innovation and how you made trade-offs between tech debt and features."
+          ]
+        },
+        {
+          "order": 5,
+          "id": "cross-functional-stakeholder-screen",
+          "name": "Cross-Functional Stakeholder Screen",
+          "format": "45 min interview with a partner from content, marketing, or data science",
+          "focus": "Stakeholder alignment across non-engineering functions",
+          "evaluates": "Whether the candidate can partner effectively with content/marketing/data teams that have very different incentives from engineering.",
+          "questions": [
+            "Tell me about a time you had a conflict with someone. How did you resolve it, and what did you learn?",
+            "What would you do to mediate a conflict between two cross-functional teams?",
+            "Tell me about a time you had to build alignment with a stakeholder who had very different priorities from yours.",
+            "As a PM, how would you promote a new Netflix show, and what success metrics would you use?",
+            "If you were the CEO of Netflix, what new product line or service would you build to increase revenue?",
+            "How would you approach redesigning the Netflix experience for a specific audience segment (e.g., first-time smart-TV users in India)?"
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "roleLabel": "Project Management",
+      "displayRole": "Technical Program Manager (TPM)",
+      "rounds": [
+        {
+          "order": 1,
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min phone call with a Netflix recruiter",
+          "focus": "Background, motivation, culture alignment",
+          "evaluates": "Whether the candidate's program background fits the team, and initial cultural fit — Netflix has far fewer formal PgM/TPM roles than peers, so this role is the closest real analog and typically sits inside engineering operations.",
+          "questions": [
+            "Tell me about yourself.",
+            "What stands out to you about Netflix's culture?",
+            "Walk me through your program management background — hardware, software, or content operations?",
+            "Why Netflix, and why this specific team?",
+            "What size and complexity of programs have you managed?",
+            "What are your compensation expectations and notice period?"
+          ]
+        },
+        {
+          "order": 2,
+          "id": "hiring-manager-screen",
+          "name": "Hiring Manager Screen",
+          "format": "45 min video call with the hiring manager",
+          "focus": "Program management depth and judgment",
+          "evaluates": "Whether the candidate has run large-scale, technically complex programs and can articulate their own working style clearly.",
+          "questions": [
+            "Walk me through a couple of large-scale programs you've run.",
+            "What's your approach to scope creep?",
+            "Tell me about a time you failed at work.",
+            "What kind of working environment helps you do your best work?",
+            "What programs have you run that you're most proud of?",
+            "How do you decide when a program needs a dedicated TPM versus being managed by the team itself?"
+          ]
+        },
+        {
+          "order": 3,
+          "id": "technical-systems-screen",
+          "name": "Technical / Systems Screen",
+          "format": "45-60 min video call, often with a senior engineer or TPM, focused on system design at TPM depth",
+          "focus": "Architectural judgment and trade-off reasoning, not hands-on coding",
+          "evaluates": "Whether the candidate can reason credibly about system design, trade-offs, and technical risk for programs they'd be running.",
+          "questions": [
+            "Design a dynamic recommendation system for Netflix.",
+            "Design a system for optimizing content delivery networks.",
+            "If you had to design a collaborative online editor like Google Docs, how would you approach it?",
+            "Architect a recommendation engine for an online shopping platform.",
+            "Walk through a complex program you owned, including the architecture and the trade-offs you made.",
+            "How would you decide on a KPI for a system you're improving, and what KPI would you track at Netflix?"
+          ]
+        },
+        {
+          "order": 4,
+          "id": "program-sense-peer-screen",
+          "name": "TPM Peer / Program Sense Screen",
+          "format": "45 min video call with a peer TPM",
+          "focus": "Prioritization, conflict resolution between teams, risk management",
+          "evaluates": "Practical program-sense judgment: how the candidate resolves conflict, estimates uncertain work, and manages risk day to day.",
+          "questions": [
+            "How would you resolve a conflict between two teams that can't deliver a feature together?",
+            "Tell me about a time you disagreed with a technical decision, how you handled it, and the outcome.",
+            "How do you assess the impact of a change in timelines?",
+            "How would you handle new requirements that surface in the middle of a program you're managing?",
+            "How would you estimate the workload for a new project with no historical baseline?",
+            "Tell me about a time you ran over budget on a program and what you learned.",
+            "How would you prioritize if you could only complete six of ten allocated tasks?"
+          ]
+        },
+        {
+          "order": 5,
+          "id": "culture-leadership-panel",
+          "name": "Culture & Senior Leadership Panel",
+          "format": "One or more 45 min interviews with People Ops, a senior leader, and/or a peer of the hiring manager — total loop can run 7-9 conversations since Netflix's process is highly team-dependent",
+          "focus": "Netflix Culture Memo principles ('disagree then commit,' 'informed captains'), earning trust, navigating uncertainty",
+          "evaluates": "Deep culture fit against the Keeper Test and Netflix's freedom-and-responsibility model, alongside senior-level judgment.",
+          "questions": [
+            "Tell us about a way you don't map to our culture.",
+            "What feedback have you received consistently throughout your career?",
+            "How do you earn trust from your team?",
+            "How would you work with a very opinionated coworker?",
+            "You have a strong idea to improve the product but worry about stepping on someone's work. What do you do?",
+            "Talk about a time you navigated uncertainty or took a bold approach to solve a challenge.",
+            "How do you handle conflicting priorities as a TPM?",
+            "Tell me about a time you identified an opportunity that needed a lot of buy-in to move forward."
+          ]
+        }
+      ]
+    }
+  }
+}

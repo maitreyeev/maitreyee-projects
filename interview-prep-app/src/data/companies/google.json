@@ -1,0 +1,184 @@
+{
+  "roles": {
+    "product_management": {
+      "roleLabel": "Product Management",
+      "displayRole": "Product Manager (PM)",
+      "rounds": [
+        {
+          "order": 1,
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min phone/video call with a technical recruiter",
+          "focus": "Background, motivation, resume walkthrough, level calibration. India note: Google's APM (Associate Product Manager) rotational program recently expanded to India (Bangalore); for APM applicants this screen also checks academic background and internship experience. For all India candidates the full loop is usually conducted virtually and the end-to-end process commonly takes 10-12 weeks with roughly a 2-week gap between onsite days.",
+          "evaluates": "Communication clarity, motivation for PM/Google, basic role and level fit",
+          "questions": [
+            "Walk me through your resume and your path into product management",
+            "Why do you want to work at Google, and why this team?",
+            "What's a product you've shipped that you're most proud of?",
+            "What level are you interviewing for and why do you think that's the right fit?",
+            "Tell me about a time you had to learn a new domain quickly",
+            "What other companies/roles are you interviewing for?",
+            "What's your favorite Google product and why?"
+          ]
+        },
+        {
+          "order": 2,
+          "id": "onsite-product-design",
+          "name": "Product Design / Product Sense",
+          "format": "45 min 1:1 onsite (virtual) interview with a PM on the hiring team",
+          "focus": "Deeper product design case, often tied to Google's own product surfaces",
+          "evaluates": "Product sense, creativity, user-centric design, prioritization",
+          "questions": [
+            "Design an AI assistant inside Gemini for college students; sketch a rough prototype",
+            "Users say Gemini answers are confident but wrong - how would you fix this?",
+            "Improve Google Search results for a specific query type of your choosing",
+            "Design a product to help small businesses in India go online",
+            "How would you design Google Photos for a first-time smartphone user?",
+            "Pick a Google product and identify its biggest UX flaw; how would you fix it?",
+            "Design a feature for YouTube to increase watch time among teenagers"
+          ]
+        },
+        {
+          "order": 3,
+          "id": "onsite-analytical-execution",
+          "name": "Analytical / Execution",
+          "format": "45 min 1:1 onsite interview, metrics- and execution-heavy",
+          "focus": "Root-cause diagnosis, metrics definition, trade-off analysis, estimation",
+          "evaluates": "Analytical rigor, structured problem solving, data fluency, execution judgment",
+          "questions": [
+            "In the last 24 hours, engagement on YouTube comments dropped 10% - diagnose why",
+            "Estimate the number of Google Maps navigation queries per day in India",
+            "How would you measure the success of Google Search?",
+            "How would you measure the success of a new ticketing/support system like Asana's?",
+            "A key metric for your product is flat quarter-over-quarter - what do you do?",
+            "Estimate the market size for a premium Google smart speaker in India",
+            "Walk me through how you'd set up an A/B test for a new onboarding flow",
+            "Which metric would you cut if you could only track one for this product?"
+          ]
+        },
+        {
+          "order": 4,
+          "id": "onsite-product-strategy",
+          "name": "Product Strategy",
+          "format": "45 min 1:1 onsite interview with a senior/director-level PM",
+          "focus": "Long-horizon strategic thinking, competitive positioning, business trade-offs",
+          "evaluates": "Strategic thinking, business acumen, competitive awareness",
+          "questions": [
+            "Imagine you're CPO of Zoom facing heavy competition from Google Meet - what's your strategy?",
+            "Should Google compete with StubHub/BookMyShow on ticket sales?",
+            "How would you grow Google Search revenue 5x over five years?",
+            "How would you help Google regain market share from Apple Maps?",
+            "Why did Google build Chrome, and what's the biggest threat to it today?",
+            "How should Google respond to a well-funded AI-search startup?",
+            "Pick an industry Google isn't in and pitch whether Google should enter it"
+          ]
+        },
+        {
+          "order": 5,
+          "id": "onsite-googleyness-leadership",
+          "name": "Googleyness & Leadership",
+          "format": "45 min 1:1 onsite behavioral interview",
+          "focus": "Values fit, emergent leadership, collaboration without formal authority",
+          "evaluates": "Googleyness (comfort with ambiguity, bias to action, collaborative nature), leadership, general cognitive ability",
+          "questions": [
+            "Tell me about a product decision that frustrated you and how you handled it",
+            "Describe a time you led a cross-functional team through disagreement",
+            "Tell me about a time you influenced a decision without formal authority",
+            "How would you get buy-in for a controversial product change?",
+            "Tell me about a time you improved team culture or morale",
+            "Give an example of when you prioritized team success over personal recognition",
+            "Describe a difficult conversation you had about a launch timeline",
+            "Tell me about a time you disagreed with legal/policy on a feature and how you resolved it"
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "roleLabel": "Project Management",
+      "displayRole": "Technical Program Manager (TPM)",
+      "rounds": [
+        {
+          "order": 1,
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min phone/video call",
+          "focus": "Scope of past programs, level fit, motivation, domain alignment. India note: most TPM hiring in India is out of Bangalore/Hyderabad; loop is fully virtual and follows the same global structure.",
+          "evaluates": "Communication clarity, program scope/level fit, motivation",
+          "questions": [
+            "Tell me about yourself and your current day-to-day as a TPM",
+            "Why Google, and why this role?",
+            "What's the scope of the programs and teams you currently lead?",
+            "Walk me through your career progression into program management",
+            "What size and complexity of programs have you managed?",
+            "Why are you looking to leave your current role?"
+          ]
+        },
+        {
+          "order": 2,
+          "id": "onsite-program-management",
+          "name": "Role-Related Knowledge: Program Management",
+          "format": "45 min onsite (virtual) interview",
+          "focus": "Cross-functional program execution, dependency management, stakeholder alignment",
+          "evaluates": "Program management fundamentals, execution rigor, stakeholder management",
+          "questions": [
+            "Tell me about the most complex program you've managed and the trade-offs you navigated",
+            "How do you keep a cross-functional project on time when teams span multiple time zones?",
+            "Walk a product from concept to production and describe how you'd ensure a successful rollout",
+            "Describe a time a key dependency slipped - how did you manage the downstream impact?",
+            "How do you decide which risks to escalate versus manage yourself?",
+            "Tell me about a program where stakeholders disagreed on priorities - how did you resolve it?",
+            "How do you structure a program plan for a launch with unclear requirements?"
+          ]
+        },
+        {
+          "order": 3,
+          "id": "onsite-technical-judgment",
+          "name": "Role-Related Knowledge: Technical/Domain",
+          "format": "45 min onsite interview, often with a Software Engineer or SWE Manager",
+          "focus": "Technical depth relevant to the team (systems, infra, or hardware)",
+          "evaluates": "Technical fluency, ability to hold engineers accountable, systems reasoning",
+          "questions": [
+            "Two vendors offer similar components but different distribution models - how would you choose?",
+            "Walk me through the hardware product lifecycle stages (EVT, DVT, PVT) if relevant to your domain",
+            "Design a high-level system for a service handling millions of requests per day",
+            "How would you evaluate a proposed architecture for scalability and risk?",
+            "Explain a technical concept from your last program to a non-technical stakeholder",
+            "What technical red flags would make you pause a launch?"
+          ]
+        },
+        {
+          "order": 4,
+          "id": "onsite-general-cognitive-ability",
+          "name": "General Cognitive Ability (GCA)",
+          "format": "45 min onsite interview, structured problem-solving case",
+          "focus": "Structured reasoning and decision-making under ambiguity or incomplete data",
+          "evaluates": "Problem structuring, prioritization, decision-making under uncertainty",
+          "questions": [
+            "You're two years into building a subsea cable and war breaks out in the landing country - what do you do?",
+            "What's your general approach to prioritization when facing many competing priorities?",
+            "How do you make a decision when you don't have enough data? Give an example",
+            "How do you stay current as tools and technology change, including AI?",
+            "Walk me through how you'd triage a P0 incident affecting multiple teams",
+            "How would you estimate the timeline for a program with significant unknowns?"
+          ]
+        },
+        {
+          "order": 5,
+          "id": "onsite-leadership-googleyness",
+          "name": "Leadership & Googleyness",
+          "format": "45 min onsite behavioral interview",
+          "focus": "Values fit, influence without authority, coaching and growth mindset",
+          "evaluates": "Leadership, Googleyness, collaboration, resilience",
+          "questions": [
+            "Tell me about a project where you gave your best effort and still failed",
+            "Tell me about a time you influenced a stakeholder or delivered a difficult message",
+            "Tell me about a time you saw something broken and fixed it without being asked",
+            "Tell me about a disagreement between two teams and how you resolved it",
+            "Tell me about a time you coached or supported someone who wasn't performing",
+            "Describe a time you had to say no to a senior stakeholder"
+          ]
+        }
+      ]
+    }
+  }
+}

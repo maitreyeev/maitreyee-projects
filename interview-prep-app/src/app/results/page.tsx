@@ -8,7 +8,7 @@ import Button from "@/components/Button";
 import Card from "@/components/Card";
 import ScoreRing from "@/components/ScoreRing";
 import CompanyBadge from "@/components/CompanyBadge";
-import { getCompany, getRoleTrack } from "@/data";
+import { getCompany, getRoleMeta } from "@/data";
 import { clearSession, loadSession, saveSession, type SessionState } from "@/lib/session";
 
 const BAND_COPY: Record<string, { label: string; color: string }> = {
@@ -42,7 +42,7 @@ export default function ResultsPage() {
   }
 
   const company = getCompany(session.companyId);
-  const roleTrack = getRoleTrack(session.companyId, session.role);
+  const roleTrack = getRoleMeta(session.companyId, session.role);
   const v = session.finalVerdict;
   const band = BAND_COPY[v.band] ?? BAND_COPY.developing;
 

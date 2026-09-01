@@ -225,7 +225,7 @@ export default function Home() {
                 />
                 <Row
                   label="Rounds"
-                  value={`${selectedCompany.roles[role]?.rounds.length ?? 5} interview rounds`}
+                  value={`${selectedCompany.roles[role]?.roundCount ?? 5} interview rounds`}
                 />
               </Card>
               <div className="mt-5 flex items-start gap-2.5 text-sm text-muted bg-surface-muted rounded-2xl p-4">

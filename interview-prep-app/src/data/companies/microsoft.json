@@ -1,0 +1,170 @@
+{
+  "roles": {
+    "product_management": {
+      "roleLabel": "Product Management",
+      "displayRole": "Product Manager (PM)",
+      "rounds": [
+        {
+          "order": 1,
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min video call (Microsoft Teams)",
+          "focus": "Background, motivation for Microsoft, basic role fit. Note: Microsoft historically uses 'Program Manager' as its core product-definition title (see project_management track below); the separate 'Product Manager' title at Microsoft leans more toward GTM, positioning, and marketing strategy for a product line. India note: Hyderabad and Bangalore are Microsoft's largest India R&D hubs (Azure, Windows, Bing, Dynamics, M365); loops there follow the same global structure and are commonly fully virtual.",
+          "evaluates": "Communication, motivation, cultural alignment",
+          "questions": [
+            "Walk me through your resume and your path into product",
+            "Why Microsoft, and why this team?",
+            "What's your favorite Microsoft product, and how would you improve it?",
+            "Tell me about a time you launched or positioned a product in market",
+            "Where do you see yourself in five years?"
+          ]
+        },
+        {
+          "order": 2,
+          "id": "hiring-manager-screen",
+          "name": "Hiring Manager Screen",
+          "format": "30-45 min video call",
+          "focus": "Deeper behavioral questions with light product thinking",
+          "evaluates": "Communication quality, product reasoning, experience alignment with team needs",
+          "questions": [
+            "Tell me about a product launch you owned end-to-end",
+            "Describe a time you had to make the case for a product's positioning against a competitor",
+            "How do you balance customer needs with business constraints?",
+            "Tell me about a time you were unable to meet a customer's needs - what happened?",
+            "Discuss a challenge or roadblock you faced on a recent product initiative"
+          ]
+        },
+        {
+          "order": 3,
+          "id": "onsite-product-design",
+          "name": "Product Design",
+          "format": "45-50 min 1:1 onsite (virtual) interview",
+          "focus": "Ambiguous product problem, GTM/positioning trade-offs, ecosystem-scale reasoning",
+          "evaluates": "Problem definition, user prioritization, trade-off reasoning, business/technical lifecycle planning",
+          "questions": [
+            "How would you improve Microsoft Teams for hybrid meetings?",
+            "Design a new feature for Microsoft 365 aimed at small businesses in India",
+            "How would you position a new Copilot feature against a competitor's AI assistant?",
+            "Walk me through how you'd launch a product into a market with an established incumbent",
+            "How would you decide whether to build, buy, or partner for a new capability?",
+            "Design an onboarding experience for a first-time Azure customer"
+          ]
+        },
+        {
+          "order": 4,
+          "id": "onsite-behavioral-collaboration",
+          "name": "Behavioral / Collaboration",
+          "format": "45-50 min 1:1 onsite interview",
+          "focus": "Leadership, cross-functional collaboration, customer empathy, influence",
+          "evaluates": "Leadership, communication, decision-making, customer obsession, growth mindset",
+          "questions": [
+            "Tell me about a time you had to influence a decision without direct authority",
+            "Describe a time you disagreed with an engineering partner on scope",
+            "Tell me about a time you received difficult feedback and how you responded",
+            "How do you handle ambiguity when requirements keep changing?",
+            "Tell me about a time you had to say no to a stakeholder's request",
+            "Describe a situation where you demonstrated a growth mindset after a setback"
+          ]
+        },
+        {
+          "order": 5,
+          "id": "as-appropriate-round",
+          "name": "As Appropriate (AA) Round",
+          "format": "30-45 min interview with a senior manager, only triggered if earlier rounds went well",
+          "focus": "Adaptive, gap-closing round tailored to whatever signal is weakest from earlier interviews (technical depth, strategy, or culture fit); if signal is strong, the interviewer also 'sells' the candidate on the team",
+          "evaluates": "Whatever is unresolved from prior rounds - commonly strategic thinking and culture fit",
+          "questions": [
+            "Tell me more about your product philosophy and how you approach ambiguity",
+            "What questions do you have about the team, the product, or Microsoft's direction?",
+            "How would you describe your working style to a new manager?",
+            "What's a strategic bet you'd make for this product area over the next 2 years?",
+            "Why should we hire you over other strong candidates in this loop?",
+            "What are you most excited about, and what's your biggest concern about this role?"
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "roleLabel": "Project Management",
+      "displayRole": "Program Manager (PM) / Technical Program Manager (TPM)",
+      "rounds": [
+        {
+          "order": 1,
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "Phone/video call",
+          "focus": "Communication, cultural fit, motivation. Note: at Microsoft, 'Program Manager' is the traditional, core product-definition role (spec ownership, working daily with engineering) - closer to a PM/TPM hybrid elsewhere - while 'Technical Program Manager' is used for more infrastructure/cross-org execution-heavy programs (common in Azure/Cloud+AI). India note: onsite loops in Hyderabad/Bangalore commonly run all rounds back-to-back in a single day, including the AA round.",
+          "evaluates": "Communication skills, cultural fit, motivation",
+          "questions": [
+            "Why Microsoft, and what appeals to you about this Program Manager role?",
+            "Walk me through your background and the programs/products you've owned",
+            "Why this particular product area or team?",
+            "Tell me about your experience working directly with engineering teams"
+          ]
+        },
+        {
+          "order": 2,
+          "id": "onsite-systems-design",
+          "name": "Systems Design",
+          "format": "45-50 min 1:1 onsite interview",
+          "focus": "Program/product-level system design and architecture reasoning",
+          "evaluates": "Technical depth, systems thinking, scalability reasoning",
+          "questions": [
+            "Design a high-level system for a notification service used across Microsoft 365",
+            "How would you design a feature rollout system that supports staged/ring-based deployment?",
+            "Walk me through the architecture considerations for a multi-tenant SaaS feature",
+            "What trade-offs would you weigh when designing for reliability versus speed of shipping?",
+            "Design a data pipeline to power a new product's usage analytics"
+          ]
+        },
+        {
+          "order": 3,
+          "id": "onsite-data-structures-algorithms",
+          "name": "Data Structures, Algorithms & Data Sourcing",
+          "format": "45-50 min 1:1 onsite interview",
+          "focus": "Core CS fundamentals and data-sourcing reasoning appropriate to a technical PM/TPM",
+          "evaluates": "Technical/coding fluency, data fluency, structured problem-solving",
+          "questions": [
+            "Walk through a data structure choice you'd make for a specific product scenario and why",
+            "How would you source and validate data to make a product decision when no dashboard exists?",
+            "Solve a basic algorithmic problem and discuss its time/space complexity",
+            "How would you design a database schema for tracking feature usage across teams?",
+            "What questions would you ask before trusting a metric reported by another team?"
+          ]
+        },
+        {
+          "order": 4,
+          "id": "onsite-behavioral-leadership",
+          "name": "Behavioral / Leadership",
+          "format": "45-50 min 1:1 onsite interview (often with hiring manager or head of group)",
+          "focus": "Customer obsession, growth mindset, cross-team collaboration under ambiguity",
+          "evaluates": "Leadership, customer obsession, growth mindset, collaboration",
+          "questions": [
+            "Tell me about a time you had to rally a team around a decision they initially resisted",
+            "Describe a situation where you had to manage a program with conflicting stakeholder goals",
+            "Tell me about a time you failed to meet a customer's needs - what did you learn?",
+            "How do you handle ambiguity when a product's direction from leadership is unclear?",
+            "Discuss a challenge or roadblock you faced and how you overcame it",
+            "Tell me about a time you had to hold engineering accountable to a commitment"
+          ]
+        },
+        {
+          "order": 5,
+          "id": "as-appropriate-round",
+          "name": "As Appropriate (AA) Round",
+          "format": "30-45 min interview with a Principal PM or senior executive; often the final round of the day",
+          "focus": "Gap-closing round on product vision, goals, roadmap, and Microsoft fit; also discusses compensation/level fit in India loops",
+          "evaluates": "Whatever signal is weakest from earlier rounds - typically vision, technology understanding, and process maturity",
+          "questions": [
+            "Walk me through your product vision for an area you've owned",
+            "How do you think about setting goals and measuring a roadmap's success?",
+            "What's your process for turning ambiguous leadership direction into an execution plan?",
+            "How would you use data to defend a roadmap decision to skeptical stakeholders?",
+            "What questions do you have about the team or Microsoft's direction?",
+            "Why should we hire you for this role specifically?"
+          ]
+        }
+      ]
+    }
+  }
+}

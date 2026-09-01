@@ -1,0 +1,186 @@
+{
+  "roles": {
+    "product_management": {
+      "roleLabel": "Product Management",
+      "displayRole": "Product Manager",
+      "rounds": [
+        {
+          "order": 1,
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min phone call with a Talent Acquisition recruiter",
+          "focus": "Background, motivation, logistics",
+          "evaluates": "Basic fit, career trajectory, comp/location expectations, and understanding of the specific business unit (Handsets/QCT, IoT, Automotive, XR) the role sits in.",
+          "questions": [
+            "Walk me through your resume and why you're interested in Qualcomm.",
+            "Why do you want to move into (or continue in) product management in the semiconductor/chipset industry?",
+            "What do you know about Qualcomm's business units (QCT, QTL, IoT, Automotive)?",
+            "What is your notice period, and what are your compensation expectations?",
+            "Are you open to relocating to Hyderabad/Bangalore, or is this role hybrid/remote?",
+            "What products have you managed, and what was the hardware/software split?",
+            "Why are you leaving your current company?"
+          ]
+        },
+        {
+          "order": 2,
+          "id": "hiring-manager-technical-domain",
+          "name": "Hiring Manager / Technical-Domain Round",
+          "format": "45-60 min video call with the hiring manager (Sr PM or Director), sometimes with a live whiteboard",
+          "focus": "Technical fluency in wireless/chipset concepts plus core PM fundamentals",
+          "evaluates": "Whether the candidate can hold a credible technical conversation with silicon/RF/systems engineers and translate that into product requirements and roadmap decisions.",
+          "questions": [
+            "Explain, at a level a non-engineer would understand, how a modem/RF front-end fits into a smartphone SoC.",
+            "How would you evaluate a trade-off between power, performance, and area (PPA) when defining requirements for a new chipset?",
+            "Walk me through how you'd build a product roadmap for a new IoT or automotive chipset given competing OEM requirements.",
+            "How do you gather and prioritize requirements from OEM customers, carriers, and internal engineering teams simultaneously?",
+            "What do you know about Qualcomm's Snapdragon platform strategy and how it competes with MediaTek/Apple Silicon?",
+            "Describe a time you had to make a product decision with incomplete technical information.",
+            "How would you decide which features to cut if a chip tape-out deadline was at risk?",
+            "How do you think about the difference between managing a hardware-adjacent product versus a pure software product?"
+          ]
+        },
+        {
+          "order": 3,
+          "id": "product-case-roadmap-presentation",
+          "name": "Case Study / Roadmap Presentation",
+          "format": "45-60 min presentation (take-home case prepared in advance, presented live to a panel including senior leadership)",
+          "focus": "Structured product thinking, prioritization, and executive communication",
+          "evaluates": "Ability to structure ambiguity into a roadmap, defend prioritization calls under questioning, and present crisply to senior stakeholders — candidates on Blind/Glassdoor report being asked to prepare and present exactly this kind of case to senior leadership as part of the Qualcomm India loop.",
+          "questions": [
+            "Present a product strategy/roadmap for a hypothetical Qualcomm chipset line entering a new market segment (e.g., mid-range 5G IoT).",
+            "How did you prioritize the features in your roadmap, and what did you deliberately leave out?",
+            "What metrics would you use to judge whether this product roadmap succeeded?",
+            "How would this roadmap change if a key competitor announced a similar product six months earlier?",
+            "What risks do you see in this plan, and how would you mitigate them?",
+            "How would you sequence collaboration with engineering, marketing, and OEM customers to execute this roadmap?",
+            "If you had to cut your roadmap by 30% due to engineering capacity, what would you cut and why?"
+          ]
+        },
+        {
+          "order": 4,
+          "id": "cross-functional-stakeholder-behavioral",
+          "name": "Cross-Functional & Stakeholder Behavioral Round",
+          "format": "45 min video call with a peer PM or cross-functional partner (engineering/marketing lead)",
+          "focus": "Stakeholder management, influence without authority, conflict resolution",
+          "evaluates": "How the candidate operates in Qualcomm's matrixed, engineering-heavy org where PMs often have to drive alignment across hardware, software, and OEM/carrier stakeholders without direct authority.",
+          "questions": [
+            "Tell me about a time you had a conflict with an engineering lead over scope or timeline. How did you resolve it?",
+            "Describe a situation where you had to align multiple cross-functional teams with competing deadlines.",
+            "Tell me about a time you had to say no to a major customer or stakeholder request.",
+            "How do you handle a stakeholder who consistently escalates over your head?",
+            "Give an example of when you used data to change a stakeholder's mind.",
+            "Tell me about a time a project you managed slipped. What happened and what did you learn?",
+            "How do you build trust with engineering teams who are skeptical of PM input on technical decisions?"
+          ]
+        },
+        {
+          "order": 5,
+          "id": "director-leadership-round",
+          "name": "Director / Senior Leadership Round",
+          "format": "30-45 min call, often with a Director or Senior Director (sometimes US-based, joining a Hyderabad/Bangalore loop virtually)",
+          "focus": "Strategic vision, culture fit, leadership potential",
+          "evaluates": "Long-term potential, executive presence, and alignment with Qualcomm's engineering-first culture — India R&D candidates frequently report final rounds with US-based Directors joining virtually alongside local India panel members.",
+          "questions": [
+            "Where do you see the mobile/IoT chipset market heading in the next 3-5 years, and how should Qualcomm respond?",
+            "Why Qualcomm, and why this business unit specifically?",
+            "Tell me about the biggest professional risk you've taken and its outcome.",
+            "How do you handle ambiguity when senior leadership hasn't yet aligned on strategic direction?",
+            "What would you do in your first 90 days in this role?",
+            "Tell me about a time you influenced a decision several levels above your role.",
+            "How do you balance the needs of global headquarters (San Diego) against the realities of an India-based product/engineering team?"
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "roleLabel": "Project Management",
+      "displayRole": "Program Manager (Technical / Hardware Program Management)",
+      "rounds": [
+        {
+          "order": 1,
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min phone call with a Talent Acquisition recruiter",
+          "focus": "Background, motivation, logistics",
+          "evaluates": "Fit for a hardware/silicon program management role, prior experience with chip/hardware product lifecycles, and India-hub logistics.",
+          "questions": [
+            "Walk me through your program management experience — is it hardware, software, or both?",
+            "Have you managed a program through a full silicon/chipset development lifecycle (tape-out to production)?",
+            "Why are you interested in program management at Qualcomm specifically versus a software-only company?",
+            "What tools have you used for program tracking (Jira, MS Project, internal PLM systems)?",
+            "Are you comfortable working across time zones with the San Diego headquarters?",
+            "What is your notice period and compensation expectation?"
+          ]
+        },
+        {
+          "order": 2,
+          "id": "technical-fundamentals-round",
+          "name": "Technical Fundamentals Round",
+          "format": "45-60 min video call with a Program Manager or Engineering Manager",
+          "focus": "Baseline technical literacy in wireless/silicon concepts and core program management theory",
+          "evaluates": "Whether the candidate has enough technical depth to hold engineering conversations and manage schedule/risk on a chip or systems program. Candidates report this round sometimes leans surprisingly technical/in-depth for a PgM role — expect basics of wireless standards, SoC development, and the 'triple constraint' (scope-cost-schedule).",
+          "questions": [
+            "Explain the triple constraint in project management and how you've applied it in a real program.",
+            "At a high level, how does a cellular modem/CDMA or 5G system work?",
+            "Walk me through the typical phases of a chipset development program, from architecture definition to tape-out to mass production.",
+            "How do you track and manage risk across hardware, firmware, and software workstreams that all have different timelines?",
+            "What's the difference between managing a hardware program and a pure software program?",
+            "How would you build a schedule for a new SoC variant that reuses 80% of an existing design?",
+            "What is a critical path, and how do you protect it when a dependency slips?"
+          ]
+        },
+        {
+          "order": 3,
+          "id": "program-case-study-presentation",
+          "name": "Program Case Study Presentation",
+          "format": "45-60 min presentation to a panel, sometimes prepared as a take-home beforehand",
+          "focus": "Structuring and presenting a real program plan to senior leadership",
+          "evaluates": "Executive communication and program-planning rigor — Qualcomm India candidates have reported being asked to prepare a case study/status presentation of 'what a Program Manager would take care of' and present it directly to senior leadership.",
+          "questions": [
+            "Present a program plan for launching a new chipset variant into a new OEM device, covering milestones, dependencies, and risks.",
+            "What would your program status dashboard look like, and what metrics would you track weekly?",
+            "How would you communicate a schedule slip to senior leadership before it becomes a crisis?",
+            "What is your escalation path when two engineering teams disagree on a technical dependency blocking your schedule?",
+            "How do you build in schedule margin for unknown risks in a hardware program?",
+            "Walk through how you'd manage a program that spans teams in India, the US, and Taiwan/China simultaneously.",
+            "What would you do if a key supplier or foundry partner announced a delay two months before a planned tape-out?"
+          ]
+        },
+        {
+          "order": 4,
+          "id": "cross-functional-behavioral-round",
+          "name": "Cross-Functional & Stakeholder Behavioral Round",
+          "format": "45 min behavioral interview with a peer Program Manager or cross-functional partner",
+          "focus": "Influence without authority, negotiation, conflict resolution",
+          "evaluates": "Ability to drive alignment across hardware, software, product marketing, and OEM/carrier customers without formal authority over any of them.",
+          "questions": [
+            "Tell me about a time you negotiated with a senior engineering leader over a schedule or resourcing conflict.",
+            "Describe a time you had to manage a stakeholder with a very different priority from yours.",
+            "Tell me about a time you identified and mitigated a major program risk before it materialized.",
+            "How do you keep a cross-functional team motivated when a program is behind schedule?",
+            "Tell me about a mistake you made on a program and how you recovered.",
+            "How do you handle a situation where an engineering estimate you were given turns out to be wildly optimistic?",
+            "Describe how you've managed a program with unclear or shifting requirements."
+          ]
+        },
+        {
+          "order": 5,
+          "id": "director-panel-round",
+          "name": "Director / Senior Director Panel",
+          "format": "30-45 min panel, often 4-6 interviewers including India-based and US-based Directors joining virtually",
+          "focus": "Strategic judgment, leadership presence, culture fit",
+          "evaluates": "Whether the candidate can operate at a strategic level and represent the India program organization credibly to global leadership — India R&D candidates commonly report multi-round panels with Directors and Senior Directors, including some joining from the US.",
+          "questions": [
+            "Why do you want to work at Qualcomm, and why program management over product or engineering management?",
+            "Tell me about the largest, most complex program you've run — scope, team size, budget, and outcome.",
+            "How do you prioritize across multiple programs competing for the same engineering resources?",
+            "What would you do in your first 90 days leading this program?",
+            "Tell me about a time you disagreed with a decision from senior leadership. What did you do?",
+            "How do you build credibility with a global engineering team from an India-based program management seat?",
+            "What's your approach to managing up when a program is at risk of missing a customer commitment?"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "companies": [
+    {
+      "id": "google",
+      "name": "Google",
+      "color": "#4285F4",
+      "accent": "#EA4335",
+      "roles": {
+        "product_management": {
+          "roleLabel": "Product Management",
+          "displayRole": "Product Manager (PM)",
+          "roundCount": 5
+        },
+        "project_management": {
+          "roleLabel": "Project Management",
+          "displayRole": "Technical Program Manager (TPM)",
+          "roundCount": 5
+        }
+      }
+    },
+    {
+      "id": "anthropic",
+      "name": "Anthropic",
+      "color": "#D97757",
+      "accent": "#1A1918",
+      "roles": {
+        "product_management": {
+          "roleLabel": "Product Management",
+          "displayRole": "Product Manager (PM)",
+          "roundCount": 5
+        },
+        "project_management": {
+          "roleLabel": "Project Management",
+          "displayRole": "Technical Program Manager (TPM) / Program Manager",
+          "roundCount": 5
+        }
+      }
+    },
+    {
+      "id": "amazon",
+      "name": "Amazon",
+      "color": "#FF9900",
+      "accent": "#146EB4",
+      "roles": {
+        "product_management": {
+          "roleLabel": "Product Management",
+          "displayRole": "Product Manager (PM) / Product Manager - Technical (PM-T)",
+          "roundCount": 5
+        },
+        "project_management": {
+          "roleLabel": "Project Management",
+          "displayRole": "Technical Program Manager (TPM)",
+          "roundCount": 5
+        }
+      }
+    },
+    {
+      "id": "microsoft",
+      "name": "Microsoft",
+      "color": "#00A4EF",
+      "accent": "#7FBA00",
+      "roles": {
+        "product_management": {
+          "roleLabel": "Product Management",
+          "displayRole": "Product Manager (PM)",
+          "roundCount": 5
+        },
+        "project_management": {
+          "roleLabel": "Project Management",
+          "displayRole": "Program Manager (PM) / Technical Program Manager (TPM)",
+          "roundCount": 5
+        }
+      }
+    },
+    {
+      "id": "qualcomm",
+      "name": "Qualcomm",
+      "color": "#3253DC",
+      "accent": "#00B2A9",
+      "roles": {
+        "product_management": {
+          "roleLabel": "Product Management",
+          "displayRole": "Product Manager",
+          "roundCount": 5
+        },
+        "project_management": {
+          "roleLabel": "Project Management",
+          "displayRole": "Program Manager (Technical / Hardware Program Management)",
+          "roundCount": 5
+        }
+      }
+    },
+    {
+      "id": "meta",
+      "name": "Meta",
+      "color": "#0866FF",
+      "accent": "#00C6FF",
+      "roles": {
+        "product_management": {
+          "roleLabel": "Product Management",
+          "displayRole": "Product Manager",
+          "roundCount": 5
+        },
+        "project_management": {
+          "roleLabel": "Project Management",
+          "displayRole": "Technical Program Manager (TPM)",
+          "roundCount": 5
+        }
+      }
+    },
+    {
+      "id": "apple",
+      "name": "Apple",
+      "color": "#111114",
+      "accent": "#A2AAAD",
+      "roles": {
+        "product_management": {
+          "roleLabel": "Product Management",
+          "displayRole": "Product Manager",
+          "roundCount": 5
+        },
+        "project_management": {
+          "roleLabel": "Project Management",
+          "displayRole": "Program Manager",
+          "roundCount": 5
+        }
+      }
+    },
+    {
+      "id": "netflix",
+      "name": "Netflix",
+      "color": "#E50914",
+      "accent": "#221F1F",
+      "roles": {
+        "product_management": {
+          "roleLabel": "Product Management",
+          "displayRole": "Product Manager",
+          "roundCount": 5
+        },
+        "project_management": {
+          "roleLabel": "Project Management",
+          "displayRole": "Technical Program Manager (TPM)",
+          "roundCount": 5
+        }
+      }
+    }
+  ]
+}

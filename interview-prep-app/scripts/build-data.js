@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 // One-off build script: merges the two research JSON files, trims every
 // role-track down to a uniform 5 rounds (keeping the most distinctive/iconic
-// rounds per company), and writes a clean typed dataset to src/data/interview-data.json.
+// rounds per company), and writes src/data/companies-meta.json (small,
+// bundled everywhere) plus one full-data file per company under
+// src/data/companies/ (loaded on demand — see src/data/index.ts).
 const fs = require("fs");
 const path = require("path");
 
@@ -84,12 +86,45 @@ for (const companyName of Object.keys(merged)) {
   });
 }
 
+// Split into a small metadata file (bundled eagerly everywhere — names,
+// colors, round counts) and one full-data file per company (rounds +
+// questions), loaded on demand only for the company the user actually
+// picked. Previously the whole ~65KB-gzipped dataset shipped to every
+// visitor regardless of which single company they selected.
 const destDir = path.join(ROOT, "src/data");
-fs.mkdirSync(destDir, { recursive: true });
+const companiesDir = path.join(destDir, "companies");
+fs.mkdirSync(companiesDir, { recursive: true });
+
+const meta = {
+  companies: out.companies.map((c) => ({
+    id: c.id,
+    name: c.name,
+    color: c.color,
+    accent: c.accent,
+    roles: Object.fromEntries(
+      Object.entries(c.roles).map(([roleKey, track]) => [
+        roleKey,
+        {
+          roleLabel: track.roleLabel,
+          displayRole: track.displayRole,
+          roundCount: track.rounds.length,
+        },
+      ])
+    ),
+  })),
+};
+
 fs.writeFileSync(
-  path.join(destDir, "interview-data.json"),
-  JSON.stringify(out, null, 2)
+  path.join(destDir, "companies-meta.json"),
+  JSON.stringify(meta, null, 2)
 );
+
+for (const c of out.companies) {
+  fs.writeFileSync(
+    path.join(companiesDir, `${c.id}.json`),
+    JSON.stringify({ roles: c.roles }, null, 2)
+  );
+}
 
 // Report
 for (const c of out.companies) {
@@ -97,4 +132,8 @@ for (const c of out.companies) {
     console.log(c.name, roleKey, "->", c.roles[roleKey].rounds.length, "rounds");
   }
 }
-console.log("Wrote src/data/interview-data.json with", out.companies.length, "companies");
+console.log(
+  "Wrote src/data/companies-meta.json +",
+  out.companies.length,
+  "per-company files under src/data/companies/"
+);

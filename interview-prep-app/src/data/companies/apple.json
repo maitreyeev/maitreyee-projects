@@ -1,0 +1,182 @@
+{
+  "roles": {
+    "product_management": {
+      "roleLabel": "Product Management",
+      "displayRole": "Product Manager",
+      "rounds": [
+        {
+          "order": 1,
+          "id": "recruiter-call",
+          "name": "Recruiter Call",
+          "format": "15-20 min phone/video call with an Apple recruiter",
+          "focus": "Logistics, motivation, high-level fit",
+          "evaluates": "Whether the candidate's background and expectations align with the role before scheduling further rounds; Apple's process is notably more opaque and team-specific than peers.",
+          "questions": [
+            "Tell me about yourself and your current role.",
+            "Why Apple?",
+            "What products or teams at Apple are you most interested in?",
+            "What is your visa/work authorization status and location flexibility (relevant for Bengaluru/Hyderabad-based roles)?",
+            "What are your salary expectations and notice period?",
+            "What do you currently know about this specific role, and what questions do you have about it?",
+            "Why are you looking to leave your current company?"
+          ]
+        },
+        {
+          "order": 2,
+          "id": "hiring-manager-round",
+          "name": "Hiring Manager Round",
+          "format": "30-45 min video call with the hiring manager",
+          "focus": "Product ownership experience and cultural/values alignment",
+          "evaluates": "Whether the candidate has genuinely owned a product 0-to-1 or through significant iteration, and whether their motivation for Apple is authentic rather than generic.",
+          "questions": [
+            "Tell me about a product you were responsible for from zero to one. What customer problem were you solving, and how did you identify it?",
+            "How do you work with design in the early stages of a product?",
+            "Why Apple?",
+            "What interests you in this specific role/team?",
+            "Tell me about the most difficult product decision you've made.",
+            "How do you balance user experience with business or technical constraints?"
+          ]
+        },
+        {
+          "order": 3,
+          "id": "product-sense-round",
+          "name": "Product Sense Round",
+          "format": "45 min video call with a PM or cross-functional partner",
+          "focus": "Product design instincts grounded in Apple's ecosystem and design principles",
+          "evaluates": "Whether the candidate can design within Apple's constraints of simplicity, privacy, and ecosystem coherence rather than generic growth-hacking instincts.",
+          "questions": [
+            "How would you design a product or feature that helps people attend events together?",
+            "How would you design an educational product for a platform of your choice?",
+            "How would you improve a product for a specific underserved user segment?",
+            "How would you improve Siri, or add an AI capability to it, while preserving user privacy?",
+            "What's a recent Apple product or feature you'd change, and how?",
+            "How do you think about designing for both a global audience and specific markets like India?"
+          ]
+        },
+        {
+          "order": 4,
+          "id": "technical-pm-round",
+          "name": "Technical PM / Engineering Depth Round",
+          "format": "45 min video call with an engineering lead or technical PM",
+          "focus": "Technical fluency relevant to the team (AI/ML, hardware, services)",
+          "evaluates": "Whether the candidate can hold a credible technical conversation and make sound trade-off calls with engineers, without needing to write code themselves.",
+          "questions": [
+            "Tell me about a product you built that involved AI or ML at scale. What influenced the model choice you made?",
+            "How do you design evaluations to measure the accuracy of a model?",
+            "How do you decide when a model or feature is ready for production?",
+            "How would you approach a problem where you don't have enough data to train a model?",
+            "Why did you (or your team) choose a specific technical architecture, and what would you do differently?",
+            "How would you handle a feature that needs to run on-device for privacy reasons versus in the cloud?"
+          ]
+        },
+        {
+          "order": 5,
+          "id": "final-panel-strategy-culture",
+          "name": "Final Panel: Strategy, Operations & Culture Fit",
+          "format": "4-5 back-to-back 30-45 min interviews (onsite or virtual) covering product strategy, engineering leadership, and operations/strategy",
+          "focus": "Strategic thinking within Apple's ecosystem, cross-functional collaboration, and deep cultural fit",
+          "evaluates": "Whether the candidate thinks like an Apple PM: ecosystem-aware, privacy-first, detail-obsessed, and able to build genuine cross-functional alignment.",
+          "questions": [
+            "Why Apple, and why this team specifically?",
+            "How would you measure success for a new feature while preserving user privacy?",
+            "Tell me about a time you had a disagreement with a stakeholder. How did you handle it?",
+            "Tell me about a time you drove cross-functional collaboration to get a product over the finish line.",
+            "How would you approach scenario planning if a key supplier or dependency were constrained?",
+            "What are ways AI could help this team do its work better?",
+            "Where do you see yourself in five years?",
+            "Tell me about a time you had to deal with significant ambiguity."
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "roleLabel": "Project Management",
+      "displayRole": "Program Manager",
+      "rounds": [
+        {
+          "order": 1,
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "20-30 min phone/video call with an Apple recruiter",
+          "focus": "Background, motivation, logistics",
+          "evaluates": "Whether the candidate's program management background (engineering, hardware/NPI, or supply chain) matches what the specific Apple team needs.",
+          "questions": [
+            "Walk me through your program management experience.",
+            "Why Apple, and why program management here specifically?",
+            "Have you worked on hardware/NPI (new product introduction) programs or purely software programs?",
+            "What is your location flexibility (Bengaluru/Hyderabad/Gurugram) and work authorization status?",
+            "What are your compensation expectations?",
+            "What size teams and budgets have you managed programs for?",
+            "What do you know about the team you're interviewing with?"
+          ]
+        },
+        {
+          "order": 2,
+          "id": "hiring-manager-round",
+          "name": "Hiring Manager Round",
+          "format": "30-45 min conversational call with the hiring manager",
+          "focus": "Depth and scope of programs previously managed",
+          "evaluates": "Whether the candidate has run programs of comparable complexity, ambiguity, and cross-functional scope to what Apple expects.",
+          "questions": [
+            "Tell me about the largest program you've managed — scope, team size, and outcome.",
+            "Why do you want to work here, and why should we hire you?",
+            "How do you structure a program plan when requirements are still evolving?",
+            "Tell me about a time a program you managed missed a deadline. What happened?",
+            "How do you keep engineering, design, and operations aligned on a shared timeline?",
+            "What does a typical week look like for you as a program manager?",
+            "How do you decide what level of detail to bring to a status update for executives versus for your working team?"
+          ]
+        },
+        {
+          "order": 3,
+          "id": "case-study-mock-proposal",
+          "name": "Mock Project Proposal / Case Study",
+          "format": "45-60 min presentation where the candidate presents a project/program proposal to the interview panel and fields questions",
+          "focus": "Structured planning and executive-level communication under scrutiny",
+          "evaluates": "Whether the candidate can build a credible, well-reasoned program plan and defend it live — several Apple Program Manager candidates report this exact format as part of the loop.",
+          "questions": [
+            "Present a program plan for launching a new product/feature, including milestones, dependencies, and risks.",
+            "How did you decide on the sequencing of workstreams in this plan?",
+            "What are the biggest risks in this plan, and how would you mitigate them?",
+            "How would this plan change if a key supplier or component were delayed by six weeks?",
+            "What metrics would you track to know this program is on track?",
+            "How would you communicate a schedule risk to senior leadership before it becomes critical?"
+          ]
+        },
+        {
+          "order": 4,
+          "id": "functional-deep-dive",
+          "name": "Functional / Domain Deep-Dive",
+          "format": "30-45 min interview with a domain specialist (engineering, supply chain, or operations lead), format varies significantly by team",
+          "focus": "Domain-specific program management skill (hardware NPI, supply chain, software release, etc.)",
+          "evaluates": "Practical competence in the specific functional area — Apple's PgM interviews are notably team-dependent, so this round's content shifts based on whether the role is hardware NPI, software release management, or supply chain.",
+          "questions": [
+            "Walk me through how you'd manage a new product introduction (NPI) from engineering validation to mass production.",
+            "How do you manage schedule risk when a supplier is a single point of failure?",
+            "Estimate the market size for a new accessory category — walk me through your approach.",
+            "How do you handle a scope change requested by engineering late in a program?",
+            "What's your approach to managing a program with a hard, immovable launch date?",
+            "How would you approach a project planning exercise if I only gave you 30 minutes?"
+          ]
+        },
+        {
+          "order": 5,
+          "id": "final-panel-culture-fit",
+          "name": "Final Panel: Behavioral & Culture Fit",
+          "format": "Several back-to-back 30 min interviews with team members and leadership (candidates have reported as many as 7 separate 30-min interviews)",
+          "focus": "Cultural fit, attention to detail, cross-functional influence",
+          "evaluates": "Deep alignment with Apple's culture of secrecy, precision, and cross-functional ownership across a wide range of interviewers and personalities.",
+          "questions": [
+            "Why do you want to work here, and why should we hire you?",
+            "Tell me about a time you had to convince someone of something without having authority over them.",
+            "Tell me about a time you had to deal with significant ambiguity.",
+            "What are your greatest strengths and weaknesses?",
+            "Where do you see yourself in five years?",
+            "Tell me about a time you disagreed with a decision from leadership. What did you do?",
+            "How do you handle confidential or highly secretive projects?"
+          ]
+        }
+      ]
+    }
+  }
+}

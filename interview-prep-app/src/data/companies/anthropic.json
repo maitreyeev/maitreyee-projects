@@ -1,0 +1,174 @@
+{
+  "roles": {
+    "product_management": {
+      "roleLabel": "Product Management",
+      "displayRole": "Product Manager (PM)",
+      "rounds": [
+        {
+          "order": 1,
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30-45 min video call",
+          "focus": "Motivation, mission alignment, resume walkthrough. India note: Anthropic announced its first India office in Bengaluru (opening early 2026, led by India MD Irina Ghose); India-specific PM hiring is nascent and roles have mostly been filled via SF/remote-US postings to date, so expect the process to still be forming and largely virtual for India-based candidates.",
+          "evaluates": "Motivation, mission fit, basic communication",
+          "questions": [
+            "Why Anthropic, and what draws you to AI safety?",
+            "Walk me through your resume and the products you've led",
+            "How does Anthropic's mission resonate with you personally?",
+            "What do you know about Claude and Anthropic's product suite?",
+            "What other AI companies are you interviewing with, and why Anthropic over them?"
+          ]
+        },
+        {
+          "order": 2,
+          "id": "hiring-manager-conversation",
+          "name": "Hiring Manager Conversation",
+          "format": "45-60 min video call with the hiring manager",
+          "focus": "Depth on shipped products, metrics ownership, and judgment from past failures",
+          "evaluates": "Product judgment, ownership, self-awareness",
+          "questions": [
+            "Tell me about recent products you've led and the KPIs you owned",
+            "Walk me through a failure and what you learned from it",
+            "If your team described you in one word, what would it be and why?",
+            "Tell me about a product decision you made that you'd reverse today",
+            "How do you decide what NOT to build?",
+            "What's the hardest trade-off you've had to make as a PM?"
+          ]
+        },
+        {
+          "order": 3,
+          "id": "product-business-case",
+          "name": "Product / Business Case",
+          "format": "45-60 min case interview, sometimes folded into the panel day",
+          "focus": "Ambiguous product/strategy prompt specific to AI products",
+          "evaluates": "Structured thinking under ambiguity, AI product judgment, safety-aware reasoning",
+          "questions": [
+            "How would you define success metrics for a new Claude feature that balances user value and risk?",
+            "How do you approach safety trade-offs in a consumer-facing AI product?",
+            "How would you handle a Claude feature that gives confident but incorrect answers in high-stakes contexts?",
+            "How would you prioritize capability improvements versus safety improvements on the same roadmap?",
+            "Design a Claude feature for a specific enterprise use case (e.g., legal or healthcare)",
+            "How would you decide whether a new model capability should ship to consumers immediately or be gated?",
+            "What would you build next for Claude, and why?"
+          ]
+        },
+        {
+          "order": 4,
+          "id": "cross-functional-panel",
+          "name": "Cross-Functional Panel",
+          "format": "Multiple back-to-back interviews on the same day with PMs, engineers, researchers, and designers",
+          "focus": "Coordination, disagreement resolution, cross-functional influence",
+          "evaluates": "Collaboration, influence without authority, technical partnership",
+          "questions": [
+            "Tell me about a time you drove alignment across teams that disagreed",
+            "How do you prioritize competing feature requests under resource constraints?",
+            "Describe a time you influenced a decision you didn't own",
+            "How do you work with research/engineering teams when timelines are uncertain (e.g., model training)?",
+            "Tell me about a time you had to say no to an engineering partner",
+            "How do you communicate technical trade-offs to non-technical stakeholders?"
+          ]
+        },
+        {
+          "order": 5,
+          "id": "culture-interview",
+          "name": "Culture / Values Interview",
+          "format": "~45 min standalone interview, often with a non-technical interviewer",
+          "focus": "Values, intellectual honesty, conviction under discomfort",
+          "evaluates": "Values alignment, intellectual honesty, willingness to defend beliefs",
+          "questions": [
+            "What slightly unusual beliefs do you hold, and how have you defended them in uncomfortable situations?",
+            "Tell me about a time you did something that conflicted with your values",
+            "Describe a time you changed your mind about something you felt strongly about",
+            "How would you weigh values against commercial pressure in a product decision?",
+            "What concerns do you have about Anthropic's direction or approach?",
+            "Who do you respect but disagree with on values, and why?",
+            "How do you think about AI safety trade-offs personally, beyond the company line?"
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "roleLabel": "Project Management",
+      "displayRole": "Technical Program Manager (TPM) / Program Manager",
+      "rounds": [
+        {
+          "order": 1,
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min video call",
+          "focus": "Background, scale of past programs, motivation. Note: Anthropic does not run a distinct branded APM/TPM rotational program the way Google or Amazon do; job titles are simply 'Program Manager' or 'Technical Program Manager' and the process is notably fast, often compressed into one week of final-round conversations.",
+          "evaluates": "Communication, program scale/level fit, motivation",
+          "questions": [
+            "Tell me about yourself and the programs you've run",
+            "Why Anthropic, and why now?",
+            "What's the largest/most complex program you've delivered end-to-end?",
+            "What's your experience with research operations or infrastructure scaling programs, if any?",
+            "Why are you interested in moving from [current company/industry] to an AI safety lab?"
+          ]
+        },
+        {
+          "order": 2,
+          "id": "hiring-manager-screen",
+          "name": "Hiring Manager Screen",
+          "format": "45-60 min video call",
+          "focus": "Core program management fundamentals and technical literacy",
+          "evaluates": "Program management fundamentals, technical literacy, domain-specific execution",
+          "questions": [
+            "Tell me about a time you had a conflict with someone and how you resolved it",
+            "How do you prioritize tasks across multiple competing programs?",
+            "Tell me about a time you received negative feedback and how you handled it",
+            "Describe the most technically complex project you've worked on and why it was complex",
+            "How would you explain a technical concept to a non-technical stakeholder?",
+            "Tell me about your interest in AI and what you know about Anthropic's approach"
+          ]
+        },
+        {
+          "order": 3,
+          "id": "program-technical-round",
+          "name": "Program Management & Technical Execution",
+          "format": "45-60 min panel or 1:1 with a peer Program Manager or engineer",
+          "focus": "Risk management, resource planning, milestone tracking for technical/research programs",
+          "evaluates": "Execution rigor, risk management, technical partnership",
+          "questions": [
+            "Walk me through how you'd structure a program for a complex software launch under a tight deadline",
+            "Tell me about a time you had to deliver negative feedback to a partner team",
+            "Describe a time you had to pivot a plan mid-execution when priorities changed",
+            "How do you track and communicate risk on a program with many unknowns (e.g., involving model training timelines)?",
+            "Tell me about a time you took on a task outside your job description to unblock a program",
+            "How do you balance protecting team focus against responding to urgent, high-priority asks?"
+          ]
+        },
+        {
+          "order": 4,
+          "id": "cross-functional-panel",
+          "name": "Cross-Functional Partner Panel",
+          "format": "Back-to-back interviews with engineering and research partners",
+          "focus": "Cross-functional coordination and stakeholder alignment",
+          "evaluates": "Collaboration, communication, ability to structure chaotic environments",
+          "questions": [
+            "Tell me about a time you led a cross-functional team through ambiguity",
+            "How do you encourage collaboration among teams that don't naturally talk to each other?",
+            "Describe a time you had to convince team members to adopt an approach they initially resisted",
+            "How do you handle a research/engineering dependency that's slipping with no clear owner?",
+            "Tell me about a time you protected a team's focus from scope creep"
+          ]
+        },
+        {
+          "order": 5,
+          "id": "culture-values-interview",
+          "name": "Culture / Values Interview",
+          "format": "45 min standalone interview; commonly reported as the round where most candidates are screened out",
+          "focus": "Cultural alignment, safety-mindedness, conviction",
+          "evaluates": "Values alignment, judgment under pressure, honesty",
+          "questions": [
+            "How do you think about delivering results quickly without sacrificing safety or quality?",
+            "Tell me about a time you disagreed with a decision on ethical or safety grounds",
+            "What would you do if you were asked to accelerate a timeline in a way that felt risky?",
+            "Describe a belief you hold that most of your peers would disagree with",
+            "What concerns, if any, do you have about working at an AI safety lab?"
+          ]
+        }
+      ]
+    }
+  }
+}

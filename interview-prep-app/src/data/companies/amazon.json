@@ -1,0 +1,174 @@
+{
+  "roles": {
+    "product_management": {
+      "roleLabel": "Product Management",
+      "displayRole": "Product Manager (PM) / Product Manager - Technical (PM-T)",
+      "rounds": [
+        {
+          "order": 1,
+          "id": "recruiter-screen",
+          "name": "Recruiter Screen",
+          "format": "30 min phone call",
+          "focus": "Background, motivation, basic fit. India note: Amazon India (Hyderabad/Bangalore) hires heavily for PM-T roles from IIMs/IITs and top engineering schools; the loop mirrors the global process but is almost always fully virtual, and interviewers/Bar Raiser may dial in from other geographies.",
+          "evaluates": "Communication, motivation, basic role fit",
+          "questions": [
+            "Tell me about yourself",
+            "Why do you want to work at Amazon?",
+            "How would you define the role of a product manager?",
+            "What product that you led are you most proud of, and why?",
+            "Walk me through your background and what you're working on now"
+          ]
+        },
+        {
+          "order": 2,
+          "id": "onsite-leadership-principles",
+          "name": "Leadership Principles / Behavioral",
+          "format": "60 min 1:1 onsite interview, ~2-3 Leadership Principles per interviewer",
+          "focus": "Deep behavioral stories mapped to Amazon's 16 Leadership Principles",
+          "evaluates": "Customer Obsession, Ownership, Bias for Action, Earn Trust, Dive Deep, Deliver Results",
+          "questions": [
+            "Tell me about a time you disagreed with a decision and had to commit anyway (Have Backbone; Disagree and Commit)",
+            "Describe a time you dug into data that contradicted the prevailing anecdote (Dive Deep)",
+            "Tell me about a customer-first decision you made under business pressure (Customer Obsession)",
+            "Tell me about a time you aligned conflicting stakeholders around one plan (Earn Trust)",
+            "Describe how you negotiated priorities without formal authority (Ownership)",
+            "Tell me about a time you used AI to drive innovation or simplify a process (Invent and Simplify)",
+            "Tell me about a time you sacrificed short-term results for long-term strategy (Think Big)",
+            "Give an example of building trust with a skeptical partner team"
+          ]
+        },
+        {
+          "order": 3,
+          "id": "onsite-functional-product",
+          "name": "Functional Product Skills",
+          "format": "60 min 1:1 onsite interview with a PM/PM-T",
+          "focus": "Product sense, roadmap ownership, prioritization case",
+          "evaluates": "Product sense, prioritization, vision-setting",
+          "questions": [
+            "Tell me about a time you influenced a product roadmap",
+            "How do you decide what to build when requirements conflict?",
+            "Walk me through how you set and defended a product vision",
+            "Improve or design a product in your domain (live product sense case)",
+            "How would you prioritize a backlog with three equally-loud stakeholders?",
+            "Design a feature to increase Prime adoption among first-time Amazon India shoppers"
+          ]
+        },
+        {
+          "order": 4,
+          "id": "onsite-technical-depth",
+          "name": "Technical Depth (PM-T specific)",
+          "format": "60 min 1:1 onsite interview, sometimes includes a system-design component",
+          "focus": "Technical/architectural fluency for Product Manager - Technical candidates",
+          "evaluates": "Technical judgment, systems thinking, ability to partner credibly with engineers",
+          "questions": [
+            "What core technologies power your product domain?",
+            "How did you identify gaps or opportunities across features or system architectures?",
+            "Share an example where you used data and technical judgment to drive a decision",
+            "Describe the high-level system components of a product like YouTube or LinkedIn",
+            "Walk me through how you'd design a recommendation system for a retail product page",
+            "How technical do your PM-T stories need to be - describe a time you pushed back on an engineering approach"
+          ]
+        },
+        {
+          "order": 5,
+          "id": "bar-raiser",
+          "name": "Bar Raiser",
+          "format": "60 min 1:1 onsite interview with a trained interviewer from outside the hiring org (holds veto power)",
+          "focus": "Long-term culture and leadership fit independent of team-level bias",
+          "evaluates": "Leadership Principles fit, long-term potential, culture add",
+          "questions": [
+            "Tell me about a time you weren't able to deliver on a commitment",
+            "Tell me about a decision you'd revisit, and how you'd approach it differently now",
+            "Walk me through a time you took responsibility for a team failure",
+            "Which Leadership Principle do you personally struggle with the most?",
+            "Tell me about a time you raised the bar on a team that was comfortable with the status quo"
+          ]
+        }
+      ]
+    },
+    "project_management": {
+      "roleLabel": "Project Management",
+      "displayRole": "Technical Program Manager (TPM)",
+      "rounds": [
+        {
+          "order": 1,
+          "id": "recruiter-screen",
+          "name": "Recruiter Screening",
+          "format": "30 min phone call",
+          "focus": "Background verification, role/level fit, motivation. India note: Amazon India TPM hiring is centered in Hyderabad and Bangalore; process and structure mirror the global loop, fully virtual, with Bar Raiser sometimes dialing in from the US or EU.",
+          "evaluates": "Communication, background fit, motivation",
+          "questions": [
+            "Tell me about your background and current scope as a TPM",
+            "Why Amazon, and why this team?",
+            "What's the most complex technical program you've managed?",
+            "Walk me through your experience with distributed/technical teams"
+          ]
+        },
+        {
+          "order": 2,
+          "id": "onsite-program-management",
+          "name": "Program Management Round",
+          "format": "60 min 1:1 onsite interview (5-min intro, 50-min interview, 5-min Q&A)",
+          "focus": "Cross-team dependency management, scheduling, stakeholder communication",
+          "evaluates": "Execution rigor, dependency management, communication",
+          "questions": [
+            "Describe a program with dependencies across 3+ teams - how did you manage it?",
+            "Tell me about a time a program was at risk of missing a deadline - what did you do?",
+            "How do you communicate program status to senior leadership?",
+            "Walk me through how you'd build a program plan for a launch with unclear requirements",
+            "Describe a time you had to descope a program to hit a critical date",
+            "How do you decide which risks to escalate versus own yourself?"
+          ]
+        },
+        {
+          "order": 3,
+          "id": "onsite-technical-system-design",
+          "name": "Technical / System Design",
+          "format": "60 min 1:1 onsite interview with an SDE, SDM, or PM-T",
+          "focus": "System design and architecture reasoning appropriate to a technical program",
+          "evaluates": "Technical depth, systems thinking, architecture fluency",
+          "questions": [
+            "Design a high-level system for a service that must scale to millions of requests per day",
+            "How would you evaluate two competing technical approaches for the same program?",
+            "Walk me through a technical trade-off you influenced without being the subject-matter expert",
+            "Explain a complex technical concept from a recent program to a non-technical stakeholder",
+            "What technical red flags would make you delay a launch?"
+          ]
+        },
+        {
+          "order": 4,
+          "id": "onsite-leadership-principles",
+          "name": "Leadership Principles / Behavioral",
+          "format": "60 min 1:1 onsite interview, each interviewer assigned specific principles",
+          "focus": "Deep behavioral stories across Amazon's 16 Leadership Principles",
+          "evaluates": "Customer Obsession, Ownership, Invent and Simplify, Dive Deep, Deliver Results, Bias for Action",
+          "questions": [
+            "Tell me about declining a customer requirement and why",
+            "Describe your most innovative project and the challenges you faced",
+            "Describe a decision made with incomplete information",
+            "Share a recently learned skill and how you learned it",
+            "Discuss a time you raised the bar on a successful initiative unprompted",
+            "Describe a bold, difficult decision you pushed through despite opposition",
+            "Discuss a personal mistake and how you managed the fallout",
+            "Describe your proudest accomplishment and what made it hard"
+          ]
+        },
+        {
+          "order": 5,
+          "id": "bar-raiser",
+          "name": "Bar Raiser",
+          "format": "60 min 1:1 onsite interview with a cross-org trained interviewer (veto power)",
+          "focus": "Long-term leadership potential and culture fit independent of the hiring team",
+          "evaluates": "Leadership Principles fit, long-term potential",
+          "questions": [
+            "Tell me about a time you disagreed with your manager on something important",
+            "Which Leadership Principles resonate most and least with you, and why?",
+            "Tell me about a time you tackled a challenge outside your role's scope",
+            "Describe a time you persisted on a program when teammates wanted to abandon it",
+            "Walk me through a time your program failed - what would you do differently?"
+          ]
+        }
+      ]
+    }
+  }
+}
