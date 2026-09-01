@@ -21,6 +21,11 @@ export interface SessionState {
   currentRoundIndex: number;
   currentQuestionIndex: number;
   finalVerdict: FinalVerdict | null;
+  // Probability score from the last completed attempt at this same
+  // company+role, captured at completion time so the results page can show
+  // a trend without re-deriving it from history (and getting an off-by-one
+  // against the entry this very session just wrote).
+  previousProbability?: number | null;
 }
 
 export interface FinalVerdict {
@@ -44,6 +49,7 @@ export const emptySession: SessionState = {
   currentRoundIndex: 0,
   currentQuestionIndex: 0,
   finalVerdict: null,
+  previousProbability: null,
 };
 
 export function loadSession(): SessionState {

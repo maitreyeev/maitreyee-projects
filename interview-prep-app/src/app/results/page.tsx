@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { RotateCcw, Sparkles, Home, TrendingUp, ShieldCheck, Target } from "lucide-react";
+import { RotateCcw, Sparkles, Home, TrendingUp, TrendingDown, Minus, ShieldCheck, Target, History } from "lucide-react";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import ScoreRing from "@/components/ScoreRing";
@@ -93,6 +93,9 @@ export default function ResultsPage() {
           >
             {band.label}
           </span>
+          {typeof session.previousProbability === "number" && (
+            <TrendBadge current={v.probability} previous={session.previousProbability} />
+          )}
           <h1 className="text-2xl font-semibold tracking-tight leading-snug max-w-sm">
             {v.headline}
           </h1>
@@ -161,11 +164,29 @@ export default function ResultsPage() {
           <Button size="lg" onClick={retryWeakRounds}>
             <RotateCcw size={16} /> Retry with new questions
           </Button>
-          <Button size="lg" variant="secondary" onClick={startOver}>
+          <Button size="lg" variant="secondary" onClick={() => router.push("/history")}>
+            <History size={16} /> View past attempts
+          </Button>
+          <Button size="lg" variant="ghost" onClick={startOver}>
             <Home size={16} /> Start a new session
           </Button>
         </div>
       </div>
+    </div>
+  );
+}
+
+function TrendBadge({ current, previous }: { current: number; previous: number }) {
+  const delta = current - previous;
+  const isFlat = Math.abs(delta) < 1;
+  const Icon = isFlat ? Minus : delta > 0 ? TrendingUp : TrendingDown;
+  const color = isFlat ? "var(--muted)" : delta > 0 ? "var(--success)" : "var(--danger)";
+  const text = isFlat
+    ? "Same as your last attempt at this company"
+    : `${delta > 0 ? "+" : ""}${delta} vs your last attempt at this company (${previous}%)`;
+  return (
+    <div className="flex items-center gap-1.5 text-xs font-medium" style={{ color }}>
+      <Icon size={13} /> {text}
     </div>
   );
 }

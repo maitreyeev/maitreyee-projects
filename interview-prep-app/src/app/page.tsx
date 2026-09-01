@@ -1,9 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, ArrowLeft, Sparkles, Briefcase, Building2 } from "lucide-react";
+import { ArrowRight, ArrowLeft, Sparkles, Briefcase, Building2, History } from "lucide-react";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import ProgressBar from "@/components/ProgressBar";
@@ -11,6 +11,7 @@ import CompanyBadge from "@/components/CompanyBadge";
 import { COMPANIES, ROLE_OPTIONS } from "@/data";
 import type { RoleKey } from "@/data/types";
 import { emptySession, saveSession } from "@/lib/session";
+import { loadHistory } from "@/lib/history";
 
 type Step = "welcome" | "name" | "role" | "company" | "confirm";
 const STEPS: Step[] = ["welcome", "name", "role", "company", "confirm"];
@@ -21,6 +22,12 @@ export default function Home() {
   const [name, setName] = useState("");
   const [role, setRole] = useState<RoleKey | null>(null);
   const [companyId, setCompanyId] = useState<string>("");
+  const [hasHistory, setHasHistory] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setHasHistory(loadHistory().length > 0);
+  }, []);
 
   const stepIndex = STEPS.indexOf(step);
   const progress = (stepIndex / (STEPS.length - 1)) * 100;
@@ -84,6 +91,11 @@ export default function Home() {
                 <Button size="lg" className="w-full mt-2" onClick={next}>
                   Get started <ArrowRight size={18} />
                 </Button>
+                {hasHistory && (
+                  <Button variant="ghost" size="sm" onClick={() => router.push("/history")}>
+                    <History size={14} /> View past attempts
+                  </Button>
+                )}
               </div>
             </StepShell>
           )}

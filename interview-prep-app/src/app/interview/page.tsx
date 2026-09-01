@@ -29,6 +29,7 @@ import {
   type QuestionResult,
   type SessionState,
 } from "@/lib/session";
+import { appendHistoryEntry, previousAttemptFor } from "@/lib/history";
 
 type Phase = "loading" | "round-intro" | "answering" | "grading" | "feedback" | "finishing" | "error";
 
@@ -188,7 +189,23 @@ export default function InterviewPage() {
         throw new Error(body.error || "Could not compile your report.");
       }
       const verdict = await res.json();
-      const finalSession: SessionState = { ...session, finalVerdict: verdict };
+      const previous = session.role ? previousAttemptFor(company.id, session.role) : null;
+      if (session.role) {
+        appendHistoryEntry({
+          name: session.name,
+          companyId: company.id,
+          companyName: company.name,
+          role: session.role,
+          displayRole: roleTrack.displayRole,
+          attempt: session.attempt,
+          verdict,
+        });
+      }
+      const finalSession: SessionState = {
+        ...session,
+        finalVerdict: verdict,
+        previousProbability: previous?.verdict.probability ?? null,
+      };
       saveSession(finalSession);
       router.push("/results");
     } catch (err) {
