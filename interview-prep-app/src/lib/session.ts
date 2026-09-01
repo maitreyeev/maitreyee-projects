@@ -25,6 +25,11 @@ export interface SessionState {
   // ends, to simulate real interview time pressure instead of untimed
   // reflection.
   timedMode: boolean;
+  // Absolute deadline (ms epoch) for the current question under timed mode.
+  // Persisted so a page reload resumes the real countdown instead of
+  // silently granting a fresh 2 minutes — reload-to-cheat is otherwise a
+  // one-click way to defeat the entire point of timed mode.
+  questionDeadline?: number | null;
   // Probability score from the last completed attempt at this same
   // company+role, captured at completion time so the results page can show
   // a trend without re-deriving it from history (and getting an off-by-one
@@ -54,6 +59,7 @@ export const emptySession: SessionState = {
   currentQuestionIndex: 0,
   finalVerdict: null,
   timedMode: false,
+  questionDeadline: null,
   previousProbability: null,
 };
 
@@ -70,7 +76,13 @@ export function loadSession(): SessionState {
 
 export function saveSession(state: SessionState) {
   if (typeof window === "undefined") return;
-  window.localStorage.setItem(KEY, JSON.stringify(state));
+  try {
+    window.localStorage.setItem(KEY, JSON.stringify(state));
+  } catch {
+    // Storage full or disabled (private browsing, quota exceeded). Progress
+    // for this session just won't persist across a reload — better than
+    // crashing the app on every answer submitted.
+  }
 }
 
 export function clearSession() {

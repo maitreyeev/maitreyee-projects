@@ -138,7 +138,7 @@ export default function InterviewPage() {
         const isLastQuestionInRound = session.currentQuestionIndex + 1 >= questionsForRound.length;
         const advanced: SessionState = isLastQuestionInRound
           ? next
-          : { ...next, currentQuestionIndex: session.currentQuestionIndex + 1 };
+          : { ...next, currentQuestionIndex: session.currentQuestionIndex + 1, questionDeadline: null };
         setSession(advanced);
         saveSession(advanced);
         setAnswer("");
@@ -165,6 +165,7 @@ export default function InterviewPage() {
       const next: SessionState = {
         ...session,
         currentQuestionIndex: session.currentQuestionIndex + 1,
+        questionDeadline: null,
       };
       setSession(next);
       saveSession(next);
@@ -181,6 +182,7 @@ export default function InterviewPage() {
         ...session,
         currentRoundIndex: session.currentRoundIndex + 1,
         currentQuestionIndex: 0,
+        questionDeadline: null,
       };
       setSession(next);
       saveSession(next);
@@ -255,20 +257,33 @@ export default function InterviewPage() {
 
   useEffect(() => {
     if (!session?.timedMode || phase !== "answering") return;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTimeLeft(TIMED_SECONDS);
-    const interval = setInterval(() => {
-      setTimeLeft((t) => {
-        if (t <= 1) {
-          clearInterval(interval);
-          submitAnswerRef.current();
-          return 0;
-        }
-        return t - 1;
-      });
-    }, 1000);
+
+    // Deadline is persisted on the session (not just component state) so a
+    // reload resumes the real countdown instead of granting a fresh 2
+    // minutes — otherwise refreshing the page is a one-click way to cheat
+    // a mode whose entire point is time pressure.
+    let deadline = session.questionDeadline;
+    if (!deadline) {
+      deadline = Date.now() + TIMED_SECONDS * 1000;
+      const withDeadline: SessionState = { ...session, questionDeadline: deadline };
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setSession(withDeadline);
+      saveSession(withDeadline);
+    }
+    const activeDeadline = deadline;
+
+    const tick = () => {
+      const remaining = Math.max(0, Math.ceil((activeDeadline - Date.now()) / 1000));
+      setTimeLeft(remaining);
+      if (remaining <= 0) {
+        clearInterval(interval);
+        submitAnswerRef.current();
+      }
+    };
+    tick();
+    const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, [phase, session?.timedMode, session?.currentRoundIndex, session?.currentQuestionIndex]);
+  }, [phase, session]);
 
   if (phase === "loading" || !session || !company || !roleTrack || !round) {
     return <FullScreenLoader label="Setting up your interview…" />;

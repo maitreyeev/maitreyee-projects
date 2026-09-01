@@ -35,12 +35,23 @@ export function appendHistoryEntry(entry: Omit<HistoryEntry, "id" | "date">) {
     { ...entry, id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, date: new Date().toISOString() },
     ...existing,
   ].slice(0, MAX_ENTRIES);
-  window.localStorage.setItem(KEY, JSON.stringify(next));
+  try {
+    window.localStorage.setItem(KEY, JSON.stringify(next));
+  } catch {
+    // Storage full or disabled. This would otherwise throw mid-way through
+    // completing a full session — right as "Compiling your report..."
+    // shows — and strand the user there with no error. History is a nice-
+    // to-have; losing it silently beats losing the finished session.
+  }
 }
 
 export function clearHistory() {
   if (typeof window === "undefined") return;
-  window.localStorage.removeItem(KEY);
+  try {
+    window.localStorage.removeItem(KEY);
+  } catch {
+    // Ignore — nothing meaningful to recover from here.
+  }
 }
 
 // Most recent past attempt for the same company + role, used to show a
