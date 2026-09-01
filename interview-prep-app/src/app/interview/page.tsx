@@ -12,6 +12,8 @@ import {
   Lightbulb,
   Sparkles,
   X,
+  Mic,
+  Square,
 } from "lucide-react";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
@@ -19,6 +21,7 @@ import ProgressBar from "@/components/ProgressBar";
 import CompanyBadge from "@/components/CompanyBadge";
 import { getCompany, getRoleTrack } from "@/data";
 import { pickQuestions } from "@/lib/pickQuestions";
+import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
 import {
   loadSession,
   saveSession,
@@ -37,6 +40,9 @@ export default function InterviewPage() {
   const [answer, setAnswer] = useState("");
   const [grade, setGrade] = useState<QuestionResult | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const speech = useSpeechRecognition((finalChunk) => {
+    setAnswer((prev) => (prev.trim() ? `${prev.trim()} ${finalChunk}` : finalChunk));
+  });
 
   useEffect(() => {
     // One-time hydration from localStorage (an external system) on mount.
@@ -71,6 +77,7 @@ export default function InterviewPage() {
 
   async function submitAnswer() {
     if (!session || !company || !roleTrack || !round || !question) return;
+    speech.stop();
     setPhase("grading");
     setErrorMsg("");
     try {
@@ -232,8 +239,35 @@ export default function InterviewPage() {
                   rows={8}
                   className="w-full rounded-2xl bg-surface-muted border border-border p-4 text-[15px] leading-relaxed outline-none focus:border-accent transition-colors resize-none disabled:opacity-60"
                 />
+                {speech.listening && (
+                  <div className="flex items-center gap-2 mt-2 text-xs text-accent">
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                    Listening…{speech.interimText && <span className="text-muted italic">&nbsp;{speech.interimText}</span>}
+                  </div>
+                )}
+                {speech.error && (
+                  <div className="mt-2 text-xs text-danger">{speech.error}</div>
+                )}
                 <div className="flex items-center justify-between mt-4">
-                  <span className="text-xs text-muted">{answer.trim().length} characters</span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs text-muted">{answer.trim().length} characters</span>
+                    {speech.supported && (
+                      <button
+                        type="button"
+                        onClick={() => (speech.listening ? speech.stop() : speech.start())}
+                        disabled={phase === "grading"}
+                        aria-label={speech.listening ? "Stop voice input" : "Answer by speaking"}
+                        title={speech.listening ? "Stop voice input" : "Answer by speaking"}
+                        className={`h-8 w-8 rounded-full flex items-center justify-center transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
+                          speech.listening
+                            ? "bg-danger text-white"
+                            : "bg-surface-muted text-muted hover:text-foreground hover:bg-border/60 border border-border"
+                        }`}
+                      >
+                        {speech.listening ? <Square size={13} /> : <Mic size={14} />}
+                      </button>
+                    )}
+                  </div>
                   <Button
                     onClick={submitAnswer}
                     disabled={answer.trim().length < 15 || phase === "grading"}
