@@ -44,49 +44,21 @@ const FILLER_PHRASES = [
   "i don't know",
 ];
 
-const RESULT_WORDS = [
-  "resulted in",
-  "led to",
-  "achieved",
-  "increased",
-  "decreased",
-  "reduced",
-  "grew",
-  "improved",
-  "impact",
-  "outcome",
-  "delivered",
-  "launched",
-  "shipped",
-];
+// STAR-structure signals as regexes with broad alternation rather than exact
+// literal phrases. A narrow list like ["i led", "resulted in"] rewards
+// American-idiom phrasing and silently penalizes anyone who expresses the
+// same structure differently — including very common Indian-English
+// constructions ("I was heading the project", "it went up by 20%", "we were
+// able to achieve"). These patterns cover verb tense/voice variety
+// (leading/led/heading/head), not just one fixed idiom per concept.
+const CONTEXT_RE =
+  /\b(when i|while i|at (my|that|the)|in my (current|previous|last|earlier) (role|company|team|job|organi[sz]ation)|during my (time|tenure|stint)|there was a (situation|time|problem|challenge)|we (were|had) facing|my team was|in one of (my|our)|back when|earlier in my career|at that point|the situation was|the problem was|the challenge was)\b/i;
 
-const ACTION_WORDS = [
-  "i led",
-  "i built",
-  "i designed",
-  "i decided",
-  "i implemented",
-  "we launched",
-  "i drove",
-  "i owned",
-  "i created",
-  "i proposed",
-  "i coordinated",
-  "i prioritized",
-  "i defined",
-];
+const ACTION_RE =
+  /\bi\s+(led|build|built|designed?|decided?|implemented?|drove|drive|owned?|created?|proposed?|coordinated?|prioriti[sz]ed?|defined?|managed?|handled?|headed?|took (charge|the lead|ownership|initiative)|was (responsible|in charge|heading|handling|managing|leading)|spearheaded?|planned?|organi[sz]ed?|executed?|delivered?|initiated?|suggested?|came up with|worked on|ensured?|made sure|analy[sz]ed?|resolved?|drafted|pitched|pushed for|convinced|negotiated?)\b/i;
 
-const CONTEXT_WORDS = [
-  "when i",
-  "at my",
-  "in my role",
-  "the situation",
-  "the challenge",
-  "the problem",
-  "my team",
-  "at the time",
-  "the context",
-];
+const RESULT_RE =
+  /\b(resulted in|led to|helped (in|us)|we (were able to|managed to|could)|went (up|down|from)|brought (down|about|up)|achiev(ed|e)|increas(ed|e)|decreas(ed|e)|reduc(ed|e)|grew|grow|improv(ed|e)|impact(ed)?|outcome|deliver(ed)?|launch(ed)?|shipp(ed|ing)|sav(ed|ing)|cut down|eventually|as a result|the (numbers?|metric|result) (improved|went)|turned out)\b/i;
 
 const PM_VOCAB = [
   "user",
@@ -115,6 +87,7 @@ const PM_VOCAB = [
   "release",
   "launch",
   "kpi",
+  "okr",
   "north star",
   "funnel",
   "conversion",
@@ -126,6 +99,16 @@ const PM_VOCAB = [
   "cross functional",
   "alignment",
   "milestone",
+  "sprint",
+  "backlog",
+  "go-to-market",
+  "gtm",
+  "churn",
+  "activation",
+  "onboarding",
+  "cohort",
+  "segment",
+  "adoption",
 ];
 
 function tokenize(text: string): string[] {
@@ -175,12 +158,15 @@ function computeSignals(question: string, answer: string, roundFocus: string): S
 
   return {
     wordCount,
+    // Indian candidates very commonly express amounts in lakhs/crores
+    // ("5 lakh users", "we grew revenue to 2 crore") — treat those as
+    // specificity signals the same as a bare digit or ₹/%.
     hasNumbers: /\d/.test(answer),
     hasPercent: /%/.test(answer),
-    hasCurrency: /[₹$]|\brs\.?\b|\binr\b/i.test(answer),
-    contextHits: countOccurrences(answer, CONTEXT_WORDS),
-    actionHits: countOccurrences(answer, ACTION_WORDS),
-    resultHits: countOccurrences(answer, RESULT_WORDS),
+    hasCurrency: /[₹$]|\brs\.?\b|\binr\b|\blakh(s)?\b|\blac(s)?\b|\bcrore(s)?\b/i.test(answer),
+    contextHits: CONTEXT_RE.test(answer) ? 1 : 0,
+    actionHits: ACTION_RE.test(answer) ? 1 : 0,
+    resultHits: RESULT_RE.test(answer) ? 1 : 0,
     vocabOverlapRatio: Math.max(overlap, countOccurrences(answer, PM_VOCAB) / 6),
     fillerCount: countOccurrences(answer, FILLER_PHRASES),
     questionEcho: jaccardOverlap(tokenize(question), words),
