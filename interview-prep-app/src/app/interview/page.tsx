@@ -24,7 +24,7 @@ import Button from "@/components/Button";
 import Card from "@/components/Card";
 import ProgressBar from "@/components/ProgressBar";
 import CompanyBadge from "@/components/CompanyBadge";
-import { getCompany, getRoleTrack } from "@/data";
+import { getCompany, loadRoleTrack, type RoleTrack } from "@/data";
 import { pickQuestions } from "@/lib/pickQuestions";
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
 import { getModelAnswer } from "@/lib/modelAnswers";
@@ -57,9 +57,33 @@ export default function InterviewPage() {
   const [grade, setGrade] = useState<QuestionResult | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [timeLeft, setTimeLeft] = useState(TIMED_SECONDS);
+  const [roleTrack, setRoleTrack] = useState<RoleTrack | undefined>(undefined);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const speech = useSpeechRecognition((finalChunk) => {
     setAnswer((prev) => (prev.trim() ? `${prev.trim()} ${finalChunk}` : finalChunk));
   });
+
+  // Move focus to the answer box whenever a new question appears, so
+  // keyboard and screen-reader users land somewhere useful instead of on
+  // whatever the previous phase's now-removed button used to be. Polls
+  // briefly rather than focusing directly in the effect body since the ref
+  // may not be attached the instant `phase` flips (mount + animation start
+  // happen across a render/paint boundary) — cheap insurance against a
+  // one-frame race, not a workaround for a slow mount.
+  useEffect(() => {
+    if (phase !== "answering") return;
+    let attempts = 0;
+    const id = setInterval(() => {
+      attempts += 1;
+      if (textareaRef.current) {
+        textareaRef.current.focus();
+        clearInterval(id);
+      } else if (attempts > 20) {
+        clearInterval(id); // give up after ~2s rather than poll forever
+      }
+    }, 100);
+    return () => clearInterval(id);
+  }, [phase]);
 
   useEffect(() => {
     // One-time hydration from localStorage (an external system) on mount.
@@ -74,8 +98,21 @@ export default function InterviewPage() {
   }, [router]);
 
   const company = session ? getCompany(session.companyId) : undefined;
-  const roleTrack =
-    session && session.role ? getRoleTrack(session.companyId, session.role) : undefined;
+
+  useEffect(() => {
+    // The question bank for a company (~10-14KB) is only fetched once we
+    // actually know which one was picked — the onboarding/results/history
+    // pages never need it, so it isn't in their bundle either.
+    if (!session?.companyId || !session.role) return;
+    let cancelled = false;
+    loadRoleTrack(session.companyId, session.role).then((track) => {
+      if (!cancelled) setRoleTrack(track);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [session?.companyId, session?.role]);
+
   const rounds = roleTrack?.rounds ?? [];
   const round = session ? rounds[session.currentRoundIndex] : undefined;
 
@@ -309,7 +346,16 @@ export default function InterviewPage() {
         </header>
         <ProgressBar value={overallProgress} />
 
-        <AnimatePresence mode="wait" initial={false}>
+        {/* popLayout takes the exiting card out of flow via position:
+            absolute so the entering one can render immediately without
+            waiting on the exit animation's completion event — mode="wait"
+            looked cleaner but can stall indefinitely if that completion
+            event never fires (e.g. a backgrounded tab), which is a worse
+            failure than a brief crossfade overlap. `relative` here scopes
+            popLayout's absolute positioning to this container instead of
+            escaping to the nearest positioned ancestor (or the viewport). */}
+        <div className="relative">
+          <AnimatePresence mode="popLayout" initial={false}>
           {phase === "round-intro" && (
             <RoundIntro
               key="intro"
@@ -338,8 +384,12 @@ export default function InterviewPage() {
                     </div>
                   )}
                 </div>
-                <p className="text-lg font-medium leading-snug mb-5">{question}</p>
+                <p id="current-question" className="text-lg font-medium leading-snug mb-5">
+                  {question}
+                </p>
                 <textarea
+                  ref={textareaRef}
+                  aria-labelledby="current-question"
                   value={answer}
                   onChange={(e) => {
                     setAnswer(e.target.value);
@@ -434,7 +484,8 @@ export default function InterviewPage() {
               </Card>
             </FadeIn>
           )}
-        </AnimatePresence>
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );
@@ -490,7 +541,7 @@ function RoundSummary({
   return (
     <FadeIn key="round-summary">
       <Card className="p-6 flex flex-col gap-5">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3" role="status" aria-live="polite">
           <div className="h-11 w-11 rounded-xl bg-accent-soft text-accent flex items-center justify-center shrink-0">
             <ListChecks size={20} />
           </div>
@@ -548,7 +599,7 @@ function FeedbackCard({
   return (
     <FadeIn key="feedback">
       <Card className="p-6 flex flex-col gap-5">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4" role="status" aria-live="polite">
           <div
             className="h-16 w-16 rounded-2xl flex items-center justify-center text-2xl font-semibold shrink-0"
             style={{ background: `${color}1a`, color }}

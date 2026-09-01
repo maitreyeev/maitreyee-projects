@@ -10,11 +10,15 @@
   --accent: #5b53f0;
   --accent-ink: #ffffff;
   --accent-soft: #edebfe;
-  --success: #1f9d63;
+  /* Darkened from the original #1f9d63/#b5790a/#d8493a — those measured
+     3.0-3.6:1 against their -soft pill backgrounds, below WCAG AA's 4.5:1
+     for normal text. These hit 4.5:1+ against both -soft and the plain
+     background/surface, verified via scripts/check-contrast.js. */
+  --success: #197e4f;
   --success-soft: #e4f6ec;
-  --warning: #b5790a;
+  --warning: #916108;
   --warning-soft: #fbf0dc;
-  --danger: #d8493a;
+  --danger: #b83e31;
   --danger-soft: #fbe9e6;
   --shadow-color: 240 30% 20%;
 }
