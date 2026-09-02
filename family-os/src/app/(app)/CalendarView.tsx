@@ -8,7 +8,7 @@ import { toggleTaskDone } from "./tasks/actions";
 import { toggleItemPaid } from "./bills/actions";
 import { EVENT_LABELS, type CalendarEvent, type EventType } from "@/lib/calendarTypes";
 
-const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
+const WEEKDAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
 const TONE_DOT: Record<EventType, string> = {
   appointment: "bg-sky-ink",
@@ -48,7 +48,7 @@ export default function CalendarView({
   }
 
   const firstOfMonth = new Date(Date.UTC(year, month - 1, 1));
-  const startWeekday = firstOfMonth.getUTCDay();
+  const startWeekday = (firstOfMonth.getUTCDay() + 6) % 7; // Monday-indexed (0=Mon..6=Sun)
   const daysInMonth = new Date(Date.UTC(year, month, 0)).getUTCDate();
   const totalCells = Math.ceil((startWeekday + daysInMonth) / 7) * 7;
 

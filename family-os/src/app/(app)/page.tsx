@@ -47,7 +47,7 @@ function addDays(iso: string, n: number): Date {
 
 function weekStartOf(iso: string): Date {
   const d = addDays(iso, 0);
-  return addDays(toISO(d), -d.getUTCDay());
+  return addDays(toISO(d), -((d.getUTCDay() + 6) % 7)); // Monday of that week
 }
 
 export default async function Dashboard({
