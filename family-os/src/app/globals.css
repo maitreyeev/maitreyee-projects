@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+:root {
+  --background: #faf7f2;
+  --surface: #ffffff;
+  --surface-muted: #f4f0ea;
+  --foreground: #2b2740;
+  --muted: #75708a;
+  --border: rgba(43, 39, 64, 0.08);
+
+  --ink: #1e1b2e;
+  --ink-foreground: #ffffff;
+
+  --accent: #8b7cf6;
+  --accent-soft: #ece8fd;
+  --accent-ink: #ffffff;
+
+  --success: #1f9d63;
+  --success-soft: #e1f6ea;
+  --warning: #b5790a;
+  --warning-soft: #fbf0dc;
+  --danger: #c0392b;
+  --danger-soft: #fbe6e3;
+
+  /* Pastel palette used for feature/category cards. */
+  --lavender: #e6defb;
+  --lavender-ink: #5b4bb8;
+  --peach: #fde3cf;
+  --peach-ink: #b5651d;
+  --mint: #d9f2e3;
+  --mint-ink: #1f8a5f;
+  --sky: #d9ecfb;
+  --sky-ink: #1f6fb5;
+  --butter: #fdf1c7;
+  --butter-ink: #a17d0a;
+  --blush: #fbe1ea;
+  --blush-ink: #b8497a;
+
+  --shadow-color: 250 30% 25%;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+
+  --color-lavender: var(--lavender);
+  --color-lavender-ink: var(--lavender-ink);
+  --color-peach: var(--peach);
+  --color-peach-ink: var(--peach-ink);
+  --color-mint: var(--mint);
+  --color-mint-ink: var(--mint-ink);
+  --color-sky: var(--sky);
+  --color-sky-ink: var(--sky-ink);
+  --color-butter: var(--butter);
+  --color-butter-ink: var(--butter-ink);
+  --color-blush: var(--blush);
+  --color-blush-ink: var(--blush-ink);
+
+  --font-sans: var(--font-nunito);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.card-shadow {
+  box-shadow: 0 2px 10px -4px hsl(var(--shadow-color) / 0.12);
+}
+
+.card-shadow-lg {
+  box-shadow: 0 12px 30px -12px hsl(var(--shadow-color) / 0.22);
+}
+
+/* Large tap targets and generous type sizing throughout — this app is used
+   by grandparents and children as much as by parents. */
+button, a, input, select, textarea {
+  font-size: 16px;
+}

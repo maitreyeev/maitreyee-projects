@@ -6,6 +6,12 @@
       "runtimeExecutable": "C:\\Users\\Admin\\Claude\\tools\\run-dev.cmd",
       "runtimeArgs": [],
       "port": 3000
+    },
+    {
+      "name": "family-os-dev",
+      "runtimeExecutable": "C:\\Users\\Admin\\Claude\\tools\\run-dev-family-os.cmd",
+      "runtimeArgs": [],
+      "port": 3001
     }
   ]
 }
