@@ -14,6 +14,8 @@ export function proxy(request: NextRequest) {
     pathname.startsWith("/api/setup") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/manifest") ||
+    pathname === "/icon" ||
+    pathname === "/apple-icon" ||
     /\.(png|ico|svg|jpg|jpeg)$/.test(pathname)
   ) {
     return NextResponse.next();

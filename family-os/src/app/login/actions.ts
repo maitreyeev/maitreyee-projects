@@ -19,7 +19,7 @@ export async function verifyPasscode(passcode: string): Promise<MemberOption[]> 
     throw new Error("That passcode isn't right.");
   }
   const members = await sql`
-    SELECT id, name, role, emoji, color FROM family_members ORDER BY id ASC
+    SELECT id, name, role, emoji, color FROM family_members WHERE deleted_at IS NULL ORDER BY id ASC
   `;
   return members as MemberOption[];
 }

@@ -14,7 +14,7 @@ function nextOccurrence(dateStr: string, recurringYearly: boolean): Date {
 }
 
 export default async function DatesPage() {
-  const dates = await sql`SELECT id, title, date, recurring_yearly, notes FROM important_dates ORDER BY date ASC`;
+  const dates = await sql`SELECT id, title, date, recurring_yearly, notes FROM important_dates WHERE deleted_at IS NULL ORDER BY date ASC`;
 
   const withNext = (dates as { id: number; title: string; date: string; recurring_yearly: boolean; notes: string | null }[])
     .map((d) => ({ ...d, next: nextOccurrence(d.date, d.recurring_yearly) }))

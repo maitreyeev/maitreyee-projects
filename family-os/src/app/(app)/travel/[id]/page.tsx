@@ -11,7 +11,7 @@ export default async function TripDetailPage({ params }: PageProps<"/travel/[id]
   const tripId = Number(id);
 
   const [trips, expenses] = await Promise.all([
-    sql`SELECT id, name, destination, start_date, end_date FROM travel_trips WHERE id = ${tripId}`,
+    sql`SELECT id, name, destination, start_date, end_date FROM travel_trips WHERE id = ${tripId} AND deleted_at IS NULL`,
     sql`SELECT id, category, amount, date, notes FROM travel_expenses WHERE trip_id = ${tripId} ORDER BY date ASC NULLS LAST, id ASC`,
   ]);
 

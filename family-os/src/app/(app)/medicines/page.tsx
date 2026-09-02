@@ -10,9 +10,10 @@ export default async function MedicinesPage() {
       SELECT m.id, m.name, m.dosage, m.schedule, m.refill_date, m.notes, m.active, fm.name AS member_name, fm.emoji
       FROM medicines m
       LEFT JOIN family_members fm ON fm.id = m.family_member_id
+      WHERE m.deleted_at IS NULL
       ORDER BY m.active DESC, m.refill_date ASC NULLS LAST
     `,
-    sql`SELECT id, name, emoji FROM family_members ORDER BY id ASC`,
+    sql`SELECT id, name, emoji FROM family_members WHERE deleted_at IS NULL ORDER BY id ASC`,
   ]);
 
   return (

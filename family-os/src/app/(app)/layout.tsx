@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getCurrentMember } from "@/lib/currentMember";
 import { sql } from "@/lib/db";
 import HeaderClient from "./HeaderClient";
+import TextSizeSync from "./TextSizeSync";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const member = await getCurrentMember();
@@ -12,6 +13,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="min-h-screen flex flex-col">
+      <TextSizeSync />
       <HeaderClient householdName={householdName} member={member} />
       <main className="flex-1 w-full max-w-2xl mx-auto px-5 py-6">{children}</main>
     </div>

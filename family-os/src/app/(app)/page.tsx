@@ -12,7 +12,11 @@ import {
 import Card from "@/components/Card";
 import { sql } from "@/lib/db";
 import { getCurrentMember } from "@/lib/currentMember";
+import { getEventsInRange, todayIST } from "@/lib/calendarEvents";
+import type { ActivityEntry } from "@/lib/activity";
+import CalendarView from "./CalendarView";
 import DashboardCharts from "./DashboardCharts";
+import ActivityFeed from "./ActivityFeed";
 
 const NAV_CARDS = [
   { href: "/appointments", label: "Appointments", icon: CalendarDays, tone: "lavender" as const },
@@ -25,22 +29,45 @@ const NAV_CARDS = [
   { href: "/dates", label: "Important Dates", icon: PartyPopper, tone: "peach" as const },
 ];
 
-export default async function Dashboard() {
-  const member = await getCurrentMember();
+function pad(n: number) {
+  return String(n).padStart(2, "0");
+}
 
-  const [upcomingAppts, dueBills, pendingTasks, billsByType, weekAppts] = await Promise.all([
-    sql`SELECT COUNT(*)::int AS n FROM appointments WHERE date >= CURRENT_DATE AND date <= CURRENT_DATE + INTERVAL '7 days'`,
-    sql`SELECT COUNT(*)::int AS n, COALESCE(SUM(amount), 0)::float AS total FROM financial_items WHERE is_paid = false AND due_date IS NOT NULL AND due_date <= CURRENT_DATE + INTERVAL '30 days'`,
-    sql`SELECT COUNT(*)::int AS n FROM household_tasks WHERE is_done = false`,
-    sql`SELECT type, COALESCE(SUM(amount), 0)::float AS total FROM financial_items WHERE is_paid = false GROUP BY type`,
-    sql`
-      SELECT a.title, a.date, a.time, fm.name AS member_name, fm.emoji
-      FROM appointments a
-      LEFT JOIN family_members fm ON fm.id = a.family_member_id
-      WHERE a.date >= CURRENT_DATE
-      ORDER BY a.date ASC, a.time ASC NULLS LAST
-      LIMIT 4
-    `,
+export default async function Dashboard({ searchParams }: { searchParams: Promise<{ month?: string }> }) {
+  const member = await getCurrentMember();
+  const sp = await searchParams;
+
+  const today = todayIST();
+  const [defYear, defMonth] = today.split("-").map(Number);
+  let year = defYear;
+  let month = defMonth;
+  if (sp.month && /^\d{4}-\d{2}$/.test(sp.month)) {
+    const [y, m] = sp.month.split("-").map(Number);
+    if (m >= 1 && m <= 12) {
+      year = y;
+      month = m;
+    }
+  }
+
+  const start = `${year}-${pad(month)}-01`;
+  const endOfMonth = new Date(Date.UTC(year, month, 1));
+  const end = `${endOfMonth.getUTCFullYear()}-${pad(endOfMonth.getUTCMonth() + 1)}-01`;
+  const prevMonthDate = new Date(Date.UTC(year, month - 2, 1));
+  const nextMonthDate = new Date(Date.UTC(year, month, 1));
+  const prevHref = `/?month=${prevMonthDate.getUTCFullYear()}-${pad(prevMonthDate.getUTCMonth() + 1)}`;
+  const nextHref = `/?month=${nextMonthDate.getUTCFullYear()}-${pad(nextMonthDate.getUTCMonth() + 1)}`;
+  const monthLabel = new Date(Date.UTC(year, month - 1, 1)).toLocaleDateString("en-IN", {
+    month: "long",
+    year: "numeric",
+  });
+
+  const [events, upcomingAppts, dueBills, pendingTasks, billsByType, activity] = await Promise.all([
+    getEventsInRange(start, end),
+    sql`SELECT COUNT(*)::int AS n FROM appointments WHERE deleted_at IS NULL AND date >= CURRENT_DATE AND date <= CURRENT_DATE + INTERVAL '7 days'`,
+    sql`SELECT COUNT(*)::int AS n FROM financial_items WHERE deleted_at IS NULL AND is_paid = false AND due_date IS NOT NULL AND due_date <= CURRENT_DATE + INTERVAL '30 days'`,
+    sql`SELECT COUNT(*)::int AS n FROM household_tasks WHERE deleted_at IS NULL AND is_done = false`,
+    sql`SELECT type, COALESCE(SUM(amount), 0)::float AS total FROM financial_items WHERE deleted_at IS NULL AND is_paid = false GROUP BY type`,
+    sql`SELECT id, actor_name, actor_emoji, action, entity_type, entity_title, created_at FROM activity_log ORDER BY created_at DESC LIMIT 8`,
   ]);
 
   return (
@@ -58,32 +85,20 @@ export default async function Dashboard() {
         <StatCard label="To do" value={String(pendingTasks[0].n)} sub="open tasks" tone="mint" />
       </div>
 
+      <CalendarView
+        key={`${year}-${month}`}
+        year={year}
+        month={month}
+        events={events}
+        todayStr={today}
+        prevHref={prevHref}
+        nextHref={nextHref}
+        monthLabel={monthLabel}
+      />
+
       <DashboardCharts billsByType={billsByType as { type: string; total: number }[]} />
 
-      {weekAppts.length > 0 && (
-        <Card className="p-5">
-          <h2 className="font-extrabold mb-3">Coming up</h2>
-          <div className="flex flex-col gap-3">
-            {(weekAppts as { title: string; date: string; time: string | null; member_name: string | null; emoji: string | null }[]).map(
-              (a, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-2xl bg-lavender flex items-center justify-center text-lavender-ink text-sm font-extrabold shrink-0">
-                    {new Date(a.date).getDate()}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-sm font-bold truncate">{a.title}</div>
-                    <div className="text-xs text-muted">
-                      {new Date(a.date).toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" })}
-                      {a.time ? ` · ${a.time}` : ""}
-                      {a.member_name ? ` · ${a.emoji} ${a.member_name}` : ""}
-                    </div>
-                  </div>
-                </div>
-              )
-            )}
-          </div>
-        </Card>
-      )}
+      <ActivityFeed entries={activity as ActivityEntry[]} />
 
       <div className="grid grid-cols-2 gap-3">
         {NAV_CARDS.map((c) => (

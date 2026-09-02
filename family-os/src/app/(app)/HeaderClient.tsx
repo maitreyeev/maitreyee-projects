@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LogOut, ArrowLeft } from "lucide-react";
+import { LogOut, ArrowLeft, Settings } from "lucide-react";
 import { logout } from "@/lib/actions";
 import type { FamilyMember } from "@/lib/currentMember";
 
@@ -44,6 +44,13 @@ export default function HeaderClient({
         >
           {member.emoji}
         </div>
+        <Link
+          href="/settings"
+          className="h-9 w-9 rounded-full flex items-center justify-center hover:bg-surface-muted transition-colors shrink-0"
+          aria-label="Settings"
+        >
+          <Settings size={17} />
+        </Link>
         <form action={logout}>
           <button
             type="submit"

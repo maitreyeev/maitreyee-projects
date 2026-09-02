@@ -10,9 +10,10 @@ export default async function AppointmentsPage() {
       SELECT a.id, a.title, a.date, a.time, a.location, a.notes, fm.name AS member_name, fm.emoji
       FROM appointments a
       LEFT JOIN family_members fm ON fm.id = a.family_member_id
+      WHERE a.deleted_at IS NULL
       ORDER BY a.date ASC, a.time ASC NULLS LAST
     `,
-    sql`SELECT id, name, emoji FROM family_members ORDER BY id ASC`,
+    sql`SELECT id, name, emoji FROM family_members WHERE deleted_at IS NULL ORDER BY id ASC`,
   ]);
 
   return (

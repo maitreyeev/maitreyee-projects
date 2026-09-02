@@ -5,7 +5,7 @@ import ContactForm from "./ContactForm";
 import ContactRow from "./ContactRow";
 
 export default async function ContactsPage() {
-  const contacts = await sql`SELECT id, name, relation, phone, notes FROM emergency_contacts ORDER BY id ASC`;
+  const contacts = await sql`SELECT id, name, relation, phone, notes FROM emergency_contacts WHERE deleted_at IS NULL ORDER BY id ASC`;
 
   return (
     <div className="flex flex-col gap-6">

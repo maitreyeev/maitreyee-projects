@@ -13,7 +13,7 @@ export async function getCurrentMember(): Promise<FamilyMember | null> {
   const session = await getSession();
   if (!session) return null;
   const rows = await sql`
-    SELECT id, name, role, emoji, color FROM family_members WHERE id = ${session.familyMemberId}
+    SELECT id, name, role, emoji, color FROM family_members WHERE id = ${session.familyMemberId} AND deleted_at IS NULL
   `;
   return (rows[0] as FamilyMember) ?? null;
 }

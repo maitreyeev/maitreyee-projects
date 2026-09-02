@@ -1,18 +1,20 @@
 import { sql } from "@/lib/db";
 import { ListChecks } from "lucide-react";
-import Card from "@/components/Card";
+import { getCurrentMember } from "@/lib/currentMember";
 import TaskForm from "./TaskForm";
-import TaskRow from "./TaskRow";
+import TaskList from "./TaskList";
 
 export default async function TasksPage() {
-  const [tasks, members] = await Promise.all([
+  const [tasks, members, me] = await Promise.all([
     sql`
-      SELECT t.id, t.title, t.due_date, t.recurring, t.is_done, fm.name AS member_name, fm.emoji, fm.color
+      SELECT t.id, t.title, t.due_date, t.recurring, t.is_done, t.assigned_to, fm.name AS member_name, fm.emoji, fm.color
       FROM household_tasks t
       LEFT JOIN family_members fm ON fm.id = t.assigned_to
+      WHERE t.deleted_at IS NULL
       ORDER BY t.is_done ASC, t.due_date ASC NULLS LAST
     `,
-    sql`SELECT id, name, emoji FROM family_members ORDER BY id ASC`,
+    sql`SELECT id, name, emoji FROM family_members WHERE deleted_at IS NULL ORDER BY id ASC`,
+    getCurrentMember(),
   ]);
 
   return (
@@ -26,24 +28,22 @@ export default async function TasksPage() {
 
       <TaskForm members={members as { id: number; name: string; emoji: string }[]} />
 
-      {tasks.length === 0 ? (
-        <Card className="p-6 text-center text-muted text-sm">No tasks yet.</Card>
-      ) : (
-        <div className="flex flex-col gap-3">
-          {(tasks as {
+      <TaskList
+        tasks={
+          tasks as {
             id: number;
             title: string;
             due_date: string | null;
             recurring: string;
             is_done: boolean;
+            assigned_to: number | null;
             member_name: string | null;
             emoji: string | null;
             color: string | null;
-          }[]).map((t) => (
-            <TaskRow key={t.id} task={t} />
-          ))}
-        </div>
-      )}
+          }[]
+        }
+        currentMemberId={me?.id ?? null}
+      />
     </div>
   );
 }

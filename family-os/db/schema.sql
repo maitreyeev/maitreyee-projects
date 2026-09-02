@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS family_members (
   role TEXT NOT NULL CHECK (role IN ('parent', 'child', 'grandparent', 'other')),
   emoji TEXT NOT NULL DEFAULT '🙂',
   color TEXT NOT NULL DEFAULT '#8B7CF6',
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  deleted_at TIMESTAMPTZ
 );
 
 CREATE TABLE IF NOT EXISTS appointments (
@@ -33,7 +34,8 @@ CREATE TABLE IF NOT EXISTS appointments (
   location TEXT,
   notes TEXT,
   created_by INTEGER REFERENCES family_members(id) ON DELETE SET NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  deleted_at TIMESTAMPTZ
 );
 
 CREATE TABLE IF NOT EXISTS documents (
@@ -46,7 +48,8 @@ CREATE TABLE IF NOT EXISTS documents (
   expiry_date DATE,
   notes TEXT,
   created_by INTEGER REFERENCES family_members(id) ON DELETE SET NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  deleted_at TIMESTAMPTZ
 );
 
 CREATE TABLE IF NOT EXISTS medicines (
@@ -59,7 +62,8 @@ CREATE TABLE IF NOT EXISTS medicines (
   notes TEXT,
   active BOOLEAN NOT NULL DEFAULT true,
   created_by INTEGER REFERENCES family_members(id) ON DELETE SET NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  deleted_at TIMESTAMPTZ
 );
 
 CREATE TABLE IF NOT EXISTS financial_items (
@@ -74,7 +78,8 @@ CREATE TABLE IF NOT EXISTS financial_items (
   document_id INTEGER REFERENCES documents(id) ON DELETE SET NULL,
   notes TEXT,
   created_by INTEGER REFERENCES family_members(id) ON DELETE SET NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  deleted_at TIMESTAMPTZ
 );
 
 CREATE TABLE IF NOT EXISTS travel_trips (
@@ -85,7 +90,8 @@ CREATE TABLE IF NOT EXISTS travel_trips (
   end_date DATE,
   notes TEXT,
   created_by INTEGER REFERENCES family_members(id) ON DELETE SET NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  deleted_at TIMESTAMPTZ
 );
 
 CREATE TABLE IF NOT EXISTS travel_expenses (
@@ -106,7 +112,8 @@ CREATE TABLE IF NOT EXISTS emergency_contacts (
   phone TEXT NOT NULL,
   notes TEXT,
   created_by INTEGER REFERENCES family_members(id) ON DELETE SET NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  deleted_at TIMESTAMPTZ
 );
 
 CREATE TABLE IF NOT EXISTS household_tasks (
@@ -117,7 +124,8 @@ CREATE TABLE IF NOT EXISTS household_tasks (
   recurring TEXT NOT NULL DEFAULT 'none' CHECK (recurring IN ('none', 'daily', 'weekly', 'monthly')),
   is_done BOOLEAN NOT NULL DEFAULT false,
   created_by INTEGER REFERENCES family_members(id) ON DELETE SET NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  deleted_at TIMESTAMPTZ
 );
 
 CREATE TABLE IF NOT EXISTS important_dates (
@@ -127,6 +135,18 @@ CREATE TABLE IF NOT EXISTS important_dates (
   recurring_yearly BOOLEAN NOT NULL DEFAULT true,
   notes TEXT,
   created_by INTEGER REFERENCES family_members(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  deleted_at TIMESTAMPTZ
+);
+
+CREATE TABLE IF NOT EXISTS activity_log (
+  id SERIAL PRIMARY KEY,
+  actor_id INTEGER REFERENCES family_members(id) ON DELETE SET NULL,
+  actor_name TEXT,
+  actor_emoji TEXT,
+  action TEXT NOT NULL,
+  entity_type TEXT NOT NULL,
+  entity_title TEXT NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -136,3 +156,4 @@ CREATE INDEX IF NOT EXISTS idx_financial_items_due_date ON financial_items(due_d
 CREATE INDEX IF NOT EXISTS idx_financial_items_type ON financial_items(type);
 CREATE INDEX IF NOT EXISTS idx_household_tasks_due_date ON household_tasks(due_date);
 CREATE INDEX IF NOT EXISTS idx_important_dates_date ON important_dates(date);
+CREATE INDEX IF NOT EXISTS idx_activity_log_created_at ON activity_log(created_at DESC);

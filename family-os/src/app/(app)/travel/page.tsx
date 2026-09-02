@@ -10,6 +10,7 @@ export default async function TravelPage() {
       COALESCE(SUM(e.amount), 0)::float AS total_spent
     FROM travel_trips t
     LEFT JOIN travel_expenses e ON e.trip_id = t.id
+    WHERE t.deleted_at IS NULL
     GROUP BY t.id
     ORDER BY t.start_date DESC NULLS LAST, t.id DESC
   `;

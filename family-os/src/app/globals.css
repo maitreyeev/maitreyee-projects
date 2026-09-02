@@ -91,7 +91,14 @@ body {
 }
 
 /* Large tap targets and generous type sizing throughout — this app is used
-   by grandparents and children as much as by parents. */
+   by grandparents and children as much as by parents. Uses rem (not a fixed
+   px value) so it scales with the text-size preference below. */
 button, a, input, select, textarea {
-  font-size: 16px;
+  font-size: 1rem;
+}
+
+/* Per-viewer text-size preference (Settings page), stored in localStorage
+   and applied as a data attribute on <html>; scales all rem-based type. */
+html[data-text-size="large"] {
+  font-size: 18px;
 }

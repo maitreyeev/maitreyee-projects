@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { Search } from "lucide-react";
+import { Input } from "@/components/Input";
 import DocumentRow from "./DocumentRow";
 
 interface Document {
@@ -26,10 +28,24 @@ const TABS: { value: string; label: string }[] = [
 
 export default function DocumentList({ documents }: { documents: Document[] }) {
   const [tab, setTab] = useState("all");
-  const filtered = tab === "all" ? documents : documents.filter((d) => d.category === tab);
+  const [query, setQuery] = useState("");
+  const byCategory = tab === "all" ? documents : documents.filter((d) => d.category === tab);
+  const filtered = query.trim()
+    ? byCategory.filter((d) => d.title.toLowerCase().includes(query.trim().toLowerCase()))
+    : byCategory;
 
   return (
     <div className="flex flex-col gap-4">
+      <div className="relative">
+        <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
+        <Input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search documents…"
+          className="pl-11"
+        />
+      </div>
+
       <div className="flex gap-2 overflow-x-auto -mx-1 px-1 pb-1">
         {TABS.map((t) => (
           <button
@@ -45,7 +61,9 @@ export default function DocumentList({ documents }: { documents: Document[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="text-center text-muted text-sm py-6">Nothing in this category yet.</p>
+        <p className="text-center text-muted text-sm py-6">
+          {query.trim() ? `No documents matching "${query.trim()}".` : "Nothing in this category yet."}
+        </p>
       ) : (
         <div className="flex flex-col gap-3">
           {filtered.map((d) => (

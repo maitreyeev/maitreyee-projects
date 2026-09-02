@@ -8,6 +8,7 @@ export default async function BillsPage() {
   const items = await sql`
     SELECT id, type, title, provider, amount, due_date, recurring, is_paid
     FROM financial_items
+    WHERE deleted_at IS NULL
     ORDER BY is_paid ASC, due_date ASC NULLS LAST
   `;
 
