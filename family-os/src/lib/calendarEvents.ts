@@ -13,32 +13,33 @@ export function todayIST(): string {
   return new Date(Date.now() + IST_OFFSET_MS).toISOString().slice(0, 10);
 }
 
-/** Fetches every calendar-relevant event whose date falls in [start, end). */
-export async function getEventsInRange(start: string, end: string): Promise<CalendarEvent[]> {
+/** Fetches every calendar-relevant event whose date falls in [start, end),
+ *  scoped to one household. */
+export async function getEventsInRange(householdId: number, start: string, end: string): Promise<CalendarEvent[]> {
   const today = todayIST();
   const displayYear = start.slice(0, 4);
 
   const [appts, tasks, bills, allDates, meds, trips] = await Promise.all([
     sql`
       SELECT id, title, date::text AS date, time, location FROM appointments
-      WHERE deleted_at IS NULL AND date >= ${start} AND date < ${end}
+      WHERE deleted_at IS NULL AND household_id = ${householdId} AND date >= ${start} AND date < ${end}
     `,
     sql`
       SELECT id, title, due_date::text AS date, is_done FROM household_tasks
-      WHERE deleted_at IS NULL AND due_date >= ${start} AND due_date < ${end}
+      WHERE deleted_at IS NULL AND household_id = ${householdId} AND due_date >= ${start} AND due_date < ${end}
     `,
     sql`
       SELECT id, title, due_date::text AS date, is_paid, amount FROM financial_items
-      WHERE deleted_at IS NULL AND due_date >= ${start} AND due_date < ${end}
+      WHERE deleted_at IS NULL AND household_id = ${householdId} AND due_date >= ${start} AND due_date < ${end}
     `,
-    sql`SELECT id, title, date::text AS date, recurring_yearly FROM important_dates WHERE deleted_at IS NULL`,
+    sql`SELECT id, title, date::text AS date, recurring_yearly FROM important_dates WHERE deleted_at IS NULL AND household_id = ${householdId}`,
     sql`
       SELECT id, name AS title, refill_date::text AS date FROM medicines
-      WHERE deleted_at IS NULL AND active = true AND refill_date >= ${start} AND refill_date < ${end}
+      WHERE deleted_at IS NULL AND household_id = ${householdId} AND active = true AND refill_date >= ${start} AND refill_date < ${end}
     `,
     sql`
       SELECT id, name AS title, destination, start_date::text AS date FROM travel_trips
-      WHERE deleted_at IS NULL AND start_date >= ${start} AND start_date < ${end}
+      WHERE deleted_at IS NULL AND household_id = ${householdId} AND start_date >= ${start} AND start_date < ${end}
     `,
   ]);
 

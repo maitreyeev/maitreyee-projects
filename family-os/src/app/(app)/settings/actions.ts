@@ -1,7 +1,8 @@
 "use server";
 
 import { sql } from "@/lib/db";
-import { hashSecret, verifySecret } from "@/lib/auth";
+import { hashSecret, verifySecret, getSession } from "@/lib/auth";
+import { getCurrentMember } from "@/lib/currentMember";
 import { logActivity } from "@/lib/activity";
 import { revalidatePath } from "next/cache";
 
@@ -13,10 +14,12 @@ export interface MemberInput {
 }
 
 export async function addMember(input: MemberInput) {
+  const me = await getCurrentMember();
+  if (!me) throw new Error("Not signed in.");
   if (!input.name.trim()) throw new Error("Name is required.");
   await sql`
-    INSERT INTO family_members (name, role, emoji, color)
-    VALUES (${input.name.trim()}, ${input.role}, ${input.emoji}, ${input.color})
+    INSERT INTO family_members (household_id, name, role, emoji, color)
+    VALUES (${me.householdId}, ${input.name.trim()}, ${input.role}, ${input.emoji}, ${input.color})
   `;
   await logActivity("added", "family member", input.name.trim());
   revalidatePath("/settings");
@@ -25,17 +28,23 @@ export async function addMember(input: MemberInput) {
 }
 
 export async function updateMember(id: number, input: MemberInput) {
+  const me = await getCurrentMember();
+  if (!me) throw new Error("Not signed in.");
   if (!input.name.trim()) throw new Error("Name is required.");
   await sql`
     UPDATE family_members SET name = ${input.name.trim()}, role = ${input.role}, emoji = ${input.emoji}, color = ${input.color}
-    WHERE id = ${id}
+    WHERE id = ${id} AND household_id = ${me.householdId}
   `;
   revalidatePath("/settings");
   revalidatePath("/");
 }
 
 export async function removeMember(id: number) {
-  const rows = await sql`UPDATE family_members SET deleted_at = now() WHERE id = ${id} RETURNING name`;
+  const me = await getCurrentMember();
+  if (!me) throw new Error("Not signed in.");
+  const rows = await sql`
+    UPDATE family_members SET deleted_at = now() WHERE id = ${id} AND household_id = ${me.householdId} RETURNING name
+  `;
   if (rows[0]) await logActivity("removed", "family member", rows[0].name as string);
   revalidatePath("/settings");
   revalidatePath("/");
@@ -43,7 +52,11 @@ export async function removeMember(id: number) {
 }
 
 export async function restoreMember(id: number) {
-  const rows = await sql`UPDATE family_members SET deleted_at = NULL WHERE id = ${id} RETURNING name`;
+  const me = await getCurrentMember();
+  if (!me) throw new Error("Not signed in.");
+  const rows = await sql`
+    UPDATE family_members SET deleted_at = NULL WHERE id = ${id} AND household_id = ${me.householdId} RETURNING name
+  `;
   if (rows[0]) await logActivity("restored", "family member", rows[0].name as string);
   revalidatePath("/settings");
   revalidatePath("/");
@@ -51,24 +64,33 @@ export async function restoreMember(id: number) {
 }
 
 export async function permanentlyDeleteMember(id: number) {
-  await sql`DELETE FROM family_members WHERE id = ${id}`;
+  const me = await getCurrentMember();
+  if (!me) throw new Error("Not signed in.");
+  await sql`DELETE FROM family_members WHERE id = ${id} AND household_id = ${me.householdId}`;
   revalidatePath("/trash");
 }
 
 export async function changePasscode(currentPin: string, newPasscode: string) {
-  const rows = await sql`SELECT parent_pin_hash FROM household_auth WHERE id = 1`;
+  const session = await getSession();
+  if (!session) throw new Error("Not signed in.");
+  const rows = await sql`SELECT parent_pin_hash FROM household_auth WHERE id = ${session.householdId}`;
   if (rows.length === 0 || !verifySecret(currentPin, rows[0].parent_pin_hash as string)) {
     throw new Error("That parent PIN isn't right.");
   }
   if (newPasscode.length < 4) throw new Error("Passcode must be at least 4 characters.");
-  await sql`UPDATE household_auth SET passcode_hash = ${hashSecret(newPasscode)} WHERE id = 1`;
+  const others = await sql`SELECT passcode_hash FROM household_auth WHERE id != ${session.householdId}`;
+  const collision = (others as { passcode_hash: string }[]).some((h) => verifySecret(newPasscode, h.passcode_hash));
+  if (collision) throw new Error("That passcode is already used by another household on this app.");
+  await sql`UPDATE household_auth SET passcode_hash = ${hashSecret(newPasscode)} WHERE id = ${session.householdId}`;
 }
 
 export async function changePin(currentPin: string, newPin: string) {
-  const rows = await sql`SELECT parent_pin_hash FROM household_auth WHERE id = 1`;
+  const session = await getSession();
+  if (!session) throw new Error("Not signed in.");
+  const rows = await sql`SELECT parent_pin_hash FROM household_auth WHERE id = ${session.householdId}`;
   if (rows.length === 0 || !verifySecret(currentPin, rows[0].parent_pin_hash as string)) {
     throw new Error("That parent PIN isn't right.");
   }
   if (!/^\d{4,8}$/.test(newPin)) throw new Error("PIN must be 4-8 digits.");
-  await sql`UPDATE household_auth SET parent_pin_hash = ${hashSecret(newPin)} WHERE id = 1`;
+  await sql`UPDATE household_auth SET parent_pin_hash = ${hashSecret(newPin)} WHERE id = ${session.householdId}`;
 }

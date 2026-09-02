@@ -1,19 +1,23 @@
 import { sql } from "@/lib/db";
+import { redirect } from "next/navigation";
 import { CalendarDays } from "lucide-react";
 import Card from "@/components/Card";
+import { getCurrentMember } from "@/lib/currentMember";
 import AppointmentForm from "./AppointmentForm";
 import AppointmentRow from "./AppointmentRow";
 
 export default async function AppointmentsPage() {
+  const me = await getCurrentMember();
+  if (!me) redirect("/login");
   const [appointments, members] = await Promise.all([
     sql`
       SELECT a.id, a.title, a.date, a.time, a.location, a.notes, fm.name AS member_name, fm.emoji
       FROM appointments a
       LEFT JOIN family_members fm ON fm.id = a.family_member_id
-      WHERE a.deleted_at IS NULL
+      WHERE a.deleted_at IS NULL AND a.household_id = ${me.householdId}
       ORDER BY a.date ASC, a.time ASC NULLS LAST
     `,
-    sql`SELECT id, name, emoji FROM family_members WHERE deleted_at IS NULL ORDER BY id ASC`,
+    sql`SELECT id, name, emoji FROM family_members WHERE deleted_at IS NULL AND household_id = ${me.householdId} ORDER BY id ASC`,
   ]);
 
   return (

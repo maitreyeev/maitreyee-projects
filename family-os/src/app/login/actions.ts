@@ -13,18 +13,23 @@ export interface MemberOption {
 }
 
 export async function verifyPasscode(passcode: string): Promise<MemberOption[]> {
-  const rows = await sql`SELECT passcode_hash FROM household_auth WHERE id = 1`;
-  if (rows.length === 0) throw new Error("Household not set up yet.");
-  if (!verifySecret(passcode, rows[0].passcode_hash as string)) {
+  const households = await sql`SELECT id, passcode_hash FROM household_auth`;
+  const match = (households as { id: number; passcode_hash: string }[]).find((h) =>
+    verifySecret(passcode, h.passcode_hash)
+  );
+  if (!match) {
     throw new Error("That passcode isn't right.");
   }
   const members = await sql`
-    SELECT id, name, role, emoji, color FROM family_members WHERE deleted_at IS NULL ORDER BY id ASC
+    SELECT id, name, role, emoji, color FROM family_members
+    WHERE household_id = ${match.id} AND deleted_at IS NULL ORDER BY id ASC
   `;
   return members as MemberOption[];
 }
 
 export async function selectProfile(memberId: number) {
-  await createSession(memberId);
+  const rows = await sql`SELECT household_id FROM family_members WHERE id = ${memberId} AND deleted_at IS NULL`;
+  if (rows.length === 0) throw new Error("Profile not found.");
+  await createSession(memberId, rows[0].household_id as number);
   redirect("/");
 }

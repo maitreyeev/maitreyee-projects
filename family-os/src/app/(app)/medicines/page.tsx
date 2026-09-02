@@ -1,19 +1,23 @@
 import { sql } from "@/lib/db";
+import { redirect } from "next/navigation";
 import { Pill } from "lucide-react";
 import Card from "@/components/Card";
+import { getCurrentMember } from "@/lib/currentMember";
 import MedicineForm from "./MedicineForm";
 import MedicineRow from "./MedicineRow";
 
 export default async function MedicinesPage() {
+  const me = await getCurrentMember();
+  if (!me) redirect("/login");
   const [medicines, members] = await Promise.all([
     sql`
       SELECT m.id, m.name, m.dosage, m.schedule, m.refill_date, m.notes, m.active, fm.name AS member_name, fm.emoji
       FROM medicines m
       LEFT JOIN family_members fm ON fm.id = m.family_member_id
-      WHERE m.deleted_at IS NULL
+      WHERE m.deleted_at IS NULL AND m.household_id = ${me.householdId}
       ORDER BY m.active DESC, m.refill_date ASC NULLS LAST
     `,
-    sql`SELECT id, name, emoji FROM family_members WHERE deleted_at IS NULL ORDER BY id ASC`,
+    sql`SELECT id, name, emoji FROM family_members WHERE deleted_at IS NULL AND household_id = ${me.householdId} ORDER BY id ASC`,
   ]);
 
   return (

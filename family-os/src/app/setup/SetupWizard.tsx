@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import { ArrowRight, ArrowLeft, Home, Lock, KeyRound, Users, Plus, X, Check } from "lucide-react";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
@@ -98,7 +98,7 @@ export default function SetupWizard() {
           </div>
         )}
 
-        <AnimatePresence mode="wait" initial={false}>
+        <>
           {step === "welcome" && (
             <Step key="welcome">
               <div className="flex flex-col items-center text-center gap-6 py-10">
@@ -108,13 +108,16 @@ export default function SetupWizard() {
                 <div>
                   <h1 className="text-3xl font-extrabold tracking-tight">Family OS</h1>
                   <p className="text-muted mt-3 leading-relaxed">
-                    One place for your whole household — appointments, documents, bills, medicines,
-                    and more. Let&apos;s set up your family.
+                    One free, private place for your whole household — appointments, documents,
+                    bills, medicines, and more. Takes about two minutes to set up.
                   </p>
                 </div>
                 <Button size="lg" className="w-full mt-2" onClick={next}>
                   Get started <ArrowRight size={18} />
                 </Button>
+                <Link href="/login" className="text-sm text-muted hover:text-foreground flex items-center gap-1.5">
+                  <KeyRound size={13} /> Already have a household? Log in
+                </Link>
               </div>
             </Step>
           )}
@@ -320,23 +323,14 @@ export default function SetupWizard() {
               </Button>
             </Step>
           )}
-        </AnimatePresence>
+        </>
       </div>
     </div>
   );
 }
 
 function Step({ children }: { children: React.ReactNode }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.2, ease: "easeOut" }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div>{children}</div>;
 }
 
 function Heading({ eyebrow, title, subtitle }: { eyebrow: string; title: string; subtitle?: string }) {

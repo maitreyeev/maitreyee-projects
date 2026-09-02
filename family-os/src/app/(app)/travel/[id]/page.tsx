@@ -1,18 +1,21 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { sql } from "@/lib/db";
 import { Plane, MapPin } from "lucide-react";
 import Card from "@/components/Card";
+import { getCurrentMember } from "@/lib/currentMember";
 import ExpenseForm from "./ExpenseForm";
 import ExpenseRow from "./ExpenseRow";
 import DeleteTripButton from "./DeleteTripButton";
 
 export default async function TripDetailPage({ params }: PageProps<"/travel/[id]">) {
+  const me = await getCurrentMember();
+  if (!me) redirect("/login");
   const { id } = await params;
   const tripId = Number(id);
 
   const [trips, expenses] = await Promise.all([
-    sql`SELECT id, name, destination, start_date, end_date FROM travel_trips WHERE id = ${tripId} AND deleted_at IS NULL`,
-    sql`SELECT id, category, amount, date, notes FROM travel_expenses WHERE trip_id = ${tripId} ORDER BY date ASC NULLS LAST, id ASC`,
+    sql`SELECT id, name, destination, start_date, end_date FROM travel_trips WHERE id = ${tripId} AND household_id = ${me.householdId} AND deleted_at IS NULL`,
+    sql`SELECT id, category, amount, date, notes FROM travel_expenses WHERE trip_id = ${tripId} AND household_id = ${me.householdId} ORDER BY date ASC NULLS LAST, id ASC`,
   ]);
 
   const trip = trips[0] as { id: number; name: string; destination: string | null; start_date: string | null; end_date: string | null } | undefined;

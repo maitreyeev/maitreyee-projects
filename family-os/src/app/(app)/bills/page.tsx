@@ -1,14 +1,18 @@
 import { sql } from "@/lib/db";
+import { redirect } from "next/navigation";
 import { Wallet } from "lucide-react";
 import Card from "@/components/Card";
+import { getCurrentMember } from "@/lib/currentMember";
 import FinancialForm from "./FinancialForm";
 import FinancialList from "./FinancialList";
 
 export default async function BillsPage() {
+  const me = await getCurrentMember();
+  if (!me) redirect("/login");
   const items = await sql`
     SELECT id, type, title, provider, amount, due_date, recurring, is_paid
     FROM financial_items
-    WHERE deleted_at IS NULL
+    WHERE deleted_at IS NULL AND household_id = ${me.householdId}
     ORDER BY is_paid ASC, due_date ASC NULLS LAST
   `;
 

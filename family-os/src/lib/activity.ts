@@ -3,9 +3,10 @@ import { getCurrentMember } from "./currentMember";
 
 export async function logActivity(action: string, entityType: string, entityTitle: string) {
   const me = await getCurrentMember();
+  if (!me) return; // no valid session — nothing to attribute the entry to, skip logging
   await sql`
-    INSERT INTO activity_log (actor_id, actor_name, actor_emoji, action, entity_type, entity_title)
-    VALUES (${me?.id ?? null}, ${me?.name ?? null}, ${me?.emoji ?? null}, ${action}, ${entityType}, ${entityTitle})
+    INSERT INTO activity_log (household_id, actor_id, actor_name, actor_emoji, action, entity_type, entity_title)
+    VALUES (${me.householdId}, ${me.id}, ${me.name}, ${me.emoji}, ${action}, ${entityType}, ${entityTitle})
   `;
 }
 

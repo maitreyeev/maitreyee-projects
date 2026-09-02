@@ -36,15 +36,17 @@ function sign(payload: string): string {
 
 interface SessionPayload {
   familyMemberId: number;
+  householdId: number;
   exp: number; // epoch ms
 }
 
 const COOKIE_NAME = "family_os_session";
 const SESSION_DAYS = 180;
 
-export async function createSession(familyMemberId: number) {
+export async function createSession(familyMemberId: number, householdId: number) {
   const payload: SessionPayload = {
     familyMemberId,
+    householdId,
     exp: Date.now() + SESSION_DAYS * 24 * 60 * 60 * 1000,
   };
   const encoded = Buffer.from(JSON.stringify(payload)).toString("base64url");
@@ -71,7 +73,8 @@ export function readSessionToken(token: string | undefined): SessionPayload | nu
   if (sig !== sign(encoded)) return null;
   try {
     const payload = JSON.parse(Buffer.from(encoded, "base64url").toString()) as SessionPayload;
-    if (typeof payload.familyMemberId !== "number" || payload.exp < Date.now()) return null;
+    if (typeof payload.familyMemberId !== "number" || typeof payload.householdId !== "number" || payload.exp < Date.now())
+      return null;
     return payload;
   } catch {
     return null;

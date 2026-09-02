@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import {
   CalendarDays,
   FileText,
@@ -56,6 +57,7 @@ export default async function Dashboard({
   searchParams: Promise<{ month?: string; view?: string; week?: string }>;
 }) {
   const member = await getCurrentMember();
+  if (!member) redirect("/login");
   const sp = await searchParams;
   const today = todayIST();
   const view = sp.view === "week" ? "week" : "month";
@@ -67,12 +69,12 @@ export default async function Dashboard({
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-2xl font-extrabold tracking-tight">
-          Hi {member?.emoji} {member?.name}!
+          Hi {member.emoji} {member.name}!
         </h1>
         <p className="text-muted mt-1">Here&apos;s what&apos;s going on at home.</p>
       </div>
 
-      <StatsRow />
+      <StatsRow householdId={member.householdId} />
 
       <div className="flex rounded-full bg-surface-muted p-1 w-fit">
         <Link
@@ -93,7 +95,11 @@ export default async function Dashboard({
         </Link>
       </div>
 
-      {view === "week" ? <WeekView sp={sp} today={today} /> : <MonthView sp={sp} today={today} />}
+      {view === "week" ? (
+        <WeekView sp={sp} today={today} householdId={member.householdId} />
+      ) : (
+        <MonthView sp={sp} today={today} householdId={member.householdId} />
+      )}
 
       <div className="grid grid-cols-2 gap-3">
         {NAV_CARDS.map((c) => (
@@ -109,7 +115,7 @@ export default async function Dashboard({
   );
 }
 
-async function WeekView({ sp, today }: { sp: { week?: string }; today: string }) {
+async function WeekView({ sp, today, householdId }: { sp: { week?: string }; today: string; householdId: number }) {
   const anchor = sp.week && /^\d{4}-\d{2}-\d{2}$/.test(sp.week) ? sp.week : today;
   const weekStartDate = weekStartOf(anchor);
   const weekStart = toISO(weekStartDate);
@@ -133,7 +139,7 @@ async function WeekView({ sp, today }: { sp: { week?: string }; today: string })
   const nextHref = `/?view=week&week=${toISO(addDays(weekStart, 7))}`;
   const todayHref = `/?view=week&week=${today}`;
 
-  const events = await getEventsInRange(weekStart, weekEnd);
+  const events = await getEventsInRange(householdId, weekStart, weekEnd);
 
   return (
     <WeekCalendarView
@@ -148,7 +154,15 @@ async function WeekView({ sp, today }: { sp: { week?: string }; today: string })
   );
 }
 
-async function MonthView({ sp, today }: { sp: { month?: string }; today: string }) {
+async function MonthView({
+  sp,
+  today,
+  householdId,
+}: {
+  sp: { month?: string };
+  today: string;
+  householdId: number;
+}) {
   const [defYear, defMonth] = today.split("-").map(Number);
   let year = defYear;
   let month = defMonth;
@@ -173,9 +187,9 @@ async function MonthView({ sp, today }: { sp: { month?: string }; today: string 
   });
 
   const [events, billsByType, activity] = await Promise.all([
-    getEventsInRange(start, end),
-    sql`SELECT type, COALESCE(SUM(amount), 0)::float AS total FROM financial_items WHERE deleted_at IS NULL AND is_paid = false GROUP BY type`,
-    sql`SELECT id, actor_name, actor_emoji, action, entity_type, entity_title, created_at FROM activity_log ORDER BY created_at DESC LIMIT 8`,
+    getEventsInRange(householdId, start, end),
+    sql`SELECT type, COALESCE(SUM(amount), 0)::float AS total FROM financial_items WHERE deleted_at IS NULL AND household_id = ${householdId} GROUP BY type`,
+    sql`SELECT id, actor_name, actor_emoji, action, entity_type, entity_title, created_at FROM activity_log WHERE household_id = ${householdId} ORDER BY created_at DESC LIMIT 8`,
   ]);
 
   return (
@@ -196,11 +210,11 @@ async function MonthView({ sp, today }: { sp: { month?: string }; today: string 
   );
 }
 
-async function StatsRow() {
+async function StatsRow({ householdId }: { householdId: number }) {
   const [upcomingAppts, dueBills, pendingTasks] = await Promise.all([
-    sql`SELECT COUNT(*)::int AS n FROM appointments WHERE deleted_at IS NULL AND date >= CURRENT_DATE AND date <= CURRENT_DATE + INTERVAL '7 days'`,
-    sql`SELECT COUNT(*)::int AS n FROM financial_items WHERE deleted_at IS NULL AND is_paid = false AND due_date IS NOT NULL AND due_date <= CURRENT_DATE + INTERVAL '30 days'`,
-    sql`SELECT COUNT(*)::int AS n FROM household_tasks WHERE deleted_at IS NULL AND is_done = false`,
+    sql`SELECT COUNT(*)::int AS n FROM appointments WHERE deleted_at IS NULL AND household_id = ${householdId} AND date >= CURRENT_DATE AND date <= CURRENT_DATE + INTERVAL '7 days'`,
+    sql`SELECT COUNT(*)::int AS n FROM financial_items WHERE deleted_at IS NULL AND household_id = ${householdId} AND is_paid = false AND due_date IS NOT NULL AND due_date <= CURRENT_DATE + INTERVAL '30 days'`,
+    sql`SELECT COUNT(*)::int AS n FROM household_tasks WHERE deleted_at IS NULL AND household_id = ${householdId} AND is_done = false`,
   ]);
   return (
     <div className="grid grid-cols-3 gap-3">

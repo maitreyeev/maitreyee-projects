@@ -1,6 +1,8 @@
 import { sql } from "@/lib/db";
+import { redirect } from "next/navigation";
 import { PartyPopper } from "lucide-react";
 import Card from "@/components/Card";
+import { getCurrentMember } from "@/lib/currentMember";
 import DateForm from "./DateForm";
 import DateRow from "./DateRow";
 
@@ -14,7 +16,12 @@ function nextOccurrence(dateStr: string, recurringYearly: boolean): Date {
 }
 
 export default async function DatesPage() {
-  const dates = await sql`SELECT id, title, date, recurring_yearly, notes FROM important_dates WHERE deleted_at IS NULL ORDER BY date ASC`;
+  const me = await getCurrentMember();
+  if (!me) redirect("/login");
+  const dates = await sql`
+    SELECT id, title, date, recurring_yearly, notes FROM important_dates
+    WHERE deleted_at IS NULL AND household_id = ${me.householdId} ORDER BY date ASC
+  `;
 
   const withNext = (dates as { id: number; title: string; date: string; recurring_yearly: boolean; notes: string | null }[])
     .map((d) => ({ ...d, next: nextOccurrence(d.date, d.recurring_yearly) }))

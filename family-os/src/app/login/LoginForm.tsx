@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Home, ArrowRight, KeyRound } from "lucide-react";
+import Link from "next/link";
+import { Home, ArrowRight, KeyRound, Sparkles } from "lucide-react";
 import Button from "@/components/Button";
 import { Input } from "@/components/Input";
 import { verifyPasscode, selectProfile, type MemberOption } from "./actions";
@@ -59,6 +60,12 @@ export default function LoginPage() {
                 {loading ? "Checking…" : <>Continue <ArrowRight size={18} /></>}
               </Button>
             </div>
+            <Link
+              href="/setup"
+              className="text-sm text-muted hover:text-foreground cursor-pointer flex items-center gap-1.5"
+            >
+              <Sparkles size={13} /> New here? Set up your own household — it&apos;s free
+            </Link>
           </div>
         )}
 

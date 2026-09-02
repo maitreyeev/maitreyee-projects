@@ -1,16 +1,20 @@
 import Link from "next/link";
 import { sql } from "@/lib/db";
+import { redirect } from "next/navigation";
 import { Plane, MapPin } from "lucide-react";
 import Card from "@/components/Card";
+import { getCurrentMember } from "@/lib/currentMember";
 import TripForm from "./TripForm";
 
 export default async function TravelPage() {
+  const me = await getCurrentMember();
+  if (!me) redirect("/login");
   const trips = await sql`
     SELECT t.id, t.name, t.destination, t.start_date, t.end_date,
       COALESCE(SUM(e.amount), 0)::float AS total_spent
     FROM travel_trips t
     LEFT JOIN travel_expenses e ON e.trip_id = t.id
-    WHERE t.deleted_at IS NULL
+    WHERE t.deleted_at IS NULL AND t.household_id = ${me.householdId}
     GROUP BY t.id
     ORDER BY t.start_date DESC NULLS LAST, t.id DESC
   `;

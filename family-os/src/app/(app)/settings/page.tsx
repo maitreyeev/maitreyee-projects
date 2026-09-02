@@ -1,13 +1,18 @@
 import Link from "next/link";
 import { sql } from "@/lib/db";
+import { redirect } from "next/navigation";
 import { Settings, Users, Trash2, ChevronRight } from "lucide-react";
+import { getCurrentMember } from "@/lib/currentMember";
 import MembersManager from "./MembersManager";
 import SecurityForms from "./SecurityForms";
 import TextSizeToggle from "./TextSizeToggle";
 
 export default async function SettingsPage() {
+  const me = await getCurrentMember();
+  if (!me) redirect("/login");
   const members = await sql`
-    SELECT id, name, role, emoji, color FROM family_members WHERE deleted_at IS NULL ORDER BY id ASC
+    SELECT id, name, role, emoji, color FROM family_members
+    WHERE deleted_at IS NULL AND household_id = ${me.householdId} ORDER BY id ASC
   `;
 
   return (

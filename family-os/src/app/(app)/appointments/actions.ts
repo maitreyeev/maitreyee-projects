@@ -14,10 +14,11 @@ export async function addAppointment(input: {
   familyMemberId: number | null;
 }) {
   const me = await getCurrentMember();
+  if (!me) throw new Error("Not signed in.");
   if (!input.title.trim() || !input.date) throw new Error("Title and date are required.");
   await sql`
-    INSERT INTO appointments (title, date, time, location, notes, family_member_id, created_by)
-    VALUES (${input.title.trim()}, ${input.date}, ${input.time || null}, ${input.location || null}, ${input.notes || null}, ${input.familyMemberId}, ${me?.id ?? null})
+    INSERT INTO appointments (household_id, title, date, time, location, notes, family_member_id, created_by)
+    VALUES (${me.householdId}, ${input.title.trim()}, ${input.date}, ${input.time || null}, ${input.location || null}, ${input.notes || null}, ${input.familyMemberId}, ${me.id})
   `;
   await logActivity("added", "appointment", input.title.trim());
   revalidatePath("/appointments");
@@ -25,7 +26,11 @@ export async function addAppointment(input: {
 }
 
 export async function deleteAppointment(id: number) {
-  const rows = await sql`UPDATE appointments SET deleted_at = now() WHERE id = ${id} RETURNING title`;
+  const me = await getCurrentMember();
+  if (!me) throw new Error("Not signed in.");
+  const rows = await sql`
+    UPDATE appointments SET deleted_at = now() WHERE id = ${id} AND household_id = ${me.householdId} RETURNING title
+  `;
   if (rows[0]) await logActivity("deleted", "appointment", rows[0].title as string);
   revalidatePath("/appointments");
   revalidatePath("/");
@@ -33,7 +38,11 @@ export async function deleteAppointment(id: number) {
 }
 
 export async function restoreAppointment(id: number) {
-  const rows = await sql`UPDATE appointments SET deleted_at = NULL WHERE id = ${id} RETURNING title`;
+  const me = await getCurrentMember();
+  if (!me) throw new Error("Not signed in.");
+  const rows = await sql`
+    UPDATE appointments SET deleted_at = NULL WHERE id = ${id} AND household_id = ${me.householdId} RETURNING title
+  `;
   if (rows[0]) await logActivity("restored", "appointment", rows[0].title as string);
   revalidatePath("/appointments");
   revalidatePath("/");
@@ -41,6 +50,8 @@ export async function restoreAppointment(id: number) {
 }
 
 export async function permanentlyDeleteAppointment(id: number) {
-  await sql`DELETE FROM appointments WHERE id = ${id}`;
+  const me = await getCurrentMember();
+  if (!me) throw new Error("Not signed in.");
+  await sql`DELETE FROM appointments WHERE id = ${id} AND household_id = ${me.householdId}`;
   revalidatePath("/trash");
 }

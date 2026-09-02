@@ -8,7 +8,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const member = await getCurrentMember();
   if (!member) redirect("/login");
 
-  const rows = await sql`SELECT household_name FROM household_auth WHERE id = 1`;
+  const rows = await sql`SELECT household_name FROM household_auth WHERE id = ${member.householdId}`;
   const householdName = (rows[0]?.household_name as string) ?? "Family OS";
 
   return (

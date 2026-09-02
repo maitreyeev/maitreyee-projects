@@ -1,11 +1,18 @@
 import { sql } from "@/lib/db";
+import { redirect } from "next/navigation";
 import { Phone } from "lucide-react";
 import Card from "@/components/Card";
+import { getCurrentMember } from "@/lib/currentMember";
 import ContactForm from "./ContactForm";
 import ContactRow from "./ContactRow";
 
 export default async function ContactsPage() {
-  const contacts = await sql`SELECT id, name, relation, phone, notes FROM emergency_contacts WHERE deleted_at IS NULL ORDER BY id ASC`;
+  const me = await getCurrentMember();
+  if (!me) redirect("/login");
+  const contacts = await sql`
+    SELECT id, name, relation, phone, notes FROM emergency_contacts
+    WHERE deleted_at IS NULL AND household_id = ${me.householdId} ORDER BY id ASC
+  `;
 
   return (
     <div className="flex flex-col gap-6">

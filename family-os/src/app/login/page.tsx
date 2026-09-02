@@ -5,7 +5,7 @@ import LoginForm from "./LoginForm";
 export const dynamic = "force-dynamic";
 
 export default async function LoginPage() {
-  const existing = await sql`SELECT id FROM household_auth WHERE id = 1`;
+  const existing = await sql`SELECT id FROM household_auth LIMIT 1`;
   if (existing.length === 0) {
     redirect("/setup");
   }

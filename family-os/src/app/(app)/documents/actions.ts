@@ -8,6 +8,7 @@ import { revalidatePath } from "next/cache";
 
 export async function addDocument(formData: FormData) {
   const me = await getCurrentMember();
+  if (!me) throw new Error("Not signed in.");
   const title = String(formData.get("title") || "").trim();
   const category = String(formData.get("category") || "general");
   const expiryDate = String(formData.get("expiryDate") || "") || null;
@@ -26,30 +27,40 @@ export async function addDocument(formData: FormData) {
   }
 
   await sql`
-    INSERT INTO documents (title, category, file_path, file_name, expiry_date, family_member_id, created_by)
-    VALUES (${title}, ${category}, ${filePath}, ${fileName}, ${expiryDate}, ${familyMemberId}, ${me?.id ?? null})
+    INSERT INTO documents (household_id, title, category, file_path, file_name, expiry_date, family_member_id, created_by)
+    VALUES (${me.householdId}, ${title}, ${category}, ${filePath}, ${fileName}, ${expiryDate}, ${familyMemberId}, ${me.id})
   `;
   await logActivity("added", "document", title);
   revalidatePath("/documents");
 }
 
 export async function deleteDocument(id: number) {
-  const rows = await sql`UPDATE documents SET deleted_at = now() WHERE id = ${id} RETURNING title`;
+  const me = await getCurrentMember();
+  if (!me) throw new Error("Not signed in.");
+  const rows = await sql`
+    UPDATE documents SET deleted_at = now() WHERE id = ${id} AND household_id = ${me.householdId} RETURNING title
+  `;
   if (rows[0]) await logActivity("deleted", "document", rows[0].title as string);
   revalidatePath("/documents");
   revalidatePath("/trash");
 }
 
 export async function restoreDocument(id: number) {
-  const rows = await sql`UPDATE documents SET deleted_at = NULL WHERE id = ${id} RETURNING title`;
+  const me = await getCurrentMember();
+  if (!me) throw new Error("Not signed in.");
+  const rows = await sql`
+    UPDATE documents SET deleted_at = NULL WHERE id = ${id} AND household_id = ${me.householdId} RETURNING title
+  `;
   if (rows[0]) await logActivity("restored", "document", rows[0].title as string);
   revalidatePath("/documents");
   revalidatePath("/trash");
 }
 
 export async function permanentlyDeleteDocument(id: number) {
-  const rows = await sql`SELECT file_path FROM documents WHERE id = ${id}`;
+  const me = await getCurrentMember();
+  if (!me) throw new Error("Not signed in.");
+  const rows = await sql`SELECT file_path FROM documents WHERE id = ${id} AND household_id = ${me.householdId}`;
   if (rows[0]?.file_path) await deleteFile(rows[0].file_path as string);
-  await sql`DELETE FROM documents WHERE id = ${id}`;
+  await sql`DELETE FROM documents WHERE id = ${id} AND household_id = ${me.householdId}`;
   revalidatePath("/trash");
 }

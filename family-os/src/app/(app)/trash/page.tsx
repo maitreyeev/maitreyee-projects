@@ -1,18 +1,24 @@
+import { redirect } from "next/navigation";
 import { sql } from "@/lib/db";
 import { Trash2 } from "lucide-react";
+import { getCurrentMember } from "@/lib/currentMember";
 import TrashList, { type TrashItem, type TrashType } from "./TrashList";
 
 export default async function TrashPage() {
+  const me = await getCurrentMember();
+  if (!me) redirect("/login");
+  const h = me.householdId;
+
   const [appointments, documents, medicines, bills, contacts, dates, tasks, trips, members] = await Promise.all([
-    sql`SELECT id, title, deleted_at FROM appointments WHERE deleted_at IS NOT NULL`,
-    sql`SELECT id, title, deleted_at FROM documents WHERE deleted_at IS NOT NULL`,
-    sql`SELECT id, name AS title, deleted_at FROM medicines WHERE deleted_at IS NOT NULL`,
-    sql`SELECT id, title, deleted_at FROM financial_items WHERE deleted_at IS NOT NULL`,
-    sql`SELECT id, name AS title, deleted_at FROM emergency_contacts WHERE deleted_at IS NOT NULL`,
-    sql`SELECT id, title, deleted_at FROM important_dates WHERE deleted_at IS NOT NULL`,
-    sql`SELECT id, title, deleted_at FROM household_tasks WHERE deleted_at IS NOT NULL`,
-    sql`SELECT id, name AS title, deleted_at FROM travel_trips WHERE deleted_at IS NOT NULL`,
-    sql`SELECT id, name AS title, deleted_at FROM family_members WHERE deleted_at IS NOT NULL`,
+    sql`SELECT id, title, deleted_at FROM appointments WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
+    sql`SELECT id, title, deleted_at FROM documents WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
+    sql`SELECT id, name AS title, deleted_at FROM medicines WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
+    sql`SELECT id, title, deleted_at FROM financial_items WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
+    sql`SELECT id, name AS title, deleted_at FROM emergency_contacts WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
+    sql`SELECT id, title, deleted_at FROM important_dates WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
+    sql`SELECT id, title, deleted_at FROM household_tasks WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
+    sql`SELECT id, name AS title, deleted_at FROM travel_trips WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
+    sql`SELECT id, name AS title, deleted_at FROM family_members WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
   ]);
 
   const sections: { type: TrashType; rows: { id: number; title: string; deleted_at: string }[] }[] = [
