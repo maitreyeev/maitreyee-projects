@@ -8,6 +8,7 @@ export interface CalendarEvent {
   id: number;
   type: EventType;
   date: string; // YYYY-MM-DD
+  time: string | null; // HH:MM, 24h — only set for appointments with a time
   title: string;
   sub: string | null;
   done: boolean;
