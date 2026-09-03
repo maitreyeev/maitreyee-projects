@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowLeft, Lock, KeyRound, Users, Plus, X, Check } from "lucide-react";
+import { ArrowRight, ArrowLeft, Lock, KeyRound, Users, Plus, X } from "lucide-react";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import { Input, Label, Select } from "@/components/Input";
@@ -33,7 +33,7 @@ export default function SetupWizard() {
   const [draftName, setDraftName] = useState("");
   const [draftRole, setDraftRole] = useState<SetupMember["role"]>("parent");
   const [draftEmoji, setDraftEmoji] = useState(EMOJIS[0]);
-  const [draftColor, setDraftColor] = useState(COLORS[0].hex);
+  const draftColor = COLORS[0].hex;
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
@@ -67,7 +67,6 @@ export default function SetupWizard() {
     setDraftName("");
     setDraftRole("parent");
     setDraftEmoji(EMOJIS[0]);
-    setDraftColor(COLORS[0].hex);
   }
 
   async function finish() {
@@ -264,19 +263,6 @@ export default function SetupWizard() {
                       </button>
                     ))}
                   </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  {COLORS.map((c) => (
-                    <button
-                      key={c.hex}
-                      onClick={() => setDraftColor(c.hex)}
-                      aria-label={c.name}
-                      className="h-8 w-8 rounded-full cursor-pointer transition-transform flex items-center justify-center"
-                      style={{ background: c.hex, transform: draftColor === c.hex ? "scale(1.15)" : "scale(1)" }}
-                    >
-                      {draftColor === c.hex && <Check size={14} className="text-white" />}
-                    </button>
-                  ))}
                 </div>
                 <Button variant="secondary" onClick={addMember} disabled={!draftName.trim()}>
                   <Plus size={16} /> Add to family

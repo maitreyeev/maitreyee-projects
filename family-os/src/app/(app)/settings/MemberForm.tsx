@@ -21,7 +21,7 @@ export default function MemberForm({
   const [name, setName] = useState(existing?.name ?? "");
   const [role, setRole] = useState<MemberInput["role"]>(existing?.role ?? "parent");
   const [emoji, setEmoji] = useState(existing?.emoji ?? EMOJIS[0]);
-  const [color, setColor] = useState(existing?.color ?? COLORS[0].hex);
+  const color = existing?.color ?? COLORS[0].hex;
   const [error, setError] = useState("");
   const [pending, startTransition] = useTransition();
 
@@ -37,7 +37,6 @@ export default function MemberForm({
           setName("");
           setRole("parent");
           setEmoji(EMOJIS[0]);
-          setColor(COLORS[0].hex);
         }
         onDone?.();
       } catch (err) {
@@ -61,7 +60,7 @@ export default function MemberForm({
           <option value="other">Other</option>
         </Select>
       </div>
-      <EmojiColorPicker emoji={emoji} color={color} onEmojiChange={setEmoji} onColorChange={setColor} />
+      <EmojiColorPicker emoji={emoji} onEmojiChange={setEmoji} />
       {error && <p className="text-sm text-danger">{error}</p>}
       <div className="flex gap-2">
         {onDone && (
