@@ -6,6 +6,7 @@ import { ArrowRight, KeyRound, Sparkles } from "lucide-react";
 import Button from "@/components/Button";
 import { Input } from "@/components/Input";
 import IndianHomeIcon from "@/components/IndianHomeIcon";
+import Avatar from "@/components/Avatar";
 import { verifyPasscode, selectProfile, type MemberOption } from "./actions";
 
 export default function LoginPage() {
@@ -84,12 +85,7 @@ export default function LoginPage() {
                   disabled={loading}
                   className="flex flex-col items-center gap-2 p-4 rounded-3xl bg-surface card-shadow hover:scale-105 active:scale-95 transition-transform cursor-pointer disabled:opacity-50"
                 >
-                  <div
-                    className="h-14 w-14 rounded-full flex items-center justify-center text-2xl"
-                    style={{ background: `${m.color}22` }}
-                  >
-                    {m.emoji}
-                  </div>
+                  <Avatar emoji={m.emoji} color={m.color} size={56} />
                   <span className="text-sm font-bold truncate w-full">{m.name}</span>
                 </button>
               ))}

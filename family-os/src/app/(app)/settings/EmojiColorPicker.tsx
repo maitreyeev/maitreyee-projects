@@ -1,6 +1,7 @@
 "use client";
 
 import { Check } from "lucide-react";
+import Avatar from "@/components/Avatar";
 
 export const EMOJIS = ["👨🏽", "👩🏽", "👴🏽", "👵🏽", "👦🏽", "👧🏽", "🧑🏽", "👶🏽"];
 export const COLORS = [
@@ -31,11 +32,11 @@ export default function EmojiColorPicker({
             key={e}
             type="button"
             onClick={() => onEmojiChange(e)}
-            className={`h-9 w-9 rounded-xl flex items-center justify-center cursor-pointer transition-all ${
+            className={`p-1 rounded-xl flex items-center justify-center cursor-pointer transition-all ${
               emoji === e ? "bg-accent-soft ring-2 ring-accent" : "hover:bg-surface-muted"
             }`}
           >
-            {e}
+            <Avatar emoji={e} color={color} size={36} />
           </button>
         ))}
       </div>

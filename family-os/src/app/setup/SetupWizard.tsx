@@ -7,6 +7,7 @@ import Button from "@/components/Button";
 import Card from "@/components/Card";
 import { Input, Label, Select } from "@/components/Input";
 import IndianHomeIcon from "@/components/IndianHomeIcon";
+import Avatar from "@/components/Avatar";
 import { completeSetup, type SetupMember } from "./actions";
 
 type Step = "welcome" | "name" | "passcode" | "pin" | "members" | "review";
@@ -225,12 +226,7 @@ export default function SetupWizard() {
                       key={i}
                       className="flex items-center gap-2 pl-2 pr-1 py-1 rounded-full bg-surface-muted border border-border text-sm"
                     >
-                      <span
-                        className="h-6 w-6 rounded-full flex items-center justify-center text-xs"
-                        style={{ background: `${m.color}22` }}
-                      >
-                        {m.emoji}
-                      </span>
+                      <Avatar emoji={m.emoji} color={m.color} size={24} />
                       {m.name}
                       <button
                         onClick={() => setMembers((ms) => ms.filter((_, j) => j !== i))}
@@ -262,11 +258,11 @@ export default function SetupWizard() {
                       <button
                         key={e}
                         onClick={() => setDraftEmoji(e)}
-                        className={`h-9 w-9 rounded-xl flex items-center justify-center cursor-pointer transition-all ${
+                        className={`p-1 rounded-xl flex items-center justify-center cursor-pointer transition-all ${
                           draftEmoji === e ? "bg-accent-soft ring-2 ring-accent" : "hover:bg-surface-muted"
                         }`}
                       >
-                        {e}
+                        <Avatar emoji={e} color={draftColor} size={36} />
                       </button>
                     ))}
                   </div>
@@ -306,9 +302,9 @@ export default function SetupWizard() {
                   value={
                     <div className="flex flex-wrap gap-2 justify-end">
                       {members.map((m, i) => (
-                        <span key={i} className="text-lg" title={m.name}>
-                          {m.emoji}
-                        </span>
+                        <div key={i} title={m.name}>
+                          <Avatar emoji={m.emoji} color={m.color} size={28} />
+                        </div>
                       ))}
                     </div>
                   }

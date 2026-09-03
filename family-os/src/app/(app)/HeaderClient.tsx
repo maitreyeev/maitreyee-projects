@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { LogOut, ArrowLeft, Settings } from "lucide-react";
 import { logout } from "@/lib/actions";
 import type { FamilyMember } from "@/lib/currentMember";
+import Avatar from "@/components/Avatar";
 
 export default function HeaderClient({
   householdName,
@@ -37,12 +38,8 @@ export default function HeaderClient({
         <div className="flex-1 min-w-0">
           <div className="text-sm font-extrabold truncate">{householdName}</div>
         </div>
-        <div
-          className="h-9 w-9 rounded-full flex items-center justify-center text-lg shrink-0"
-          style={{ background: `${member.color}22` }}
-          title={member.name}
-        >
-          {member.emoji}
+        <div title={member.name}>
+          <Avatar emoji={member.emoji} color={member.color} size={36} />
         </div>
         <Link
           href="/settings"

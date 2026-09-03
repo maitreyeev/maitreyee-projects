@@ -5,6 +5,7 @@ import { Plus, Pencil } from "lucide-react";
 import Card from "@/components/Card";
 import Button from "@/components/Button";
 import DeleteButton from "@/components/DeleteButton";
+import Avatar from "@/components/Avatar";
 import MemberForm from "./MemberForm";
 import { removeMember } from "./actions";
 
@@ -34,12 +35,7 @@ export default function MembersManager({ members }: { members: Member[] }) {
           <MemberForm key={m.id} existing={m} onDone={() => setEditingId(null)} />
         ) : (
           <Card key={m.id} className="p-4 flex items-center gap-3">
-            <div
-              className="h-11 w-11 rounded-full flex items-center justify-center text-xl shrink-0"
-              style={{ background: `${m.color}22` }}
-            >
-              {m.emoji}
-            </div>
+            <Avatar emoji={m.emoji} color={m.color} size={44} />
             <div className="flex-1 min-w-0">
               <div className="font-bold text-sm truncate">{m.name}</div>
               <div className="text-xs text-muted truncate">{ROLE_LABELS[m.role]}</div>
