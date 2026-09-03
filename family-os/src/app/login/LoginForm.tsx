@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ArrowRight, KeyRound, Sparkles } from "lucide-react";
 import Button from "@/components/Button";
 import { Input } from "@/components/Input";
-import IndianHomeIcon from "@/components/IndianHomeIcon";
 import Avatar from "@/components/Avatar";
 import { verifyPasscode, selectProfile, type MemberOption } from "./actions";
 
@@ -40,9 +39,8 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {phase === "passcode" && (
           <div className="flex flex-col items-center text-center gap-6">
-            <div className="h-16 w-16 rounded-3xl bg-ink flex items-center justify-center card-shadow-lg">
-              <IndianHomeIcon size={32} />
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/house-icon.png" alt="" className="h-28 w-auto" />
             <div>
               <h1 className="text-2xl font-extrabold tracking-tight">Family OS</h1>
               <p className="text-muted mt-2">Enter your household passcode</p>
