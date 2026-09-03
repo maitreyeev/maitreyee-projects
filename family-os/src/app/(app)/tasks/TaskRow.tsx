@@ -3,7 +3,7 @@
 import { useTransition } from "react";
 import { Check } from "lucide-react";
 import Card from "@/components/Card";
-import DeleteButton from "@/components/DeleteButton";
+import SoftDeleteButton from "@/components/SoftDeleteButton";
 import { deleteTask, toggleTaskDone } from "./actions";
 
 interface Task {
@@ -40,7 +40,7 @@ export default function TaskRow({ task: t }: { task: Task }) {
           {t.recurring !== "none" ? ` · Repeats ${t.recurring}` : ""}
         </div>
       </div>
-      <DeleteButton onConfirm={() => deleteTask(t.id)} label="Delete task" />
+      <SoftDeleteButton onConfirm={() => deleteTask(t.id)} label="Delete task" />
     </Card>
   );
 }

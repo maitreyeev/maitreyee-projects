@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Plus, Pencil } from "lucide-react";
 import Card from "@/components/Card";
 import Button from "@/components/Button";
-import DeleteButton from "@/components/DeleteButton";
+import SoftDeleteButton from "@/components/SoftDeleteButton";
 import Avatar from "@/components/Avatar";
 import MemberForm from "./MemberForm";
 import { removeMember } from "./actions";
@@ -47,7 +47,7 @@ export default function MembersManager({ members }: { members: Member[] }) {
             >
               <Pencil size={16} />
             </button>
-            <DeleteButton onConfirm={() => removeMember(m.id)} label={`Remove ${m.name}`} />
+            <SoftDeleteButton onConfirm={() => removeMember(m.id)} label={`Remove ${m.name}`} />
           </Card>
         )
       )}

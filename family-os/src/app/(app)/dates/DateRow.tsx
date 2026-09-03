@@ -1,7 +1,7 @@
 "use client";
 
 import Card from "@/components/Card";
-import DeleteButton from "@/components/DeleteButton";
+import SoftDeleteButton from "@/components/SoftDeleteButton";
 import { deleteImportantDate } from "./actions";
 
 interface DateItem {
@@ -30,7 +30,7 @@ export default function DateRow({ item: d }: { item: DateItem }) {
           {d.recurring_yearly ? " · Every year" : ""}
         </div>
       </div>
-      <DeleteButton onConfirm={() => deleteImportantDate(d.id)} label="Delete date" />
+      <SoftDeleteButton onConfirm={() => deleteImportantDate(d.id)} label="Delete date" />
     </Card>
   );
 }

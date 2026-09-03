@@ -3,7 +3,7 @@
 import { useTransition } from "react";
 import { Check, Phone } from "lucide-react";
 import Card from "@/components/Card";
-import DeleteButton from "@/components/DeleteButton";
+import SoftDeleteButton from "@/components/SoftDeleteButton";
 import { deleteStaff, toggleStaffPaid } from "./actions";
 
 interface Staff {
@@ -61,7 +61,7 @@ export default function StaffRow({ staff: s }: { staff: Staff }) {
       {s.monthly_salary !== null && (
         <div className="font-extrabold text-sm shrink-0">₹{Number(s.monthly_salary).toLocaleString("en-IN")}</div>
       )}
-      <DeleteButton onConfirm={() => deleteStaff(s.id)} label={`Remove ${s.name}`} />
+      <SoftDeleteButton onConfirm={() => deleteStaff(s.id)} label={`Remove ${s.name}`} />
     </Card>
   );
 }

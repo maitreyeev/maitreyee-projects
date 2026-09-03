@@ -3,7 +3,7 @@
 import { useTransition } from "react";
 import { Check } from "lucide-react";
 import Card from "@/components/Card";
-import DeleteButton from "@/components/DeleteButton";
+import SoftDeleteButton from "@/components/SoftDeleteButton";
 import { deleteFinancialItem, toggleItemPaid } from "./actions";
 
 interface Item {
@@ -56,7 +56,7 @@ export default function FinancialRow({ item: i }: { item: Item }) {
         </div>
       </div>
       {i.amount !== null && <div className="font-extrabold text-sm shrink-0">₹{Number(i.amount).toLocaleString("en-IN")}</div>}
-      <DeleteButton onConfirm={() => deleteFinancialItem(i.id)} label="Delete item" />
+      <SoftDeleteButton onConfirm={() => deleteFinancialItem(i.id)} label="Delete item" />
     </Card>
   );
 }

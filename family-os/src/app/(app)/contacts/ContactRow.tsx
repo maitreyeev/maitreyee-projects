@@ -2,7 +2,7 @@
 
 import { Phone as PhoneIcon } from "lucide-react";
 import Card from "@/components/Card";
-import DeleteButton from "@/components/DeleteButton";
+import SoftDeleteButton from "@/components/SoftDeleteButton";
 import { deleteContact } from "./actions";
 
 interface Contact {
@@ -33,7 +33,7 @@ export default function ContactRow({ contact: c }: { contact: Contact }) {
       >
         <PhoneIcon size={16} />
       </a>
-      <DeleteButton onConfirm={() => deleteContact(c.id)} label="Delete contact" />
+      <SoftDeleteButton onConfirm={() => deleteContact(c.id)} label="Delete contact" />
     </Card>
   );
 }

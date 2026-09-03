@@ -2,7 +2,7 @@
 
 import { FileText, Download } from "lucide-react";
 import Card from "@/components/Card";
-import DeleteButton from "@/components/DeleteButton";
+import SoftDeleteButton from "@/components/SoftDeleteButton";
 import { deleteDocument } from "./actions";
 
 interface Document {
@@ -58,7 +58,7 @@ export default function DocumentRow({ document: d }: { document: Document }) {
           <Download size={16} />
         </a>
       )}
-      <DeleteButton onConfirm={() => deleteDocument(d.id)} label="Delete document" />
+      <SoftDeleteButton onConfirm={() => deleteDocument(d.id)} label="Delete document" />
     </Card>
   );
 }

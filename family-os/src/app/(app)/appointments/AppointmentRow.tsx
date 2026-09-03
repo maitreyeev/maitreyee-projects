@@ -2,7 +2,7 @@
 
 import { MapPin } from "lucide-react";
 import Card from "@/components/Card";
-import DeleteButton from "@/components/DeleteButton";
+import SoftDeleteButton from "@/components/SoftDeleteButton";
 import { deleteAppointment } from "./actions";
 
 interface Appointment {
@@ -38,7 +38,7 @@ export default function AppointmentRow({ appointment: a }: { appointment: Appoin
           {a.member_name ? ` · ${a.emoji} ${a.member_name}` : ""}
         </div>
       </div>
-      <DeleteButton onConfirm={() => deleteAppointment(a.id)} label="Delete appointment" />
+      <SoftDeleteButton onConfirm={() => deleteAppointment(a.id)} label="Delete appointment" />
     </Card>
   );
 }

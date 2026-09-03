@@ -2,7 +2,7 @@
 
 import { useTransition } from "react";
 import Card from "@/components/Card";
-import DeleteButton from "@/components/DeleteButton";
+import SoftDeleteButton from "@/components/SoftDeleteButton";
 import { deleteMedicine, toggleMedicineActive } from "./actions";
 
 interface Medicine {
@@ -49,7 +49,7 @@ export default function MedicineRow({ medicine: m }: { medicine: Medicine }) {
           )}
         </div>
       </div>
-      <DeleteButton onConfirm={() => deleteMedicine(m.id)} label="Delete medicine" />
+      <SoftDeleteButton onConfirm={() => deleteMedicine(m.id)} label="Delete medicine" />
     </Card>
   );
 }
