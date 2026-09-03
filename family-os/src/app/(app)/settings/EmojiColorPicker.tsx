@@ -2,7 +2,7 @@
 
 import { Check } from "lucide-react";
 
-export const EMOJIS = ["👨", "👩", "👴", "👵", "👦", "👧", "🧑", "👶"];
+export const EMOJIS = ["👨🏽", "👩🏽", "👴🏽", "👵🏽", "👦🏽", "👧🏽", "🧑🏽", "👶🏽"];
 export const COLORS = [
   { name: "lavender", hex: "#8B7CF6" },
   { name: "peach", hex: "#E0873E" },
