@@ -6,7 +6,6 @@ import { ArrowRight, ArrowLeft, Lock, KeyRound, Users, Plus, X, Check } from "lu
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import { Input, Label, Select } from "@/components/Input";
-import IndianHomeIcon from "@/components/IndianHomeIcon";
 import Avatar from "@/components/Avatar";
 import { completeSetup, type SetupMember } from "./actions";
 
@@ -104,9 +103,8 @@ export default function SetupWizard() {
           {step === "welcome" && (
             <Step key="welcome">
               <div className="flex flex-col items-center text-center gap-6 py-10">
-                <div className="h-16 w-16 rounded-3xl bg-ink flex items-center justify-center card-shadow-lg">
-                  <IndianHomeIcon size={32} />
-                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/house-icon.png" alt="" className="h-28 w-auto" />
                 <div>
                   <h1 className="text-3xl font-extrabold tracking-tight">Family OS</h1>
                   <p className="text-muted mt-3 leading-relaxed">

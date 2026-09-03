@@ -12,6 +12,7 @@ import {
   HandHeart,
 } from "lucide-react";
 import Card from "@/components/Card";
+import Avatar from "@/components/Avatar";
 import { sql } from "@/lib/db";
 import { getCurrentMember } from "@/lib/currentMember";
 import { getEventsInRange, todayIST } from "@/lib/calendarEvents";
@@ -70,8 +71,8 @@ export default async function Dashboard({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-extrabold tracking-tight">
-          Hi {member.emoji} {member.name}!
+        <h1 className="text-2xl font-extrabold tracking-tight flex items-center gap-2">
+          Hi <Avatar emoji={member.emoji} size={32} /> {member.name}!
         </h1>
         <p className="text-muted mt-1">Here&apos;s what&apos;s going on at home.</p>
       </div>

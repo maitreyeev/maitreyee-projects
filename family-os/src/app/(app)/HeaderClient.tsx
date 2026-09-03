@@ -21,10 +21,9 @@ export default function HeaderClient({
     <header className="w-full border-b border-border bg-surface/80 backdrop-blur sticky top-0 z-40">
       <div className="max-w-2xl mx-auto px-5 py-3 flex items-center gap-3">
         {isDashboard ? (
-          <div className="h-9 w-9 rounded-2xl bg-ink flex items-center justify-center shrink-0">
-            <span className="text-ink-foreground text-sm font-extrabold">
-              {householdName.charAt(0).toUpperCase()}
-            </span>
+          <div className="h-9 w-9 flex items-center justify-center shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/house-icon.png" alt="" className="h-full w-full object-contain" />
           </div>
         ) : (
           <Link
