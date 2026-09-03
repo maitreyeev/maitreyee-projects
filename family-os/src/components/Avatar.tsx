@@ -39,18 +39,8 @@ export default function Avatar({
       style={{ width: size, height: size }}
     >
       {kind && PHOTO_KINDS.has(kind) ? (
-        <div
-          className="rounded-full overflow-hidden"
-          style={{ width: size * 0.86, height: size * 0.86 }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={`/avatars/${kind}.png`}
-            alt=""
-            className="w-full h-full object-cover"
-            style={{ objectPosition: "50% 35%" }}
-          />
-        </div>
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={`/avatars/${kind}.png`} alt="" className="w-full h-full object-cover" />
       ) : kind ? (
         <div
           style={{ width: size * 0.86, height: size * 0.86 }}
