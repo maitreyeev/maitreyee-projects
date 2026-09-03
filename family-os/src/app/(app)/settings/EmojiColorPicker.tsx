@@ -36,7 +36,7 @@ export default function EmojiColorPicker({
               emoji === e ? "bg-accent-soft ring-2 ring-accent" : "hover:bg-surface-muted"
             }`}
           >
-            <Avatar emoji={e} color={color} size={36} />
+            <Avatar emoji={e} size={36} />
           </button>
         ))}
       </div>

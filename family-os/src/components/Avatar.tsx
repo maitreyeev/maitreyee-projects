@@ -25,29 +25,32 @@ const PHOTO_KINDS = new Set<AvatarKind>(["dad", "mom", "grandpa", "grandma", "bo
 
 export default function Avatar({
   emoji,
-  color,
   size = 56,
   className = "",
 }: {
   emoji: string;
-  color: string;
   size?: number;
   className?: string;
 }) {
   const kind = EMOJI_TO_KIND[emoji];
   return (
     <div
-      className={`rounded-full flex items-center justify-center shrink-0 overflow-hidden [&_svg]:w-full [&_svg]:h-full [&_svg]:block ${className}`}
-      style={{ width: size, height: size, background: `${color}22` }}
+      className={`rounded-full flex items-center justify-center shrink-0 overflow-hidden bg-lavender [&_svg]:w-full [&_svg]:h-full [&_svg]:block ${className}`}
+      style={{ width: size, height: size }}
     >
       {kind && PHOTO_KINDS.has(kind) ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={`/avatars/${kind}.png`}
-          alt=""
-          className="w-full h-full object-cover"
-          style={{ objectPosition: "50% 35%" }}
-        />
+        <div
+          className="rounded-full overflow-hidden"
+          style={{ width: size * 0.86, height: size * 0.86 }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`/avatars/${kind}.png`}
+            alt=""
+            className="w-full h-full object-cover"
+            style={{ objectPosition: "50% 35%" }}
+          />
+        </div>
       ) : kind ? (
         <div
           style={{ width: size * 0.86, height: size * 0.86 }}

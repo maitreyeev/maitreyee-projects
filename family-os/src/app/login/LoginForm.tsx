@@ -85,7 +85,7 @@ export default function LoginPage() {
                   disabled={loading}
                   className="flex flex-col items-center gap-2 p-4 rounded-3xl bg-surface card-shadow hover:scale-105 active:scale-95 transition-transform cursor-pointer disabled:opacity-50"
                 >
-                  <Avatar emoji={m.emoji} color={m.color} size={56} />
+                  <Avatar emoji={m.emoji} size={56} />
                   <span className="text-sm font-bold truncate w-full">{m.name}</span>
                 </button>
               ))}

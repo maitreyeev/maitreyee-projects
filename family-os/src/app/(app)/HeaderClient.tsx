@@ -39,7 +39,7 @@ export default function HeaderClient({
           <div className="text-sm font-extrabold truncate">{householdName}</div>
         </div>
         <div title={member.name}>
-          <Avatar emoji={member.emoji} color={member.color} size={36} />
+          <Avatar emoji={member.emoji} size={36} />
         </div>
         <Link
           href="/settings"

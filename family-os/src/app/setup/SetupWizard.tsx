@@ -226,7 +226,7 @@ export default function SetupWizard() {
                       key={i}
                       className="flex items-center gap-2 pl-2 pr-1 py-1 rounded-full bg-surface-muted border border-border text-sm"
                     >
-                      <Avatar emoji={m.emoji} color={m.color} size={24} />
+                      <Avatar emoji={m.emoji} size={24} />
                       {m.name}
                       <button
                         onClick={() => setMembers((ms) => ms.filter((_, j) => j !== i))}
@@ -262,7 +262,7 @@ export default function SetupWizard() {
                           draftEmoji === e ? "bg-accent-soft ring-2 ring-accent" : "hover:bg-surface-muted"
                         }`}
                       >
-                        <Avatar emoji={e} color={draftColor} size={36} />
+                        <Avatar emoji={e} size={36} />
                       </button>
                     ))}
                   </div>
@@ -303,7 +303,7 @@ export default function SetupWizard() {
                     <div className="flex flex-wrap gap-2 justify-end">
                       {members.map((m, i) => (
                         <div key={i} title={m.name}>
-                          <Avatar emoji={m.emoji} color={m.color} size={28} />
+                          <Avatar emoji={m.emoji} size={28} />
                         </div>
                       ))}
                     </div>
