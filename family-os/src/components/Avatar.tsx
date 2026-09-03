@@ -21,6 +21,8 @@ const EMOJI_TO_KIND: Record<string, AvatarKind> = {
   "👶": "baby",
 };
 
+const PHOTO_KINDS = new Set<AvatarKind>(["dad", "mom", "grandpa", "grandma", "boy", "girl"]);
+
 export default function Avatar({
   emoji,
   size = 56,
@@ -36,7 +38,10 @@ export default function Avatar({
       className={`rounded-full flex items-center justify-center shrink-0 overflow-hidden bg-lavender [&_svg]:w-full [&_svg]:h-full [&_svg]:block ${className}`}
       style={{ width: size, height: size }}
     >
-      {kind ? (
+      {kind && PHOTO_KINDS.has(kind) ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={`/avatars/${kind}.png`} alt="" className="w-full h-full object-cover" />
+      ) : kind ? (
         <div
           style={{ width: size * 0.86, height: size * 0.86 }}
           dangerouslySetInnerHTML={{ __html: AVATAR_SVGS[kind] }}
