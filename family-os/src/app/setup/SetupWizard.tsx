@@ -12,7 +12,7 @@ import { completeSetup, type SetupMember } from "./actions";
 type Step = "welcome" | "name" | "passcode" | "pin" | "members" | "review";
 const STEPS: Step[] = ["welcome", "name", "passcode", "pin", "members", "review"];
 
-const EMOJIS = ["👨🏽", "👩🏽", "👴🏽", "👵🏽", "👦🏽", "👧🏽", "🧑🏽", "👶🏽"];
+const EMOJIS = ["👨🏽", "👩🏽", "👴🏽", "👵🏽", "👦🏽", "👧🏽"];
 const COLORS = [
   { name: "lavender", hex: "#8B7CF6" },
   { name: "peach", hex: "#E0873E" },
