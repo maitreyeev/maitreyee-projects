@@ -15,6 +15,14 @@ const TYPES = [
   { value: "obligation", label: "Loan / EMI" },
 ];
 
+const PRESETS: { label: string; type: string; title: string; recurring: string }[] = [
+  { label: "Society Maintenance", type: "bill", title: "Society Maintenance", recurring: "monthly" },
+  { label: "DTH / Cable", type: "bill", title: "DTH / Cable Recharge", recurring: "monthly" },
+  { label: "Broadband / WiFi", type: "bill", title: "Broadband / WiFi", recurring: "monthly" },
+  { label: "Gold Loan / Chit Fund", type: "obligation", title: "Gold Loan / Chit Fund EMI", recurring: "monthly" },
+  { label: "School Fees", type: "bill", title: "School Fees", recurring: "none" },
+];
+
 export default function FinancialForm() {
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("bill");
@@ -24,6 +32,12 @@ export default function FinancialForm() {
   const [dueDate, setDueDate] = useState("");
   const [recurring, setRecurring] = useState("monthly");
   const [pending, startTransition] = useTransition();
+
+  function applyPreset(p: (typeof PRESETS)[number]) {
+    setType(p.type);
+    setTitle(p.title);
+    setRecurring(p.recurring);
+  }
 
   function submit() {
     startTransition(async () => {
@@ -46,6 +60,21 @@ export default function FinancialForm() {
 
   return (
     <Card className="p-5 flex flex-col gap-3">
+      <div>
+        <Label>Quick add</Label>
+        <div className="flex flex-wrap gap-1.5">
+          {PRESETS.map((p) => (
+            <button
+              key={p.label}
+              type="button"
+              onClick={() => applyPreset(p)}
+              className="px-3 py-1.5 rounded-full text-xs font-bold bg-surface-muted hover:bg-border/60 transition-colors cursor-pointer"
+            >
+              {p.label}
+            </button>
+          ))}
+        </div>
+      </div>
       <div>
         <Label>Type</Label>
         <Select value={type} onChange={(e) => setType(e.target.value)}>

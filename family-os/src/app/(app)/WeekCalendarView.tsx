@@ -20,6 +20,7 @@ const TONE_BG: Record<EventType, string> = {
   date: "bg-lavender text-lavender-ink",
   medicine: "bg-blush text-blush-ink",
   trip: "bg-butter text-butter-ink",
+  staff: "bg-coral text-coral-ink",
 };
 
 const TONE_DOT: Record<EventType, string> = {
@@ -29,6 +30,7 @@ const TONE_DOT: Record<EventType, string> = {
   date: "bg-lavender-ink",
   medicine: "bg-blush-ink",
   trip: "bg-butter-ink",
+  staff: "bg-coral-ink",
 };
 
 function hourLabel(h: number) {

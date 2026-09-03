@@ -17,6 +17,7 @@ const TONE_DOT: Record<EventType, string> = {
   date: "bg-lavender-ink",
   medicine: "bg-blush-ink",
   trip: "bg-butter-ink",
+  staff: "bg-coral-ink",
 };
 
 function pad(n: number) {

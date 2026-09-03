@@ -35,6 +35,8 @@
   --butter-ink: #a17d0a;
   --blush: #fbe1ea;
   --blush-ink: #b8497a;
+  --coral: #fbe0d6;
+  --coral-ink: #b5502a;
 
   --shadow-color: 250 30% 25%;
 }
@@ -73,6 +75,8 @@
   --color-butter-ink: var(--butter-ink);
   --color-blush: var(--blush);
   --color-blush-ink: var(--blush-ink);
+  --color-coral: var(--coral);
+  --color-coral-ink: var(--coral-ink);
 
   --font-sans: var(--font-nunito);
 }

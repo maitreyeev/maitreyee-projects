@@ -8,7 +8,7 @@ export default function Card({
 }: {
   children: ReactNode;
   className?: string;
-  tone?: "surface" | "ink" | "lavender" | "peach" | "mint" | "sky" | "butter" | "blush";
+  tone?: "surface" | "ink" | "lavender" | "peach" | "mint" | "sky" | "butter" | "blush" | "coral";
 }) {
   const tones: Record<string, string> = {
     surface: "bg-surface",
@@ -19,6 +19,7 @@ export default function Card({
     sky: "bg-sky text-sky-ink",
     butter: "bg-butter text-butter-ink",
     blush: "bg-blush text-blush-ink",
+    coral: "bg-coral text-coral-ink",
   };
 
   return (

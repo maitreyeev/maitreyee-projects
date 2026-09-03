@@ -9,6 +9,7 @@ import {
   Phone,
   ListChecks,
   PartyPopper,
+  HandHeart,
 } from "lucide-react";
 import Card from "@/components/Card";
 import { sql } from "@/lib/db";
@@ -29,6 +30,7 @@ const NAV_CARDS = [
   { href: "/contacts", label: "Emergency Contacts", icon: Phone, tone: "blush" as const },
   { href: "/tasks", label: "Tasks", icon: ListChecks, tone: "lavender" as const },
   { href: "/dates", label: "Important Dates", icon: PartyPopper, tone: "peach" as const },
+  { href: "/staff", label: "Household Help", icon: HandHeart, tone: "coral" as const },
 ];
 
 const WEEKDAY_ABBR = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];

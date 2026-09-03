@@ -9,7 +9,7 @@ export default async function TrashPage() {
   if (!me) redirect("/login");
   const h = me.householdId;
 
-  const [appointments, documents, medicines, bills, contacts, dates, tasks, trips, members] = await Promise.all([
+  const [appointments, documents, medicines, bills, contacts, dates, tasks, trips, members, staff] = await Promise.all([
     sql`SELECT id, title, deleted_at FROM appointments WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
     sql`SELECT id, title, deleted_at FROM documents WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
     sql`SELECT id, name AS title, deleted_at FROM medicines WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
@@ -19,6 +19,7 @@ export default async function TrashPage() {
     sql`SELECT id, title, deleted_at FROM household_tasks WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
     sql`SELECT id, name AS title, deleted_at FROM travel_trips WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
     sql`SELECT id, name AS title, deleted_at FROM family_members WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
+    sql`SELECT id, name AS title, deleted_at FROM household_staff WHERE deleted_at IS NOT NULL AND household_id = ${h}`,
   ]);
 
   const sections: { type: TrashType; rows: { id: number; title: string; deleted_at: string }[] }[] = [
@@ -31,6 +32,7 @@ export default async function TrashPage() {
     { type: "task", rows: tasks as { id: number; title: string; deleted_at: string }[] },
     { type: "trip", rows: trips as { id: number; title: string; deleted_at: string }[] },
     { type: "member", rows: members as { id: number; title: string; deleted_at: string }[] },
+    { type: "staff", rows: staff as { id: number; title: string; deleted_at: string }[] },
   ];
 
   const items: TrashItem[] = sections

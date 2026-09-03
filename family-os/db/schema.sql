@@ -149,6 +149,21 @@ CREATE TABLE IF NOT EXISTS important_dates (
   deleted_at TIMESTAMPTZ
 );
 
+CREATE TABLE IF NOT EXISTS household_staff (
+  id SERIAL PRIMARY KEY,
+  household_id INTEGER NOT NULL REFERENCES household_auth(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  role TEXT NOT NULL CHECK (role IN ('maid', 'cook', 'driver', 'nanny', 'gardener', 'cleaner', 'other')),
+  phone TEXT,
+  monthly_salary NUMERIC(12, 2),
+  salary_due_day INTEGER CHECK (salary_due_day BETWEEN 1 AND 31),
+  is_paid_this_month BOOLEAN NOT NULL DEFAULT false,
+  notes TEXT,
+  created_by INTEGER REFERENCES family_members(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  deleted_at TIMESTAMPTZ
+);
+
 CREATE TABLE IF NOT EXISTS activity_log (
   id SERIAL PRIMARY KEY,
   household_id INTEGER NOT NULL REFERENCES household_auth(id) ON DELETE CASCADE,
@@ -179,3 +194,4 @@ CREATE INDEX IF NOT EXISTS idx_important_dates_household_id ON important_dates(h
 CREATE INDEX IF NOT EXISTS idx_important_dates_date ON important_dates(date);
 CREATE INDEX IF NOT EXISTS idx_activity_log_household_id ON activity_log(household_id);
 CREATE INDEX IF NOT EXISTS idx_activity_log_created_at ON activity_log(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_household_staff_household_id ON household_staff(household_id);

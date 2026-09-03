@@ -2,7 +2,7 @@
 // imports (like the DB client) so this can be imported from Client
 // Components without pulling database code into the browser bundle.
 
-export type EventType = "appointment" | "task" | "bill" | "date" | "medicine" | "trip";
+export type EventType = "appointment" | "task" | "bill" | "date" | "medicine" | "trip" | "staff";
 
 export interface CalendarEvent {
   id: number;
@@ -16,13 +16,14 @@ export interface CalendarEvent {
   href: string;
 }
 
-export const EVENT_TONES: Record<EventType, "sky" | "mint" | "peach" | "lavender" | "blush" | "butter"> = {
+export const EVENT_TONES: Record<EventType, "sky" | "mint" | "peach" | "lavender" | "blush" | "butter" | "coral"> = {
   appointment: "sky",
   task: "mint",
   bill: "peach",
   date: "lavender",
   medicine: "blush",
   trip: "butter",
+  staff: "coral",
 };
 
 export const EVENT_LABELS: Record<EventType, string> = {
@@ -32,4 +33,5 @@ export const EVENT_LABELS: Record<EventType, string> = {
   date: "Important date",
   medicine: "Medicine refill",
   trip: "Trip",
+  staff: "Salary due",
 };
