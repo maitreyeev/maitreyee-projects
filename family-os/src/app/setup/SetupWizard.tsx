@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowLeft, Home, Lock, KeyRound, Users, Plus, X, Check } from "lucide-react";
+import { ArrowRight, ArrowLeft, Lock, KeyRound, Users, Plus, X, Check } from "lucide-react";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import { Input, Label, Select } from "@/components/Input";
+import IndianHomeIcon from "@/components/IndianHomeIcon";
 import { completeSetup, type SetupMember } from "./actions";
 
 type Step = "welcome" | "name" | "passcode" | "pin" | "members" | "review";
@@ -103,7 +104,7 @@ export default function SetupWizard() {
             <Step key="welcome">
               <div className="flex flex-col items-center text-center gap-6 py-10">
                 <div className="h-16 w-16 rounded-3xl bg-ink flex items-center justify-center card-shadow-lg">
-                  <Home size={28} className="text-ink-foreground" />
+                  <IndianHomeIcon size={32} />
                 </div>
                 <div>
                   <h1 className="text-3xl font-extrabold tracking-tight">Family OS</h1>
