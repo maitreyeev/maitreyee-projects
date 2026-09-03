@@ -1,4 +1,5 @@
 import Card from "@/components/Card";
+import Avatar from "@/components/Avatar";
 import { timeAgo, type ActivityEntry } from "@/lib/activity";
 
 export default function ActivityFeed({ entries }: { entries: ActivityEntry[] }) {
@@ -10,7 +11,7 @@ export default function ActivityFeed({ entries }: { entries: ActivityEntry[] }) 
       <div className="flex flex-col gap-2.5">
         {entries.map((a) => (
           <div key={a.id} className="flex items-center gap-2.5 text-sm">
-            <span className="text-base shrink-0">{a.actor_emoji ?? "🙂"}</span>
+            <Avatar emoji={a.actor_emoji ?? "🙂"} size={24} />
             <span className="flex-1 min-w-0 truncate">
               <span className="font-bold">{a.actor_name ?? "Someone"}</span>{" "}
               <span className="text-muted">
