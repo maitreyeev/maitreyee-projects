@@ -13,9 +13,11 @@ import {
 } from "lucide-react";
 import Card from "@/components/Card";
 import Avatar from "@/components/Avatar";
+import ShareWhatsAppButton from "@/components/ShareWhatsAppButton";
 import { sql } from "@/lib/db";
 import { getCurrentMember } from "@/lib/currentMember";
 import { getEventsInRange, todayIST } from "@/lib/calendarEvents";
+import { buildWeeklySummary } from "@/lib/whatsappSummary";
 import type { ActivityEntry } from "@/lib/activity";
 import CalendarView from "./CalendarView";
 import WeekCalendarView, { type WeekDay } from "./WeekCalendarView";
@@ -103,6 +105,8 @@ export default async function Dashboard({
       ) : (
         <MonthView sp={sp} today={today} householdId={member.householdId} />
       )}
+
+      <WhatsAppShare householdId={member.householdId} />
 
       <div className="grid grid-cols-2 gap-3">
         {NAV_CARDS.map((c) => (
@@ -211,6 +215,13 @@ async function MonthView({
       <ActivityFeed entries={activity as ActivityEntry[]} />
     </>
   );
+}
+
+async function WhatsAppShare({ householdId }: { householdId: number }) {
+  const rows = await sql`SELECT household_name FROM household_auth WHERE id = ${householdId}`;
+  const householdName = (rows[0]?.household_name as string) ?? "Our household";
+  const text = await buildWeeklySummary(householdId, householdName);
+  return <ShareWhatsAppButton text={text} />;
 }
 
 async function StatsRow({ householdId }: { householdId: number }) {

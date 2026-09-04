@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { HandHeart } from "lucide-react";
 import Card from "@/components/Card";
 import { getCurrentMember } from "@/lib/currentMember";
+import { todayIST } from "@/lib/calendarEvents";
 import StaffForm from "./StaffForm";
 import StaffRow from "./StaffRow";
 
@@ -10,12 +11,14 @@ export default async function StaffPage() {
   const me = await getCurrentMember();
   if (!me) redirect("/login");
 
-  const staff = await sql`
-    SELECT id, name, role, phone, monthly_salary, salary_due_day, is_paid_this_month, notes
+  const currentMonth = todayIST().slice(0, 7);
+  const staffRows = await sql`
+    SELECT id, name, role, phone, monthly_salary, salary_due_day, salary_paid_month, notes
     FROM household_staff
     WHERE deleted_at IS NULL AND household_id = ${me.householdId}
-    ORDER BY is_paid_this_month ASC, salary_due_day ASC NULLS LAST
+    ORDER BY salary_paid_month IS NOT DISTINCT FROM ${currentMonth} ASC, salary_due_day ASC NULLS LAST
   `;
+  const staff = staffRows.map((s) => ({ ...s, is_paid_this_month: s.salary_paid_month === currentMonth }));
 
   return (
     <div className="flex flex-col gap-6">

@@ -3,6 +3,7 @@
 import { sql } from "@/lib/db";
 import { getCurrentMember } from "@/lib/currentMember";
 import { logActivity } from "@/lib/activity";
+import { todayIST } from "@/lib/calendarEvents";
 import { revalidatePath } from "next/cache";
 
 export async function addStaff(input: {
@@ -30,8 +31,9 @@ export async function addStaff(input: {
 export async function toggleStaffPaid(id: number, paid: boolean) {
   const me = await getCurrentMember();
   if (!me) throw new Error("Not signed in.");
+  const currentMonth = paid ? todayIST().slice(0, 7) : null;
   const rows = await sql`
-    UPDATE household_staff SET is_paid_this_month = ${paid} WHERE id = ${id} AND household_id = ${me.householdId} RETURNING name
+    UPDATE household_staff SET salary_paid_month = ${currentMonth} WHERE id = ${id} AND household_id = ${me.householdId} RETURNING name
   `;
   if (rows[0]) await logActivity(paid ? "marked salary paid" : "marked salary unpaid", "staff member", rows[0].name as string);
   revalidatePath("/staff");

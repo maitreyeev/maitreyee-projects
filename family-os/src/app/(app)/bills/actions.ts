@@ -3,6 +3,7 @@
 import { sql } from "@/lib/db";
 import { getCurrentMember } from "@/lib/currentMember";
 import { logActivity } from "@/lib/activity";
+import { advanceDate } from "@/lib/dateMath";
 import { revalidatePath } from "next/cache";
 
 export async function addFinancialItem(input: {
@@ -29,10 +30,39 @@ export async function addFinancialItem(input: {
 export async function toggleItemPaid(id: number, paid: boolean) {
   const me = await getCurrentMember();
   if (!me) throw new Error("Not signed in.");
+
+  if (paid) {
+    const existing = await sql`
+      SELECT title, due_date::text AS due_date, recurring FROM financial_items
+      WHERE id = ${id} AND household_id = ${me.householdId}
+    `;
+    const item = existing[0];
+    if (!item) return;
+    if (item.recurring !== "none" && item.due_date) {
+      const nextDue = advanceDate(
+        item.due_date as string,
+        item.recurring as "weekly" | "monthly" | "yearly"
+      );
+      await sql`
+        UPDATE financial_items SET due_date = ${nextDue}, is_paid = false
+        WHERE id = ${id} AND household_id = ${me.householdId}
+      `;
+      await logActivity("marked paid", "bill", item.title as string);
+      revalidatePath("/bills");
+      revalidatePath("/");
+      return;
+    }
+    await sql`UPDATE financial_items SET is_paid = true WHERE id = ${id} AND household_id = ${me.householdId}`;
+    await logActivity("marked paid", "bill", item.title as string);
+    revalidatePath("/bills");
+    revalidatePath("/");
+    return;
+  }
+
   const rows = await sql`
-    UPDATE financial_items SET is_paid = ${paid} WHERE id = ${id} AND household_id = ${me.householdId} RETURNING title
+    UPDATE financial_items SET is_paid = false WHERE id = ${id} AND household_id = ${me.householdId} RETURNING title
   `;
-  if (rows[0]) await logActivity(paid ? "marked paid" : "marked unpaid", "bill", rows[0].title as string);
+  if (rows[0]) await logActivity("marked unpaid", "bill", rows[0].title as string);
   revalidatePath("/bills");
   revalidatePath("/");
 }

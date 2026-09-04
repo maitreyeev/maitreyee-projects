@@ -158,6 +158,7 @@ CREATE TABLE IF NOT EXISTS household_staff (
   monthly_salary NUMERIC(12, 2),
   salary_due_day INTEGER CHECK (salary_due_day BETWEEN 1 AND 31),
   is_paid_this_month BOOLEAN NOT NULL DEFAULT false,
+  salary_paid_month TEXT,
   notes TEXT,
   created_by INTEGER REFERENCES family_members(id) ON DELETE SET NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
