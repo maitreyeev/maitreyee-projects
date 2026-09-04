@@ -10,6 +10,8 @@ import {
   ListChecks,
   PartyPopper,
   HandHeart,
+  ShoppingCart,
+  TriangleAlert,
 } from "lucide-react";
 import Card from "@/components/Card";
 import Avatar from "@/components/Avatar";
@@ -34,6 +36,7 @@ const NAV_CARDS = [
   { href: "/tasks", label: "Tasks", icon: ListChecks, tone: "lavender" as const },
   { href: "/dates", label: "Important Dates", icon: PartyPopper, tone: "peach" as const },
   { href: "/staff", label: "Household Help", icon: HandHeart, tone: "coral" as const },
+  { href: "/shopping", label: "Shopping List", icon: ShoppingCart, tone: "mint" as const },
 ];
 
 const WEEKDAY_ABBR = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
@@ -80,6 +83,8 @@ export default async function Dashboard({
       </div>
 
       <StatsRow householdId={member.householdId} />
+
+      <ExpiringSoonBanner householdId={member.householdId} today={today} />
 
       <div className="flex rounded-full bg-surface-muted p-1 w-fit">
         <Link
@@ -214,6 +219,43 @@ async function MonthView({
       <DashboardCharts billsByType={billsByType as { type: string; total: number }[]} />
       <ActivityFeed entries={activity as ActivityEntry[]} />
     </>
+  );
+}
+
+async function ExpiringSoonBanner({ householdId, today }: { householdId: number; today: string }) {
+  const cutoff = toISO(addDays(today, 30));
+  const rows = await sql`
+    SELECT id, title, expiry_date::text AS expiry_date
+    FROM documents
+    WHERE deleted_at IS NULL AND household_id = ${householdId}
+      AND expiry_date IS NOT NULL AND expiry_date <= ${cutoff}
+    ORDER BY expiry_date ASC
+  `;
+  const docs = rows as { id: number; title: string; expiry_date: string }[];
+  if (docs.length === 0) return null;
+
+  return (
+    <Link href="/documents">
+      <Card tone="blush" className="p-4 flex items-start gap-3 hover:scale-[1.01] active:scale-[0.99] transition-transform">
+        <TriangleAlert size={20} className="shrink-0 mt-0.5" />
+        <div className="min-w-0">
+          <div className="font-extrabold text-sm">
+            {docs.length === 1 ? "1 document needs attention" : `${docs.length} documents need attention`}
+          </div>
+          <div className="text-xs opacity-80 mt-0.5 truncate">
+            {docs
+              .slice(0, 3)
+              .map((d) => {
+                const expired = d.expiry_date < today;
+                const label = new Date(d.expiry_date).toLocaleDateString("en-IN", { day: "numeric", month: "short" });
+                return `${d.title} (${expired ? "expired" : "expires"} ${label})`;
+              })
+              .join(", ")}
+            {docs.length > 3 ? `, and ${docs.length - 3} more` : ""}
+          </div>
+        </div>
+      </Card>
+    </Link>
   );
 }
 

@@ -13,6 +13,7 @@ import {
   PartyPopper,
   UserRound,
   HandHeart,
+  ShoppingCart,
   type LucideIcon,
 } from "lucide-react";
 import Card from "@/components/Card";
@@ -27,6 +28,7 @@ import { restoreTask, permanentlyDeleteTask } from "../tasks/actions";
 import { restoreTrip, permanentlyDeleteTrip } from "../travel/actions";
 import { restoreMember, permanentlyDeleteMember } from "../settings/actions";
 import { restoreStaff, permanentlyDeleteStaff } from "../staff/actions";
+import { restoreShoppingItem, permanentlyDeleteShoppingItem } from "../shopping/actions";
 
 export type TrashType =
   | "appointment"
@@ -38,7 +40,8 @@ export type TrashType =
   | "task"
   | "trip"
   | "member"
-  | "staff";
+  | "staff"
+  | "shopping";
 
 export interface TrashItem {
   id: number;
@@ -61,6 +64,7 @@ const HANDLERS: Record<
   trip: { restore: restoreTrip, remove: permanentlyDeleteTrip, label: "Trip", icon: Plane },
   member: { restore: restoreMember, remove: permanentlyDeleteMember, label: "Family member", icon: UserRound },
   staff: { restore: restoreStaff, remove: permanentlyDeleteStaff, label: "Household help", icon: HandHeart },
+  shopping: { restore: restoreShoppingItem, remove: permanentlyDeleteShoppingItem, label: "Shopping item", icon: ShoppingCart },
 };
 
 function timeAgo(iso: string): string {
