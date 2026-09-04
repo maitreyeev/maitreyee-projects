@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { sql } from "@/lib/db";
 import { redirect } from "next/navigation";
-import { Settings, Users, Trash2, ChevronRight } from "lucide-react";
+import { Settings, Users, Trash2, ChevronRight, Download } from "lucide-react";
 import { getCurrentMember } from "@/lib/currentMember";
 import MembersManager from "./MembersManager";
 import SecurityForms from "./SecurityForms";
@@ -47,6 +47,19 @@ export default async function SettingsPage() {
         <h2 className="font-extrabold text-sm uppercase tracking-wide text-muted">Security</h2>
         <SecurityForms />
       </section>
+
+      <a
+        href="/api/export"
+        className="flex items-center gap-3 p-4 rounded-3xl bg-surface card-shadow hover:scale-[1.01] transition-transform"
+      >
+        <div className="h-9 w-9 rounded-xl bg-surface-muted flex items-center justify-center shrink-0 text-muted">
+          <Download size={16} />
+        </div>
+        <div className="flex-1">
+          <span className="block font-bold text-sm">Download my data</span>
+          <span className="block text-xs text-muted">A backup of everything as a JSON file</span>
+        </div>
+      </a>
 
       <Link
         href="/trash"
