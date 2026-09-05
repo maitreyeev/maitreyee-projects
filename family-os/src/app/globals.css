@@ -41,6 +41,91 @@
   --shadow-color: 250 30% 25%;
 }
 
+/* Dark theme — follows the system preference by default; an explicit
+   choice (Settings → Appearance) is stored in localStorage and applied
+   as data-theme on <html>, which always wins over the media query. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: #16141f;
+    --surface: #201d2e;
+    --surface-muted: #2a2638;
+    --foreground: #ece9f7;
+    --muted: #a39ebd;
+    --border: rgba(255, 255, 255, 0.1);
+
+    --ink: #ece9f7;
+    --ink-foreground: #1e1b2e;
+
+    --accent: #9384f7;
+    --accent-soft: #372f57;
+    --accent-ink: #ffffff;
+
+    --success: #34c98a;
+    --success-soft: #163828;
+    --warning: #e0a83f;
+    --warning-soft: #3a2f14;
+    --danger: #e0685c;
+    --danger-soft: #3a1f1c;
+
+    --lavender: #332c54;
+    --lavender-ink: #cdc3fa;
+    --peach: #4a3222;
+    --peach-ink: #ffcda0;
+    --mint: #1f3d31;
+    --mint-ink: #8eeac1;
+    --sky: #1f3348;
+    --sky-ink: #9cd0fb;
+    --butter: #3d3419;
+    --butter-ink: #f0d685;
+    --blush: #3d2430;
+    --blush-ink: #f5a8c8;
+    --coral: #3d2820;
+    --coral-ink: #f0a888;
+
+    --shadow-color: 250 60% 4%;
+  }
+}
+
+:root[data-theme="dark"] {
+  --background: #16141f;
+  --surface: #201d2e;
+  --surface-muted: #2a2638;
+  --foreground: #ece9f7;
+  --muted: #a39ebd;
+  --border: rgba(255, 255, 255, 0.1);
+
+  --ink: #ece9f7;
+  --ink-foreground: #1e1b2e;
+
+  --accent: #9384f7;
+  --accent-soft: #372f57;
+  --accent-ink: #ffffff;
+
+  --success: #34c98a;
+  --success-soft: #163828;
+  --warning: #e0a83f;
+  --warning-soft: #3a2f14;
+  --danger: #e0685c;
+  --danger-soft: #3a1f1c;
+
+  --lavender: #332c54;
+  --lavender-ink: #cdc3fa;
+  --peach: #4a3222;
+  --peach-ink: #ffcda0;
+  --mint: #1f3d31;
+  --mint-ink: #8eeac1;
+  --sky: #1f3348;
+  --sky-ink: #9cd0fb;
+  --butter: #3d3419;
+  --butter-ink: #f0d685;
+  --blush: #3d2430;
+  --blush-ink: #f5a8c8;
+  --coral: #3d2820;
+  --coral-ink: #f0a888;
+
+  --shadow-color: 250 60% 4%;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);

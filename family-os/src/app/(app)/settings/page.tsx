@@ -6,6 +6,7 @@ import { getCurrentMember } from "@/lib/currentMember";
 import MembersManager from "./MembersManager";
 import SecurityForms from "./SecurityForms";
 import TextSizeToggle from "./TextSizeToggle";
+import ThemeToggle from "./ThemeToggle";
 
 export default async function SettingsPage() {
   const me = await getCurrentMember();
@@ -42,6 +43,7 @@ export default async function SettingsPage() {
       </section>
 
       <TextSizeToggle />
+      <ThemeToggle />
 
       <section className="flex flex-col gap-3">
         <h2 className="font-extrabold text-sm uppercase tracking-wide text-muted">Security</h2>
