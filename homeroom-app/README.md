@@ -1,7 +1,7 @@
 # Homeroom — Homeschool, Made Fun
 
 A one-click homeschool planner. A parent enters their child's name, age
-(3–13) and board (CBSE, ICSE, IGCSE, or IB), gets a curated syllabus for
+(3–16) and board (CBSE, ICSE, IGCSE, or IB), gets a curated syllabus for
 that exact age and board, and picks any subject/topic to get a
 hands-on, activity-first lesson to teach it at home.
 
@@ -12,7 +12,7 @@ there's no backend or database.
 ## How the content is scoped
 
 CBSE, ICSE, IGCSE (Cambridge Pathway) and IB genuinely converge on very
-similar core topics at ages 3–13 — what differs is
+similar core topics at ages 3–16 — what differs is
 grade naming, pacing and framing, not whether a 7-year-old learns
 addition. So the syllabus (`src/data/topics.ts`) is one shared spine
 across all four boards; `src/data/boards.ts` only changes the grade
@@ -41,7 +41,7 @@ you pass). No env file, no API key, nothing to configure.
 
 - `src/data/types.ts` — shared types (`Board`, `Topic`, `Lesson`, etc.)
 - `src/data/boards.ts` — the 4 boards + their age→grade-label mapping
-- `src/data/topics.ts` — the full topic spine, ages 3–13
+- `src/data/topics.ts` — the full topic spine, ages 3–16
 - `src/data/syllabus.ts` — groups topics into subjects per age, plus
   subject display labels/colours
 - `src/data/lessons.ts` — the hand-written activity lessons, keyed by

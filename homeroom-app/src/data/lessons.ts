@@ -979,6 +979,154 @@ export const LESSONS: Lesson[] = [
     reflect: "Ask: 'Our mini garden only needed daily watering and sunlight from us. What extra challenges do you think a real farmer faces, growing food across huge fields instead of one small pot?'",
     extension: "Find out what crop is most commonly grown in your own state or region, and research why the local climate and soil suit that particular crop.",
   },
+  {
+    topicId: "a14-science-atoms-molecules",
+    hook: "Ask: 'If I gave you a box of building blocks in only 3 colours, how many different toys do you think you could actually build?' — that's exactly what atoms do with molecules.",
+    teach: [
+      "An atom is the smallest particle of an element that still behaves like that element — everything physical is built from roughly 118 kinds of atoms, combined in different ways.",
+      "A molecule forms when two or more atoms bond together — it can be the same element bonding with itself (O2, oxygen gas) or different elements combining into a compound (H2O, water).",
+      "A chemical formula is just shorthand for exactly which atoms, and how many of each, make up one molecule — H2O means 2 hydrogen atoms bonded to 1 oxygen atom, every single time, with no exceptions.",
+    ],
+    activities: [
+      {
+        title: "Build-a-Molecule Model Kit",
+        time: "35 minutes",
+        materials: ["Modelling clay or gumdrops in 3-4 colours (one colour per element)", "Toothpicks or matchsticks", "A key/legend written on paper (e.g. red = oxygen, white = hydrogen, black = carbon)"],
+        steps: [
+          "Assign one colour to each common element you'll use: hydrogen, oxygen, carbon, nitrogen.",
+          "Build water (H2O): 1 larger 'oxygen' ball connected by 2 toothpicks to 2 smaller 'hydrogen' balls.",
+          "Build carbon dioxide (CO2): 1 'carbon' ball connected to 2 'oxygen' balls.",
+          "Build oxygen gas (O2): just 2 'oxygen' balls bonded together — a reminder that even a pure element can exist as a molecule.",
+          "For each model, write its chemical formula next to it and explain what each number and letter means.",
+        ],
+      },
+    ],
+    reflect: "Ask: 'Water is H2O and hydrogen peroxide (used to clean wounds) is H2O2 — just one extra oxygen atom. Why do you think such a small difference makes such a different substance?'",
+    extension: "Look at the ingredients label on a packaged food or cleaning product at home and try to spot any chemical names or formulas — research what one of them actually is.",
+  },
+  {
+    topicId: "a14-math-coordinate-geometry",
+    hook: "Draw a simple grid on the floor with chalk (or tape) and ask: 'If I wanted to give you the exact location of a single square without pointing, using only two numbers, how could I do it?'",
+    teach: [
+      "Coordinate geometry describes any point on a flat surface using two numbers: how far along the horizontal x-axis, and how far up the vertical y-axis — written as an ordered pair (x, y).",
+      "The point where both axes cross is called the origin, (0, 0) — every other point is measured as a distance from there, in two directions at once.",
+      "This system is exactly how real maps, video games, and even ship/aircraft navigation pinpoint an exact location — it's not an abstract school topic, it's the actual tool used to describe 'where'.",
+    ],
+    activities: [
+      {
+        title: "Floor Grid Treasure Hunt",
+        time: "30 minutes",
+        materials: ["Chalk or tape to mark a large grid outdoors or on the floor", "A small 'treasure' object", "Paper for recording coordinates"],
+        steps: [
+          "Mark a grid of at least 6×6 squares, labelling the x-axis along the bottom and y-axis up the side with numbers.",
+          "Hide a treasure on one square and write down its exact coordinate secretly.",
+          "Give only the coordinate pair (e.g. '(4, 3)') and have your child walk out and stand on that exact square to find it.",
+          "Swap roles — let your child hide the treasure and give you the coordinate to test their own understanding of the axes.",
+          "Finish by plotting the same points on paper graph paper, transferring the physical game into the notebook version.",
+        ],
+      },
+    ],
+    reflect: "Ask: 'Why do we always write the x-coordinate first and the y-coordinate second — what would go wrong if we mixed up the order sometimes?'",
+    extension: "Plot 4 points that form a square or rectangle on graph paper, then calculate the shape's perimeter using the grid lines to measure each side.",
+  },
+  {
+    topicId: "a15-science-chemical-reactions",
+    hook: "Mix a spoon of baking soda into a small cup of vinegar and ask: 'Fizzing, bubbling, a hissing sound — is this the same baking soda and vinegar we started with, or has something new been made?'",
+    teach: [
+      "A chemical reaction happens when substances (reactants) transform into entirely new substances (products) with different properties — this is different from a physical change like melting, where the same substance just changes state.",
+      "Signs that a real chemical reaction has occurred include: a colour change, gas bubbles forming, a temperature change (getting hot or cold), a smell appearing, or a solid forming out of two liquids (a precipitate).",
+      "A chemical equation is a shorthand sentence for a reaction: reactants on the left, an arrow meaning 'produces', and products on the right — e.g. vinegar (acetic acid) + baking soda (sodium bicarbonate) produces carbon dioxide gas (the bubbles), water, and sodium acetate.",
+    ],
+    activities: [
+      {
+        title: "Kitchen Reaction Detective",
+        time: "30 minutes (adult-supervised)",
+        materials: ["Baking soda, vinegar, lemon juice, milk", "Small clear cups", "A spoon", "Paper for recording observations"],
+        steps: [
+          "Test 3-4 different combinations one at a time (baking soda + vinegar, baking soda + lemon juice, vinegar + milk) in separate cups.",
+          "For each, watch closely for the 5 signs of a reaction: colour change, bubbles, temperature change, smell, or a new solid forming.",
+          "Record each combination in a simple table: what was mixed, what was observed, and whether you conclude a chemical reaction happened.",
+          "For the clearest reaction (baking soda + vinegar), try writing out the word equation together: 'baking soda + vinegar → carbon dioxide + water + sodium acetate'.",
+        ],
+      },
+    ],
+    reflect: "Ask: 'If you left a bowl of ice to melt on the counter, is that a chemical reaction? How is it different from what happened with the baking soda and vinegar?' (Melting is a physical change — it's still the same substance, water, just in a different state.)",
+    extension: "Use the baking soda + vinegar reaction to inflate a small balloon stretched over a bottle opening — the same gas being produced now does visible work.",
+  },
+  {
+    topicId: "a15-math-trigonometry-intro",
+    hook: "Point to a tall tree or building nearby and ask: 'Without climbing it or using a very long tape measure, how do you think we could figure out exactly how tall that is?'",
+    teach: [
+      "Trigonometry studies the relationship between a right-angled triangle's angles and the lengths of its sides — three key ratios (sine, cosine, tangent) connect a specific angle to a specific pair of sides, every time, for any right triangle.",
+      "The tangent ratio is the most useful one for height-and-distance problems: tan(angle) = opposite side ÷ adjacent side. If you know one angle and one side, you can calculate the other side without ever measuring it directly.",
+      "This is exactly the real technique surveyors, architects and even ancient Egyptian pyramid builders used to measure things too tall, too far, or too dangerous to measure directly.",
+    ],
+    activities: [
+      {
+        title: "Measure a Tree's Height With Its Shadow",
+        time: "30 minutes (needs a sunny day)",
+        materials: ["A metre stick or any object of known height", "A measuring tape", "A calculator"],
+        steps: [
+          "On a sunny day, stand the metre stick upright and measure the length of its shadow.",
+          "Immediately after, measure the length of the shadow cast by the tall tree or building you want to measure.",
+          "Because the sun casts shadows at the same angle for everything nearby at the same moment, the ratio of object-height to shadow-length is the same for both: (stick height ÷ stick shadow) = (tree height ÷ tree shadow).",
+          "Rearrange and calculate the tree's real height using that proportion.",
+          "Discuss: this uses the same tangent-ratio idea as trigonometry, just without naming the angle directly.",
+        ],
+      },
+    ],
+    reflect: "Ask: 'Why does this shadow method only work properly if we measure both shadows at close to the same time of day?' (The sun's angle changes throughout the day, which would break the equal-ratio assumption.)",
+    extension: "Look up the actual angle of elevation of the sun at the time you measured, and try solving the same height using tan(angle) × shadow length directly on a calculator.",
+  },
+  {
+    topicId: "a16-science-electricity",
+    hook: "Ask: 'If one bulb in a string of old-style fairy lights burns out and the whole string goes dark, but in your house only one bulb goes out when it fails — what's different about how they're wired?'",
+    teach: [
+      "Electric current is the flow of electric charge through a conductor, driven by voltage (the 'push') and limited by resistance (anything that resists that flow, like a bulb's filament).",
+      "In a series circuit, components are connected in a single loop, one after another — current has only one path, so if one component fails, the whole circuit breaks (like old fairy lights).",
+      "In a parallel circuit, components are connected across separate branches — current can take multiple paths, so each component gets the full voltage and one failing doesn't affect the others (like household wiring).",
+    ],
+    activities: [
+      {
+        title: "Series vs Parallel Circuit Build",
+        time: "35 minutes (adult-assisted with any wiring)",
+        materials: ["2 small bulbs (torch bulbs) with holders, or LEDs with resistors", "A battery (or battery pack)", "Connecting wires with crocodile clips", "A switch (optional)"],
+        steps: [
+          "Build a series circuit: connect the battery to bulb 1, bulb 1 to bulb 2, and bulb 2 back to the battery, all in one single loop. Notice the brightness.",
+          "Now unscrew or disconnect one bulb — observe that the other bulb also goes out, because the single loop is broken.",
+          "Rebuild as a parallel circuit: connect both bulbs so each has its own separate path back to the battery.",
+          "Disconnect one bulb again — this time the other bulb should stay lit, because its own path is undisturbed.",
+          "Compare the brightness of the bulbs in series vs parallel and discuss why they differ (in series, the bulbs share the same current and voltage; in parallel, each gets the full voltage).",
+        ],
+      },
+    ],
+    reflect: "Ask: 'Why do you think household wiring uses parallel circuits instead of series, even though series circuits are simpler to wire?'",
+    extension: "Research (or measure, with a multimeter if available) what happens to total resistance when more bulbs are added in series versus in parallel.",
+  },
+  {
+    topicId: "a16-social-power-sharing",
+    hook: "Ask: 'If one single person in our family made every single decision — what to eat, what to watch, when to sleep — with nobody else having any say, what problems do you think would come up over time?'",
+    teach: [
+      "Power-sharing means dividing political power among different groups, institutions or levels of government instead of concentrating it in one person or body — it's a deliberate design choice, not an accident.",
+      "Federalism is one major form of power-sharing: power is divided between a central/national government and regional/state governments, each with its own defined areas of authority (in India: Union List, State List, and Concurrent List subjects).",
+      "The main argument for power-sharing is that it reduces the risk of one group dominating or abusing power, and it lets decisions be made closer to the people actually affected by them — but it can also mean slower decision-making, which is the genuine trade-off.",
+    ],
+    activities: [
+      {
+        title: "Mock Household Federalism",
+        time: "30 minutes",
+        materials: ["Paper", "Pens"],
+        steps: [
+          "As a family, list every household decision you can think of (meals, screen time, bedtime, chores, weekend plans, big purchases).",
+          "Divide them into 3 lists like India's Constitution does: a 'Union List' of decisions only parents make, a 'State List' of decisions each child fully controls for themselves, and a 'Concurrent List' of decisions made jointly by discussion.",
+          "Run your household this way for a real week and keep notes on what worked well and what caused friction.",
+          "At the end of the week, discuss: did dividing the power up actually make things fairer, slower, both, or neither?",
+        ],
+      },
+    ],
+    reflect: "Ask: 'Can you think of a real situation where power-sharing might make a decision take much longer, but still be worth it?'",
+    extension: "Research one real federal country (India, USA, Germany) and find one specific example of a state/regional government disagreeing with the central government over a shared-power issue.",
+  },
 ];
 
 export function getLesson(topicId: string): Lesson | undefined {

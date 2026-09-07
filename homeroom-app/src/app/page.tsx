@@ -11,7 +11,7 @@ import { saveSession } from "@/lib/session";
 
 type Step = "welcome" | "name" | "age" | "board" | "confirm";
 const STEPS: Step[] = ["welcome", "name", "age", "board", "confirm"];
-const AGES = Array.from({ length: 11 }, (_, i) => i + 3); // 3..13
+const AGES = Array.from({ length: 14 }, (_, i) => i + 3); // 3..16
 
 export default function Home() {
   const router = useRouter();
@@ -115,7 +115,7 @@ export default function Home() {
               <Heading
                 eyebrow="Step 2 of 4"
                 title={`How old is ${name.split(" ")[0] || "your child"}?`}
-                subtitle="Homeroom currently covers ages 3–13 (Nursery through Class 8-equivalent)."
+                subtitle="Homeroom currently covers ages 3–16 (Nursery through Class 10-equivalent)."
               />
               <div className="grid grid-cols-4 gap-2.5">
                 {AGES.map((a) => (

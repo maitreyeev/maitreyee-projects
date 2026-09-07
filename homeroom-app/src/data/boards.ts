@@ -12,6 +12,9 @@ const CBSE_ICSE_LABELS: Record<number, string> = {
   11: "Class 6",
   12: "Class 7",
   13: "Class 8",
+  14: "Class 9",
+  15: "Class 10",
+  16: "Class 10",
 };
 
 const CAMBRIDGE_LABELS: Record<number, string> = {
@@ -26,6 +29,9 @@ const CAMBRIDGE_LABELS: Record<number, string> = {
   11: "Lower Secondary — Stage 7",
   12: "Lower Secondary — Stage 8",
   13: "Lower Secondary — Stage 9",
+  14: "IGCSE — Year 10",
+  15: "IGCSE — Year 11",
+  16: "IGCSE — Year 11 (exam year)",
 };
 
 const IB_LABELS: Record<number, string> = {
@@ -40,6 +46,9 @@ const IB_LABELS: Record<number, string> = {
   11: "PYP/MYP transition",
   12: "MYP 1",
   13: "MYP 2",
+  14: "MYP 3",
+  15: "MYP 4",
+  16: "MYP 5",
 };
 
 export const BOARDS: Board[] = [

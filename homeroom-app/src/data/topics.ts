@@ -1,6 +1,6 @@
 import type { Topic } from "./types";
 
-// A single, shared syllabus spine (ages 3–13). CBSE, ICSE, IGCSE (Cambridge
+// A single, shared syllabus spine (ages 3–16). CBSE, ICSE, IGCSE (Cambridge
 // Pathway) and IB genuinely converge on very similar core content at these
 // ages — what differs is grade naming, pacing and framing, not whether a
 // 7-year-old learns addition. Board selection changes labels (see
@@ -121,6 +121,36 @@ export const TOPICS: Topic[] = [
   { id: "a13-science-cell-structure", age: 13, subject: "science", title: "Cell Structure & Microorganisms", blurb: "Meeting the building blocks of life, up close." },
   { id: "a13-science-force-friction-pressure", age: 13, subject: "science", title: "Force, Friction & Pressure", blurb: "Why things slide, stick or push back." },
   { id: "a13-social-constitution-basics", age: 13, subject: "social", title: "The Indian Constitution — Basics", blurb: "The rulebook that defines rights, duties and how India is governed." },
+
+  // ---- Age 14 ----
+  { id: "a14-language-figurative-language", age: 14, subject: "language", title: "Figurative Language & Literary Devices", blurb: "Spotting metaphor, simile and personification, and why writers reach for them." },
+  { id: "a14-language-formal-essay", age: 14, subject: "language", title: "Formal Essay & Discursive Writing", blurb: "Arguing a topic from more than one side before reaching a view." },
+  { id: "a14-math-polynomials", age: 14, subject: "math", title: "Polynomials & Factorisation", blurb: "Breaking expressions apart to see what they're really made of." },
+  { id: "a14-math-coordinate-geometry", age: 14, subject: "math", title: "Introduction to Coordinate Geometry", blurb: "Describing exact points and shapes using pairs of numbers." },
+  { id: "a14-science-atoms-molecules", age: 14, subject: "science", title: "Atoms, Molecules & Chemical Formulae", blurb: "The tiny building blocks behind every substance around us." },
+  { id: "a14-science-tissues", age: 14, subject: "science", title: "Tissues — Plant & Animal", blurb: "Groups of cells that team up to do one job well." },
+  { id: "a14-social-french-revolution", age: 14, subject: "social", title: "The French Revolution", blurb: "How an unfair system pushed ordinary people to demand change." },
+  { id: "a14-social-democracy", age: 14, subject: "social", title: "What Is Democracy? Why Democracy?", blurb: "What makes a government genuinely 'by the people'." },
+
+  // ---- Age 15 ----
+  { id: "a15-language-poetic-devices", age: 15, subject: "language", title: "Poetry — Deeper Analysis & Central Idea", blurb: "Reading beneath the words to find what a poem is really about." },
+  { id: "a15-language-persuasive-speech", age: 15, subject: "language", title: "Speech & Debate Writing", blurb: "Structuring an argument to actually change someone's mind." },
+  { id: "a15-math-quadratic-equations", age: 15, subject: "math", title: "Quadratic Equations", blurb: "Solving equations where a number is multiplied by itself." },
+  { id: "a15-math-trigonometry-intro", age: 15, subject: "math", title: "Introduction to Trigonometry", blurb: "Using angles and triangles to measure things you can't reach." },
+  { id: "a15-science-chemical-reactions", age: 15, subject: "science", title: "Chemical Reactions & Equations", blurb: "Spotting the signs that a real chemical change has happened." },
+  { id: "a15-science-life-processes", age: 15, subject: "science", title: "Life Processes — Nutrition, Respiration & Circulation", blurb: "The everyday jobs every living body has to keep doing." },
+  { id: "a15-social-nationalism-india", age: 15, subject: "social", title: "Nationalism in India", blurb: "How a shared idea of 'India' grew during the freedom movement." },
+  { id: "a15-social-resources-development", age: 15, subject: "social", title: "Resources & Development", blurb: "Using land, soil and minerals well enough for the next generation too." },
+
+  // ---- Age 16 ----
+  { id: "a16-language-novel-study", age: 16, subject: "language", title: "Novel/Play Study — Character & Theme Analysis", blurb: "Tracking how a character changes, and what the story is really saying." },
+  { id: "a16-language-report-formal-letter", age: 16, subject: "language", title: "Formal Letters, Reports & Notice Writing", blurb: "Real-world writing formats you'll actually use after school." },
+  { id: "a16-math-circles-tangents", age: 16, subject: "math", title: "Circles & Tangents", blurb: "The special rules that govern lines touching a circle." },
+  { id: "a16-math-statistics-probability", age: 16, subject: "math", title: "Statistics & Probability", blurb: "Making sense of data, and predicting how likely something is." },
+  { id: "a16-science-electricity", age: 16, subject: "science", title: "Electricity & Circuits", blurb: "How current, voltage and resistance actually relate to each other." },
+  { id: "a16-science-heredity-evolution", age: 16, subject: "science", title: "Heredity & Evolution", blurb: "Why offspring resemble their parents, and how species change over time." },
+  { id: "a16-social-globalisation", age: 16, subject: "social", title: "Globalisation & the Indian Economy", blurb: "How the whole world became one connected marketplace." },
+  { id: "a16-social-power-sharing", age: 16, subject: "social", title: "Power-Sharing & Federalism", blurb: "Why many modern countries split power instead of centralising it." },
 ];
 
 export function topicsForAge(age: number): Topic[] {

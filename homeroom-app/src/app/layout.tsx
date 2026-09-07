@@ -17,7 +17,7 @@ const nunito = Nunito({
 export const metadata: Metadata = {
   title: "Homeroom — Homeschool, Made Fun",
   description:
-    "A one-click homeschool planner. Pick your child's age and board (CBSE, ICSE, IGCSE, IB), review a curated syllabus, and get hands-on activity-based lessons for any topic — free, no login.",
+    "A one-click homeschool planner for ages 3-16. Pick your child's age and board (CBSE, ICSE, IGCSE, IB), review a curated syllabus, and get hands-on activity-based lessons for any topic — free, no login.",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
