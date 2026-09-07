@@ -12,6 +12,12 @@
       "runtimeExecutable": "C:\\Users\\Admin\\Claude\\tools\\run-dev-family-os.cmd",
       "runtimeArgs": [],
       "port": 3001
+    },
+    {
+      "name": "homeroom-dev",
+      "runtimeExecutable": "C:\\Users\\Admin\\Claude\\tools\\run-dev-homeroom.cmd",
+      "runtimeArgs": [],
+      "port": 3002
     }
   ]
 }

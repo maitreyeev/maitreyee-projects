@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fbf9f3;
+  --surface: #ffffff;
+  --surface-muted: #f1ecdd;
+  --foreground: #26231a;
+  --muted: #7c7461;
+  --border: rgba(38, 35, 26, 0.09);
+
+  --ink: #26231a;
+  --ink-foreground: #ffffff;
+
+  --accent: #2f8f5b;
+  --accent-soft: #e1f2e7;
+  --accent-ink: #ffffff;
+
+  --sun: #c97a12;
+  --sun-soft: #fbedd2;
+
+  --berry: #b8386b;
+  --berry-soft: #fbe1ea;
+
+  --sky: #1f77a8;
+  --sky-soft: #dfeef6;
+
+  --plum: #7a4fb0;
+  --plum-soft: #ece3f8;
+
+  --success: #1f9d63;
+  --success-soft: #e1f6ea;
+  --warning: #a1670a;
+  --warning-soft: #fbf0dc;
+  --danger: #c0392b;
+  --danger-soft: #fbe6e3;
+
+  --shadow-color: 90 25% 20%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: #141712;
+    --surface: #1d211a;
+    --surface-muted: #262b21;
+    --foreground: #f0efe6;
+    --muted: #a6a48f;
+    --border: rgba(255, 255, 255, 0.1);
+
+    --ink: #f0efe6;
+    --ink-foreground: #1a1d16;
+
+    --accent: #5cd394;
+    --accent-soft: #1f3a2b;
+    --accent-ink: #0d1f15;
+
+    --sun: #f0ab4d;
+    --sun-soft: #3d2d10;
+
+    --berry: #f184ac;
+    --berry-soft: #3d2130;
+
+    --sky: #6bc0ef;
+    --sky-soft: #16303e;
+
+    --plum: #b79bec;
+    --plum-soft: #2c2140;
+
+    --success: #34c98a;
+    --success-soft: #163826;
+    --warning: #e0a83f;
+    --warning-soft: #392a10;
+    --danger: #e0685c;
+    --danger-soft: #3a1f1c;
+
+    --shadow-color: 100 50% 3%;
+  }
+}
+
+:root[data-theme="dark"] {
+  --background: #141712;
+  --surface: #1d211a;
+  --surface-muted: #262b21;
+  --foreground: #f0efe6;
+  --muted: #a6a48f;
+  --border: rgba(255, 255, 255, 0.1);
+
+  --ink: #f0efe6;
+  --ink-foreground: #1a1d16;
+
+  --accent: #5cd394;
+  --accent-soft: #1f3a2b;
+  --accent-ink: #0d1f15;
+
+  --sun: #f0ab4d;
+  --sun-soft: #3d2d10;
+
+  --berry: #f184ac;
+  --berry-soft: #3d2130;
+
+  --sky: #6bc0ef;
+  --sky-soft: #16303e;
+
+  --plum: #b79bec;
+  --plum-soft: #2c2140;
+
+  --success: #34c98a;
+  --success-soft: #163826;
+  --warning: #e0a83f;
+  --warning-soft: #392a10;
+  --danger: #e0685c;
+  --danger-soft: #3a1f1c;
+
+  --shadow-color: 100 50% 3%;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+
+  --color-sun: var(--sun);
+  --color-sun-soft: var(--sun-soft);
+  --color-berry: var(--berry);
+  --color-berry-soft: var(--berry-soft);
+  --color-sky: var(--sky);
+  --color-sky-soft: var(--sky-soft);
+  --color-plum: var(--plum);
+  --color-plum-soft: var(--plum-soft);
+
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+
+  --font-sans: var(--font-nunito);
+  --font-display: var(--font-baloo);
+}
+
+* { border-color: var(--border); }
+
+html { color-scheme: light dark; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.card-shadow {
+  box-shadow: 0 2px 10px -4px hsl(var(--shadow-color) / 0.12);
+}
+.card-shadow-lg {
+  box-shadow: 0 12px 30px -12px hsl(var(--shadow-color) / 0.22);
+}
+
+::selection { background: var(--accent-soft); color: var(--accent); }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+@keyframes step-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  animation: step-in 0.22s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-in { animation: none; }
+}
