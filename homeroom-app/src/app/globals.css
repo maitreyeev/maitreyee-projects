@@ -185,3 +185,9 @@ h1, h2, h3, h4 {
 @media (prefers-reduced-motion: reduce) {
   .animate-in { animation: none; }
 }
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: #ffffff; color: #16151a; }
+  a { text-decoration: none; color: inherit; }
+}

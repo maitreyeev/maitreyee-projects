@@ -1,17 +1,65 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { ArrowLeft, Clock, Lightbulb, ListChecks, MessageCircleQuestion, Rocket } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import {
+  ArrowLeft,
+  Camera,
+  Check,
+  Clock,
+  Lightbulb,
+  ListChecks,
+  MessageCircleQuestion,
+  Printer,
+  Rocket,
+  Trash2,
+} from "lucide-react";
+import Button from "@/components/Button";
 import Card from "@/components/Card";
 import { getTopic } from "@/data/topics";
 import { getLesson } from "@/data/lessons";
 import { subjectLabel, SUBJECT_STYLE } from "@/data/syllabus";
+import { resizeImageFile } from "@/lib/image";
+import {
+  addJournalEntry,
+  deleteJournalEntry,
+  emptyState,
+  getActiveChild,
+  loadState,
+  toggleTopicDone,
+  type AppState,
+} from "@/lib/store";
 
 export default function LessonPage() {
+  const router = useRouter();
   const params = useParams<{ topicId: string }>();
   const topicId = params.topicId;
   const topic = getTopic(topicId);
+
+  const [state, setState] = useState<AppState>(emptyState);
+  const [hydrated, setHydrated] = useState(false);
+  const [note, setNote] = useState("");
+  const [photo, setPhoto] = useState<string | undefined>(undefined);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const s = loadState();
+    if (!getActiveChild(s)) {
+      router.replace("/");
+      return;
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time hydrate from localStorage on mount
+    setState(s);
+    setHydrated(true);
+  }, [router]);
+
+  const child = getActiveChild(state);
+
+  if (!hydrated || !child) {
+    return <div className="min-h-screen" />;
+  }
 
   if (!topic) {
     return (
@@ -28,16 +76,59 @@ export default function LessonPage() {
   const lesson = getLesson(topicId);
   const style = SUBJECT_STYLE[topic.subject];
   const label = subjectLabel(topic.subject, topic.age);
+  const done = child.completedTopicIds.includes(topic.id);
+  const entries = child.journal.filter((e) => e.topicId === topic.id);
+
+  async function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const resized = await resizeImageFile(file);
+      setPhoto(resized);
+    } catch {
+      // Unsupported file or browser — just skip the photo, note still works.
+    }
+  }
+
+  function saveJournalEntry() {
+    if (!child || !note.trim()) return;
+    setState(addJournalEntry(state, child.id, { topicId: topic!.id, note: note.trim(), photo }));
+    setNote("");
+    setPhoto(undefined);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }
+
+  function removeEntry(entryId: string) {
+    if (!child) return;
+    setState(deleteJournalEntry(state, child.id, entryId));
+  }
 
   return (
     <div className="min-h-screen px-6 py-8 max-w-2xl mx-auto">
-      <BackLink />
+      <div className="flex items-center justify-between mb-6 no-print">
+        <BackLink />
+        <button
+          onClick={() => window.print()}
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors cursor-pointer"
+        >
+          <Printer size={16} /> Print
+        </button>
+      </div>
 
       <span className={`inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-4 ${style.bg} ${style.text}`}>
         {label} · Age {topic.age}
       </span>
       <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">{topic.title}</h1>
-      <p className="text-muted mb-8">{topic.blurb}</p>
+      <p className="text-muted mb-5">{topic.blurb}</p>
+
+      <button
+        onClick={() => child && setState(toggleTopicDone(state, child.id, topic.id))}
+        className={`no-print inline-flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-full mb-8 transition-colors cursor-pointer ${
+          done ? "bg-accent text-accent-ink" : "bg-surface-muted text-foreground hover:bg-border/60"
+        }`}
+      >
+        <Check size={15} strokeWidth={3} /> {done ? `Done for ${child.name.split(" ")[0]}` : "Mark as done"}
+      </button>
 
       {!lesson ? (
         <Card className="p-6 flex flex-col gap-3">
@@ -122,7 +213,73 @@ export default function LessonPage() {
             <p className="text-[15px] leading-relaxed">{lesson.extension}</p>
           </Section>
 
-          <Link href="/syllabus">
+          <section className="no-print">
+            <div className="flex items-center gap-2 mb-3 text-accent">
+              <Camera size={16} />
+              <h2 className="font-extrabold text-sm uppercase tracking-wide">
+                Journal — how did it go?
+              </h2>
+            </div>
+            <Card className="p-5 flex flex-col gap-3">
+              <textarea
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                placeholder={`Jot down how ${child.name.split(" ")[0]} did — what clicked, what to try differently next time…`}
+                rows={3}
+                className="w-full rounded-2xl bg-surface-muted border border-border p-4 text-sm outline-none focus:border-accent transition-colors resize-none"
+              />
+              <div className="flex items-center gap-3">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoChange}
+                  className="text-xs text-muted file:mr-3 file:rounded-full file:border-0 file:bg-surface-muted file:px-3 file:py-1.5 file:text-xs file:font-bold file:cursor-pointer cursor-pointer"
+                />
+                {photo && (
+                  <div className="relative h-12 w-12 rounded-lg overflow-hidden shrink-0">
+                    <Image src={photo} alt="Attached preview" fill className="object-cover" unoptimized />
+                  </div>
+                )}
+              </div>
+              <Button size="sm" className="self-start" disabled={!note.trim()} onClick={saveJournalEntry}>
+                Save to journal
+              </Button>
+            </Card>
+
+            {entries.length > 0 && (
+              <div className="flex flex-col gap-3 mt-4">
+                {entries.map((entry) => (
+                  <Card key={entry.id} className="p-4 flex gap-3">
+                    {entry.photo && (
+                      <div className="relative h-14 w-14 rounded-xl overflow-hidden shrink-0">
+                        <Image src={entry.photo} alt="Journal entry" fill className="object-cover" unoptimized />
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm leading-relaxed">{entry.note}</p>
+                      <p className="text-xs text-muted mt-1.5">
+                        {new Date(entry.createdAt).toLocaleDateString(undefined, {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </p>
+                    </div>
+                    <button
+                      aria-label="Delete entry"
+                      onClick={() => removeEntry(entry.id)}
+                      className="text-muted hover:text-danger transition-colors cursor-pointer shrink-0 h-7 w-7 flex items-center justify-center"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </section>
+
+          <Link href="/syllabus" className="no-print">
             <span className="inline-flex text-sm font-bold text-accent hover:underline cursor-pointer">
               ← Back to the syllabus
             </span>
@@ -137,7 +294,7 @@ function BackLink() {
   return (
     <Link
       href="/syllabus"
-      className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-6"
+      className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
     >
       <ArrowLeft size={16} /> Syllabus
     </Link>
