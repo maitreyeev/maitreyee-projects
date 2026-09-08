@@ -44,6 +44,7 @@ export default function LessonView({
   const [photo, setPhoto] = useState<string | undefined>(undefined);
   const [saving, startSaving] = useTransition();
   const [, startToggle] = useTransition();
+  const [journalError, setJournalError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!topic) {
@@ -81,8 +82,13 @@ export default function LessonView({
 
   function saveJournalEntry() {
     if (!note.trim()) return;
+    setJournalError("");
     startSaving(async () => {
-      await addJournalEntryAction(childId, { topicId: topic!.id, note: note.trim(), photo });
+      const result = await addJournalEntryAction(childId, { topicId: topic!.id, note: note.trim(), photo });
+      if (result.error) {
+        setJournalError(result.error);
+        return;
+      }
       setNote("");
       setPhoto(undefined);
       if (fileInputRef.current) fileInputRef.current.value = "";
@@ -232,6 +238,7 @@ export default function LessonView({
                   </div>
                 )}
               </div>
+              {journalError && <p className="text-sm text-danger">{journalError}</p>}
               <Button size="sm" className="self-start" disabled={!note.trim() || saving} onClick={saveJournalEntry}>
                 {saving ? "Saving…" : "Save to journal"}
               </Button>

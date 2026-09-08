@@ -41,18 +41,17 @@ export default function ChildCard({
   function saveEdit() {
     setError("");
     startTransition(async () => {
-      try {
-        await updateChildAction(child.id, { age, boardId });
-        setMode("view");
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Couldn't save that.");
-      }
+      const result = await updateChildAction(child.id, { age, boardId });
+      if (result.error) setError(result.error);
+      else setMode("view");
     });
   }
 
   function confirmDelete() {
+    setError("");
     startTransition(async () => {
-      await removeChildAction(child.id);
+      const result = await removeChildAction(child.id);
+      if (result.error) setError(result.error);
     });
   }
 
@@ -71,6 +70,7 @@ export default function ChildCard({
             </p>
           </div>
         </div>
+        {error && <p className="text-sm text-danger mb-3">{error}</p>}
         <div className="flex gap-2.5">
           <Button variant="secondary" className="flex-1" onClick={() => setMode("view")} disabled={pending}>
             Cancel

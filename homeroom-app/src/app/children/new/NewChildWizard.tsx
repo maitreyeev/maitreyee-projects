@@ -38,11 +38,11 @@ export default function NewChildWizard() {
     if (!age || !boardId) return;
     setError("");
     startTransition(async () => {
-      try {
-        await addChildAction({ name: name.trim(), age, boardId });
+      const result = await addChildAction({ name: name.trim(), age, boardId });
+      if (result.error) {
+        setError(result.error);
+      } else {
         router.push("/dashboard");
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Something went wrong.");
       }
     });
   }

@@ -16,11 +16,11 @@ export default function LoginForm() {
   function submit() {
     setError("");
     startTransition(async () => {
-      try {
-        await verifyPasscode(passcode);
+      const result = await verifyPasscode(passcode);
+      if (result.error) {
+        setError(result.error);
+      } else {
         router.push("/dashboard");
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Something went wrong.");
       }
     });
   }

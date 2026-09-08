@@ -49,11 +49,11 @@ export default function SignupWizard() {
     }
     if (!age || !boardId) return;
     startTransition(async () => {
-      try {
-        await completeSignup({ childName: name.trim(), age, boardId, passcode });
+      const result = await completeSignup({ childName: name.trim(), age, boardId, passcode });
+      if (result.error) {
+        setError(result.error);
+      } else {
         router.push("/dashboard");
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Something went wrong.");
       }
     });
   }
