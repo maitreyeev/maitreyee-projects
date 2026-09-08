@@ -1,7 +1,9 @@
 import { redirect } from "next/navigation";
 import { getCurrentHouseholdId } from "@/lib/currentHousehold";
+import NewChildWizard from "./NewChildWizard";
 
-export default async function RootPage() {
+export default async function NewChildPage() {
   const householdId = await getCurrentHouseholdId();
-  redirect(householdId ? "/dashboard" : "/login");
+  if (!householdId) redirect("/login");
+  return <NewChildWizard />;
 }

@@ -1,7 +1,9 @@
 import { redirect } from "next/navigation";
 import { getCurrentHouseholdId } from "@/lib/currentHousehold";
+import LoginForm from "./LoginForm";
 
-export default async function RootPage() {
+export default async function LoginPage() {
   const householdId = await getCurrentHouseholdId();
-  redirect(householdId ? "/dashboard" : "/login");
+  if (householdId) redirect("/dashboard");
+  return <LoginForm />;
 }

@@ -1,7 +1,9 @@
 import { redirect } from "next/navigation";
 import { getCurrentHouseholdId } from "@/lib/currentHousehold";
+import SignupWizard from "./SignupWizard";
 
-export default async function RootPage() {
+export default async function SignupPage() {
   const householdId = await getCurrentHouseholdId();
-  redirect(householdId ? "/dashboard" : "/login");
+  if (householdId) redirect("/dashboard");
+  return <SignupWizard />;
 }

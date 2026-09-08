@@ -1,5 +1,6 @@
 import type { SubjectKey, SubjectGroup } from "./types";
 import { topicsForAge } from "./topics";
+import { getLesson } from "./lessons";
 
 const SUBJECT_ORDER: SubjectKey[] = ["language", "math", "world", "science", "social", "arts"];
 
@@ -38,4 +39,33 @@ export function syllabusForAge(age: number): SubjectGroup[] {
     groups.push({ key, label: subjectLabel(key, age), topics: subjectTopics });
   }
   return groups;
+}
+
+export interface SubjectProgress {
+  key: SubjectKey;
+  label: string;
+  done: number;
+  total: number;
+}
+
+export interface ChildProgress {
+  subjects: SubjectProgress[];
+  done: number;
+  total: number;
+  activitiesReady: number;
+}
+
+export function computeProgress(age: number, completedTopicIds: string[]): ChildProgress {
+  const groups = syllabusForAge(age);
+  const completed = new Set(completedTopicIds);
+  const subjects: SubjectProgress[] = groups.map((g) => ({
+    key: g.key,
+    label: g.label,
+    done: g.topics.filter((t) => completed.has(t.id)).length,
+    total: g.topics.length,
+  }));
+  const done = subjects.reduce((n, s) => n + s.done, 0);
+  const total = subjects.reduce((n, s) => n + s.total, 0);
+  const activitiesReady = groups.flatMap((g) => g.topics).filter((t) => getLesson(t.id)).length;
+  return { subjects, done, total, activitiesReady };
 }

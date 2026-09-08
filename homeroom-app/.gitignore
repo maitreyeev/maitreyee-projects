@@ -41,3 +41,9 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+.env*
+
+# Vercel marketplace integration agent-skill docs (regenerable via `vercel install`)
+.agents/
+.claude/skills/
+skills-lock.json

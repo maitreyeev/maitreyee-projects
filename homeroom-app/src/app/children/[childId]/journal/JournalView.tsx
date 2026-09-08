@@ -3,49 +3,36 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useTransition } from "react";
 import { ArrowLeft, BookHeart, Trash2 } from "lucide-react";
 import Card from "@/components/Card";
 import { getTopic } from "@/data/topics";
-import {
-  deleteJournalEntry,
-  emptyState,
-  getActiveChild,
-  loadState,
-  type AppState,
-} from "@/lib/store";
+import type { JournalEntryRow } from "@/lib/children";
+import { deleteJournalEntryAction } from "../actions";
 
-export default function JournalPage() {
+export default function JournalView({
+  childId,
+  childName,
+  entries,
+}: {
+  childId: number;
+  childName: string;
+  entries: JournalEntryRow[];
+}) {
   const router = useRouter();
-  const [state, setState] = useState<AppState>(emptyState);
-  const [hydrated, setHydrated] = useState(false);
+  const [, startTransition] = useTransition();
 
-  useEffect(() => {
-    const s = loadState();
-    if (!getActiveChild(s)) {
-      router.replace("/");
-      return;
-    }
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time hydrate from localStorage on mount
-    setState(s);
-    setHydrated(true);
-  }, [router]);
-
-  const child = getActiveChild(state);
-
-  if (!hydrated || !child) {
-    return <div className="min-h-screen" />;
-  }
-
-  function removeEntry(entryId: string) {
-    if (!child) return;
-    setState(deleteJournalEntry(state, child.id, entryId));
+  function removeEntry(entryId: number) {
+    startTransition(async () => {
+      await deleteJournalEntryAction(childId, entryId);
+      router.refresh();
+    });
   }
 
   return (
     <div className="min-h-screen px-6 py-8 max-w-2xl mx-auto">
       <Link
-        href="/syllabus"
+        href={`/children/${childId}/syllabus`}
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-6"
       >
         <ArrowLeft size={16} /> Syllabus
@@ -55,25 +42,20 @@ export default function JournalPage() {
         <div className="h-10 w-10 rounded-xl bg-accent-soft text-accent flex items-center justify-center shrink-0">
           <BookHeart size={18} />
         </div>
-        <h1 className="text-2xl font-extrabold tracking-tight">
-          {child.name.split(" ")[0]}&apos;s journal
-        </h1>
+        <h1 className="text-2xl font-extrabold tracking-tight">{childName.split(" ")[0]}&apos;s journal</h1>
       </div>
-      <p className="text-muted mb-8">
-        Every note and photo you&apos;ve saved after an activity, newest first.
-      </p>
+      <p className="text-muted mb-8">Every note and photo you&apos;ve saved after an activity, newest first.</p>
 
-      {child.journal.length === 0 ? (
+      {entries.length === 0 ? (
         <Card className="p-6 text-center">
           <p className="text-sm text-muted leading-relaxed">
-            No entries yet. Open any lesson and save a quick note after you try
-            the activity — it builds into a running record of what
-            worked, over time.
+            No entries yet. Open any lesson and save a quick note after you try the activity — it builds into a
+            running record of what worked, over time.
           </p>
         </Card>
       ) : (
         <div className="flex flex-col gap-3">
-          {child.journal.map((entry) => {
+          {entries.map((entry) => {
             const topic = getTopic(entry.topicId);
             return (
               <Card key={entry.id} className="p-4 flex gap-3">
@@ -84,7 +66,7 @@ export default function JournalPage() {
                 )}
                 <div className="flex-1 min-w-0">
                   {topic ? (
-                    <Link href={`/lesson/${topic.id}`} className="text-sm font-bold text-accent hover:underline">
+                    <Link href={`/children/${childId}/lesson/${topic.id}`} className="text-sm font-bold text-accent hover:underline">
                       {topic.title}
                     </Link>
                   ) : (

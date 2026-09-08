@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useRef, useState, useTransition } from "react";
 import {
   ArrowLeft,
   Camera,
@@ -18,66 +18,55 @@ import {
 } from "lucide-react";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
-import { getTopic } from "@/data/topics";
 import { getLesson } from "@/data/lessons";
 import { subjectLabel, SUBJECT_STYLE } from "@/data/syllabus";
+import type { Topic } from "@/data/types";
+import type { JournalEntryRow } from "@/lib/children";
 import { resizeImageFile } from "@/lib/image";
-import {
-  addJournalEntry,
-  deleteJournalEntry,
-  emptyState,
-  getActiveChild,
-  loadState,
-  toggleTopicDone,
-  type AppState,
-} from "@/lib/store";
+import { addJournalEntryAction, deleteJournalEntryAction, toggleTopicDoneAction } from "../../actions";
 
-export default function LessonPage() {
+export default function LessonView({
+  childId,
+  childName,
+  topic,
+  done: initialDone,
+  entries,
+}: {
+  childId: number;
+  childName: string;
+  topic: Topic | null;
+  done: boolean;
+  entries: JournalEntryRow[];
+}) {
   const router = useRouter();
-  const params = useParams<{ topicId: string }>();
-  const topicId = params.topicId;
-  const topic = getTopic(topicId);
-
-  const [state, setState] = useState<AppState>(emptyState);
-  const [hydrated, setHydrated] = useState(false);
+  const [done, setDone] = useState(initialDone);
   const [note, setNote] = useState("");
   const [photo, setPhoto] = useState<string | undefined>(undefined);
+  const [saving, startSaving] = useTransition();
+  const [, startToggle] = useTransition();
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    const s = loadState();
-    if (!getActiveChild(s)) {
-      router.replace("/");
-      return;
-    }
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time hydrate from localStorage on mount
-    setState(s);
-    setHydrated(true);
-  }, [router]);
-
-  const child = getActiveChild(state);
-
-  if (!hydrated || !child) {
-    return <div className="min-h-screen" />;
-  }
 
   if (!topic) {
     return (
       <div className="min-h-screen px-6 py-8 max-w-2xl mx-auto">
-        <BackLink />
+        <BackLink childId={childId} />
         <p className="text-muted mt-6">
-          We couldn&apos;t find that topic. It may have moved — head back to
-          the syllabus and pick another.
+          We couldn&apos;t find that topic. It may have moved — head back to the syllabus and pick another.
         </p>
       </div>
     );
   }
 
-  const lesson = getLesson(topicId);
+  const lesson = getLesson(topic.id);
   const style = SUBJECT_STYLE[topic.subject];
   const label = subjectLabel(topic.subject, topic.age);
-  const done = child.completedTopicIds.includes(topic.id);
-  const entries = child.journal.filter((e) => e.topicId === topic.id);
+
+  function toggleDone() {
+    setDone((d) => !d);
+    startToggle(async () => {
+      await toggleTopicDoneAction(childId, topic!.id);
+    });
+  }
 
   async function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -91,43 +80,52 @@ export default function LessonPage() {
   }
 
   function saveJournalEntry() {
-    if (!child || !note.trim()) return;
-    setState(addJournalEntry(state, child.id, { topicId: topic!.id, note: note.trim(), photo }));
-    setNote("");
-    setPhoto(undefined);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    if (!note.trim()) return;
+    startSaving(async () => {
+      await addJournalEntryAction(childId, { topicId: topic!.id, note: note.trim(), photo });
+      setNote("");
+      setPhoto(undefined);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      router.refresh();
+    });
   }
 
-  function removeEntry(entryId: string) {
-    if (!child) return;
-    setState(deleteJournalEntry(state, child.id, entryId));
+  function removeEntry(entryId: number) {
+    startSaving(async () => {
+      await deleteJournalEntryAction(childId, entryId);
+      router.refresh();
+    });
   }
 
   return (
     <div className="min-h-screen px-6 py-8 max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6 no-print">
-        <BackLink />
-        <button
-          onClick={() => window.print()}
-          className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors cursor-pointer"
-        >
-          <Printer size={16} /> Print
-        </button>
+        <BackLink childId={childId} />
+        {lesson && (
+          <button
+            onClick={() => window.print()}
+            className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors cursor-pointer"
+          >
+            <Printer size={16} /> Print
+          </button>
+        )}
       </div>
 
-      <span className={`inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-4 ${style.bg} ${style.text}`}>
+      <span
+        className={`inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-4 ${style.bg} ${style.text}`}
+      >
         {label} · Age {topic.age}
       </span>
       <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">{topic.title}</h1>
       <p className="text-muted mb-5">{topic.blurb}</p>
 
       <button
-        onClick={() => child && setState(toggleTopicDone(state, child.id, topic.id))}
+        onClick={toggleDone}
         className={`no-print inline-flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-full mb-8 transition-colors cursor-pointer ${
           done ? "bg-accent text-accent-ink" : "bg-surface-muted text-foreground hover:bg-border/60"
         }`}
       >
-        <Check size={15} strokeWidth={3} /> {done ? `Done for ${child.name.split(" ")[0]}` : "Mark as done"}
+        <Check size={15} strokeWidth={3} /> {done ? `Done for ${childName.split(" ")[0]}` : "Mark as done"}
       </button>
 
       {!lesson ? (
@@ -137,12 +135,10 @@ export default function LessonPage() {
           </div>
           <h2 className="font-bold">This one&apos;s not written yet</h2>
           <p className="text-sm text-muted leading-relaxed">
-            Homeroom&apos;s activity library is hand-written and growing —{" "}
-            {topic.title} hasn&apos;t been curated yet. Pick another topic
-            from the syllabus that shows &quot;Activity ready&quot;, or check
-            back soon.
+            Homeroom&apos;s activity library is hand-written and growing — {topic.title} hasn&apos;t been curated
+            yet. Pick another topic from the syllabus that shows &quot;Activity ready&quot;, or check back soon.
           </p>
-          <Link href="/syllabus">
+          <Link href={`/children/${childId}/syllabus`}>
             <span className="inline-flex mt-1 text-sm font-bold text-accent hover:underline cursor-pointer">
               ← Back to the syllabus
             </span>
@@ -176,9 +172,7 @@ export default function LessonPage() {
                     </span>
                   </div>
                   <div className="mb-3">
-                    <div className="text-xs font-bold uppercase tracking-wide text-muted mb-1.5">
-                      You&apos;ll need
-                    </div>
+                    <div className="text-xs font-bold uppercase tracking-wide text-muted mb-1.5">You&apos;ll need</div>
                     <div className="flex flex-wrap gap-1.5">
                       {activity.materials.map((m, j) => (
                         <span key={j} className="text-xs bg-surface-muted rounded-full px-2.5 py-1">
@@ -188,9 +182,7 @@ export default function LessonPage() {
                     </div>
                   </div>
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-wide text-muted mb-1.5">
-                      Steps
-                    </div>
+                    <div className="text-xs font-bold uppercase tracking-wide text-muted mb-1.5">Steps</div>
                     <ol className="flex flex-col gap-2">
                       {activity.steps.map((s, j) => (
                         <li key={j} className="text-sm leading-relaxed flex gap-2.5">
@@ -216,15 +208,13 @@ export default function LessonPage() {
           <section className="no-print">
             <div className="flex items-center gap-2 mb-3 text-accent">
               <Camera size={16} />
-              <h2 className="font-extrabold text-sm uppercase tracking-wide">
-                Journal — how did it go?
-              </h2>
+              <h2 className="font-extrabold text-sm uppercase tracking-wide">Journal — how did it go?</h2>
             </div>
             <Card className="p-5 flex flex-col gap-3">
               <textarea
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                placeholder={`Jot down how ${child.name.split(" ")[0]} did — what clicked, what to try differently next time…`}
+                placeholder={`Jot down how ${childName.split(" ")[0]} did — what clicked, what to try differently next time…`}
                 rows={3}
                 className="w-full rounded-2xl bg-surface-muted border border-border p-4 text-sm outline-none focus:border-accent transition-colors resize-none"
               />
@@ -242,8 +232,8 @@ export default function LessonPage() {
                   </div>
                 )}
               </div>
-              <Button size="sm" className="self-start" disabled={!note.trim()} onClick={saveJournalEntry}>
-                Save to journal
+              <Button size="sm" className="self-start" disabled={!note.trim() || saving} onClick={saveJournalEntry}>
+                {saving ? "Saving…" : "Save to journal"}
               </Button>
             </Card>
 
@@ -279,7 +269,7 @@ export default function LessonPage() {
             )}
           </section>
 
-          <Link href="/syllabus" className="no-print">
+          <Link href={`/children/${childId}/syllabus`} className="no-print">
             <span className="inline-flex text-sm font-bold text-accent hover:underline cursor-pointer">
               ← Back to the syllabus
             </span>
@@ -290,10 +280,10 @@ export default function LessonPage() {
   );
 }
 
-function BackLink() {
+function BackLink({ childId }: { childId: number }) {
   return (
     <Link
-      href="/syllabus"
+      href={`/children/${childId}/syllabus`}
       className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
     >
       <ArrowLeft size={16} /> Syllabus
