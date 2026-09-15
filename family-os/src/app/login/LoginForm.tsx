@@ -18,19 +18,21 @@ export default function LoginPage() {
   function submitPasscode() {
     setError("");
     startTransition(async () => {
-      try {
-        const result = await verifyPasscode(passcode);
-        setMembers(result);
+      const result = await verifyPasscode(passcode);
+      if (result.error) {
+        setError(result.error);
+      } else {
+        setMembers(result.members ?? []);
         setPhase("profile");
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Something went wrong.");
       }
     });
   }
 
   function pick(memberId: number) {
+    setError("");
     startTransition(async () => {
-      await selectProfile(memberId);
+      const result = await selectProfile(memberId);
+      if (result?.error) setError(result.error);
     });
   }
 
@@ -88,6 +90,7 @@ export default function LoginPage() {
                 </button>
               ))}
             </div>
+            {error && <p className="text-sm text-danger">{error}</p>}
             <button
               onClick={() => setPhase("passcode")}
               className="text-sm text-muted hover:text-foreground cursor-pointer flex items-center gap-1.5"

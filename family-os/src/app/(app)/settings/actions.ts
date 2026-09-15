@@ -70,27 +70,34 @@ export async function permanentlyDeleteMember(id: number) {
   revalidatePath("/trash");
 }
 
-export async function changePasscode(currentPin: string, newPasscode: string) {
+// Both return { error } instead of throwing — see setup/actions.ts
+// completeSetup for why (thrown Server Action errors get redacted to a
+// "Minified React error #441" in production builds). This pair is the
+// most user-reachable spot for that bug: a mistyped PIN or a colliding
+// passcode are everyday mistakes, not edge cases.
+export async function changePasscode(currentPin: string, newPasscode: string): Promise<{ error?: string }> {
   const session = await getSession();
-  if (!session) throw new Error("Not signed in.");
+  if (!session) return { error: "Not signed in." };
   const rows = await sql`SELECT parent_pin_hash FROM household_auth WHERE id = ${session.householdId}`;
   if (rows.length === 0 || !verifySecret(currentPin, rows[0].parent_pin_hash as string)) {
-    throw new Error("That parent PIN isn't right.");
+    return { error: "That parent PIN isn't right." };
   }
-  if (newPasscode.length < 4) throw new Error("Passcode must be at least 4 characters.");
+  if (newPasscode.length < 4) return { error: "Passcode must be at least 4 characters." };
   const others = await sql`SELECT passcode_hash FROM household_auth WHERE id != ${session.householdId}`;
   const collision = (others as { passcode_hash: string }[]).some((h) => verifySecret(newPasscode, h.passcode_hash));
-  if (collision) throw new Error("That passcode is already used by another household on this app.");
+  if (collision) return { error: "That passcode is already used by another household on this app." };
   await sql`UPDATE household_auth SET passcode_hash = ${hashSecret(newPasscode)} WHERE id = ${session.householdId}`;
+  return {};
 }
 
-export async function changePin(currentPin: string, newPin: string) {
+export async function changePin(currentPin: string, newPin: string): Promise<{ error?: string }> {
   const session = await getSession();
-  if (!session) throw new Error("Not signed in.");
+  if (!session) return { error: "Not signed in." };
   const rows = await sql`SELECT parent_pin_hash FROM household_auth WHERE id = ${session.householdId}`;
   if (rows.length === 0 || !verifySecret(currentPin, rows[0].parent_pin_hash as string)) {
-    throw new Error("That parent PIN isn't right.");
+    return { error: "That parent PIN isn't right." };
   }
-  if (!/^\d{4,8}$/.test(newPin)) throw new Error("PIN must be 4-8 digits.");
+  if (!/^\d{4,8}$/.test(newPin)) return { error: "PIN must be 4-8 digits." };
   await sql`UPDATE household_auth SET parent_pin_hash = ${hashSecret(newPin)} WHERE id = ${session.householdId}`;
+  return {};
 }

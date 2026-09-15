@@ -46,7 +46,7 @@ function ChangeForm({
   newLabel: string;
   newPlaceholder: string;
   numeric?: boolean;
-  onSubmit: (currentPin: string, next: string) => Promise<void>;
+  onSubmit: (currentPin: string, next: string) => Promise<{ error?: string }>;
 }) {
   const [currentPin, setCurrentPin] = useState("");
   const [next, setNext] = useState("");
@@ -58,13 +58,13 @@ function ChangeForm({
     setError("");
     setSuccess(false);
     startTransition(async () => {
-      try {
-        await onSubmit(currentPin, next);
+      const result = await onSubmit(currentPin, next);
+      if (result.error) {
+        setError(result.error);
+      } else {
         setCurrentPin("");
         setNext("");
         setSuccess(true);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Something went wrong.");
       }
     });
   }

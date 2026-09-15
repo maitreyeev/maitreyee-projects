@@ -11,23 +11,31 @@ export interface SetupMember {
   color: string;
 }
 
+// Returns { error } instead of throwing for validation failures. Next.js's
+// production build redacts the .message of any Error thrown from a Server
+// Action — the client sees an opaque "Minified React error #441" instead
+// of the real message, even though dev mode shows it fine (which is how
+// this got past testing). Returning a plain value sidesteps that
+// entirely. The redirect() on success is unaffected by this — it's a
+// separate control-flow throw that Next's own runtime handles, not one
+// this function's caller catches.
 export async function completeSetup(input: {
   householdName: string;
   passcode: string;
   parentPin: string;
   members: SetupMember[];
-}) {
-  if (!input.householdName.trim()) throw new Error("Household name is required.");
-  if (input.passcode.length < 4) throw new Error("Passcode must be at least 4 characters.");
-  if (!/^\d{4,8}$/.test(input.parentPin)) throw new Error("Parent PIN must be 4-8 digits.");
-  if (input.members.length === 0) throw new Error("Add at least one family member.");
+}): Promise<{ error?: string }> {
+  if (!input.householdName.trim()) return { error: "Household name is required." };
+  if (input.passcode.length < 4) return { error: "Passcode must be at least 4 characters." };
+  if (!/^\d{4,8}$/.test(input.parentPin)) return { error: "Parent PIN must be 4-8 digits." };
+  if (input.members.length === 0) return { error: "Add at least one family member." };
 
   const existingHouseholds = await sql`SELECT passcode_hash FROM household_auth`;
   const collision = (existingHouseholds as { passcode_hash: string }[]).some((h) =>
     verifySecret(input.passcode, h.passcode_hash)
   );
   if (collision) {
-    throw new Error("That passcode is already used by another household on this app — please choose a different one.");
+    return { error: "That passcode is already used by another household on this app — please choose a different one." };
   }
 
   const householdRows = await sql`

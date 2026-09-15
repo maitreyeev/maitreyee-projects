@@ -72,12 +72,12 @@ export default function SetupWizard() {
   async function finish() {
     setSubmitting(true);
     setError("");
-    try {
-      await completeSetup({ householdName, passcode, parentPin: pin, members });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+    const result = await completeSetup({ householdName, passcode, parentPin: pin, members });
+    if (result?.error) {
+      setError(result.error);
       setSubmitting(false);
     }
+    // No else branch: success redirects server-side, so this component unmounts.
   }
 
   return (
