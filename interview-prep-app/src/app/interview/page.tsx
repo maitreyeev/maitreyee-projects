@@ -48,6 +48,7 @@ type Phase =
 
 const QUESTIONS_PER_ROUND = 3;
 const TIMED_SECONDS = 120;
+const MIN_ANSWER_LENGTH = 15;
 
 export default function InterviewPage() {
   const router = useRouter();
@@ -418,6 +419,11 @@ export default function InterviewPage() {
                     </span>
                   </div>
                 )}
+                {answer.trim().length > 0 && answer.trim().length < MIN_ANSWER_LENGTH && (
+                  <p className="text-xs text-warning mt-2">
+                    Add a bit more detail — at least {MIN_ANSWER_LENGTH} characters to submit.
+                  </p>
+                )}
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mt-4">
                   <div className="flex items-center gap-3">
                     <span className="text-xs text-muted">{answer.trim().length} characters</span>
@@ -440,7 +446,7 @@ export default function InterviewPage() {
                   </div>
                   <Button
                     onClick={submitAnswer}
-                    disabled={answer.trim().length < 15 || phase === "grading"}
+                    disabled={answer.trim().length < MIN_ANSWER_LENGTH || phase === "grading"}
                     className="w-full sm:w-auto whitespace-nowrap"
                   >
                     {phase === "grading" ? (
