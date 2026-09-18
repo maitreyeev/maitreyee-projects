@@ -20,7 +20,7 @@ export default function JournalView({
   entries: JournalEntryRow[];
 }) {
   const router = useRouter();
-  const [, startTransition] = useTransition();
+  const [pending, startTransition] = useTransition();
 
   function removeEntry(entryId: number) {
     startTransition(async () => {
@@ -84,7 +84,8 @@ export default function JournalView({
                 <button
                   aria-label="Delete entry"
                   onClick={() => removeEntry(entry.id)}
-                  className="text-muted hover:text-danger transition-colors cursor-pointer shrink-0 h-7 w-7 flex items-center justify-center"
+                  disabled={pending}
+                  className="text-muted hover:text-danger transition-colors cursor-pointer shrink-0 h-7 w-7 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <Trash2 size={14} />
                 </button>

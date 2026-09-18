@@ -72,11 +72,13 @@ export default function LessonView({
   async function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+    setJournalError("");
     try {
       const resized = await resizeImageFile(file);
       setPhoto(resized);
     } catch {
-      // Unsupported file or browser — just skip the photo, note still works.
+      setJournalError("Couldn't add that photo — try a different image, or save the note without one.");
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   }
 
@@ -266,7 +268,8 @@ export default function LessonView({
                     <button
                       aria-label="Delete entry"
                       onClick={() => removeEntry(entry.id)}
-                      className="text-muted hover:text-danger transition-colors cursor-pointer shrink-0 h-7 w-7 flex items-center justify-center"
+                      disabled={saving}
+                      className="text-muted hover:text-danger transition-colors cursor-pointer shrink-0 h-7 w-7 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       <Trash2 size={14} />
                     </button>
