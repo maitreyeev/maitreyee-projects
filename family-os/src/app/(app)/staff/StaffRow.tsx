@@ -29,12 +29,23 @@ const ROLE_LABELS: Record<string, string> = {
 
 export default function StaffRow({ staff: s }: { staff: Staff }) {
   const [pending, startTransition] = useTransition();
+  const toggleable = s.monthly_salary !== null;
+
+  function toggle() {
+    if (toggleable && !pending) startTransition(() => toggleStaffPaid(s.id, !s.is_paid_this_month));
+  }
 
   return (
-    <Card className={`p-4 flex items-center gap-3 ${s.is_paid_this_month ? "opacity-60" : ""}`}>
+    <Card
+      className={`p-4 flex items-center gap-3 ${toggleable ? "cursor-pointer" : ""} ${s.is_paid_this_month ? "opacity-60" : ""}`}
+      onClick={toggleable ? toggle : undefined}
+    >
       {s.monthly_salary !== null && (
         <button
-          onClick={() => startTransition(() => toggleStaffPaid(s.id, !s.is_paid_this_month))}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggle();
+          }}
           disabled={pending}
           className={`h-7 w-7 rounded-full border-2 flex items-center justify-center shrink-0 cursor-pointer transition-colors ${
             s.is_paid_this_month ? "bg-success border-success text-white" : "border-border"

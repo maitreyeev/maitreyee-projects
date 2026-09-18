@@ -54,6 +54,8 @@ export default function ExpenseForm({ tripId }: { tripId: number }) {
             autoFocus
             type="number"
             inputMode="decimal"
+            min="0.01"
+            step="0.01"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="0"
@@ -72,7 +74,7 @@ export default function ExpenseForm({ tripId }: { tripId: number }) {
         <Button variant="ghost" onClick={() => setOpen(false)} className="flex-1">
           Cancel
         </Button>
-        <Button onClick={submit} disabled={pending || !amount} className="flex-1">
+        <Button onClick={submit} disabled={pending || !(Number(amount) > 0)} className="flex-1">
           {pending ? "Saving…" : "Save"}
         </Button>
       </div>

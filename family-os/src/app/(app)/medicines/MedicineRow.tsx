@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
+import { Check } from "lucide-react";
 import Card from "@/components/Card";
 import SoftDeleteButton from "@/components/SoftDeleteButton";
 import { deleteMedicine, toggleMedicineActive } from "./actions";
@@ -24,16 +25,25 @@ export default function MedicineRow({ medicine: m }: { medicine: Medicine }) {
   // eslint-disable-next-line react-hooks/purity
   const refillSoon = m.refill_date && new Date(m.refill_date) <= new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
+  function toggle() {
+    if (!pending) startTransition(() => toggleMedicineActive(m.id, !m.active));
+  }
+
   return (
-    <Card className={`p-4 flex items-center gap-3 ${!m.active ? "opacity-50" : ""}`}>
+    <Card className={`p-4 flex items-center gap-3 cursor-pointer ${!m.active ? "opacity-50" : ""}`} onClick={toggle}>
       <button
-        onClick={() => startTransition(() => toggleMedicineActive(m.id, !m.active))}
+        onClick={(e) => {
+          e.stopPropagation();
+          toggle();
+        }}
         disabled={pending}
-        className={`h-6 w-6 rounded-full border-2 shrink-0 cursor-pointer transition-colors ${
-          m.active ? "bg-mint border-mint-ink" : "border-border"
+        className={`h-6 w-6 rounded-full border-2 flex items-center justify-center shrink-0 cursor-pointer transition-colors ${
+          m.active ? "bg-mint border-mint-ink text-white" : "border-border"
         }`}
         aria-label={m.active ? "Mark inactive" : "Mark active"}
-      />
+      >
+        {m.active && <Check size={12} />}
+      </button>
       <div className="flex-1 min-w-0">
         <div className="font-bold text-sm truncate">
           {m.name} {m.dosage && <span className="font-normal text-muted">· {m.dosage}</span>}
