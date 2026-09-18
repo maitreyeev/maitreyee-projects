@@ -29,10 +29,17 @@ export default function FinancialRow({ item: i }: { item: Item }) {
   const [pending, startTransition] = useTransition();
   const overdue = !i.is_paid && i.due_date && new Date(i.due_date) < new Date(new Date().toDateString());
 
+  function toggle() {
+    if (!pending) startTransition(() => toggleItemPaid(i.id, !i.is_paid));
+  }
+
   return (
-    <Card className={`p-4 flex items-center gap-3 ${i.is_paid ? "opacity-50" : ""}`}>
+    <Card className={`p-4 flex items-center gap-3 cursor-pointer ${i.is_paid ? "opacity-50" : ""}`} onClick={toggle}>
       <button
-        onClick={() => startTransition(() => toggleItemPaid(i.id, !i.is_paid))}
+        onClick={(e) => {
+          e.stopPropagation();
+          toggle();
+        }}
         disabled={pending}
         className={`h-7 w-7 rounded-full border-2 flex items-center justify-center shrink-0 cursor-pointer transition-colors ${
           i.is_paid ? "bg-success border-success text-white" : "border-border"

@@ -16,10 +16,17 @@ interface ShoppingItem {
 export default function ShoppingRow({ item }: { item: ShoppingItem }) {
   const [pending, startTransition] = useTransition();
 
+  function toggle() {
+    if (!pending) startTransition(() => toggleShoppingItemChecked(item.id, !item.is_checked));
+  }
+
   return (
-    <Card className={`p-4 flex items-center gap-3 ${item.is_checked ? "opacity-50" : ""}`}>
+    <Card className={`p-4 flex items-center gap-3 cursor-pointer ${item.is_checked ? "opacity-50" : ""}`} onClick={toggle}>
       <button
-        onClick={() => startTransition(() => toggleShoppingItemChecked(item.id, !item.is_checked))}
+        onClick={(e) => {
+          e.stopPropagation();
+          toggle();
+        }}
         disabled={pending}
         className={`h-7 w-7 rounded-full border-2 flex items-center justify-center shrink-0 cursor-pointer transition-colors ${
           item.is_checked ? "bg-success border-success text-white" : "border-border"

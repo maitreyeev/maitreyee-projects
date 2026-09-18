@@ -14,7 +14,10 @@ export default function SoftDeleteButton({
 
   return (
     <button
-      onClick={() => startTransition(onConfirm)}
+      onClick={(e) => {
+        e.stopPropagation();
+        startTransition(onConfirm);
+      }}
       disabled={pending}
       className="h-9 w-9 rounded-full flex items-center justify-center text-danger hover:bg-danger-soft transition-colors cursor-pointer shrink-0 disabled:opacity-50"
       aria-label={label}

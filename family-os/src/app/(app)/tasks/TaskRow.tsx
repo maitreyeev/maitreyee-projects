@@ -20,10 +20,17 @@ interface Task {
 export default function TaskRow({ task: t }: { task: Task }) {
   const [pending, startTransition] = useTransition();
 
+  function toggle() {
+    if (!pending) startTransition(() => toggleTaskDone(t.id, !t.is_done));
+  }
+
   return (
-    <Card className="p-4 flex items-center gap-3">
+    <Card className="p-4 flex items-center gap-3 cursor-pointer" onClick={toggle}>
       <button
-        onClick={() => startTransition(() => toggleTaskDone(t.id, !t.is_done))}
+        onClick={(e) => {
+          e.stopPropagation();
+          toggle();
+        }}
         disabled={pending}
         className={`h-7 w-7 rounded-full border-2 flex items-center justify-center shrink-0 cursor-pointer transition-colors ${
           t.is_done ? "bg-success border-success text-white" : "border-border"

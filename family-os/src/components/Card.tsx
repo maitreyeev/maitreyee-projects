@@ -5,10 +5,12 @@ export default function Card({
   children,
   className,
   tone = "surface",
+  onClick,
 }: {
   children: ReactNode;
   className?: string;
   tone?: "surface" | "ink" | "lavender" | "peach" | "mint" | "sky" | "butter" | "blush" | "coral";
+  onClick?: () => void;
 }) {
   const tones: Record<string, string> = {
     surface: "bg-surface",
@@ -23,7 +25,22 @@ export default function Card({
   };
 
   return (
-    <div className={clsx("rounded-3xl card-shadow", tones[tone], className)}>
+    <div
+      className={clsx("rounded-3xl card-shadow", tones[tone], className)}
+      onClick={onClick}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={
+        onClick
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onClick();
+              }
+            }
+          : undefined
+      }
+    >
       {children}
     </div>
   );
