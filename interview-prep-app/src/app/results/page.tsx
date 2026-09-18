@@ -21,6 +21,7 @@ const BAND_COPY: Record<string, { label: string; color: string }> = {
 export default function ResultsPage() {
   const router = useRouter();
   const [session, setSession] = useState<SessionState | null>(null);
+  const [retryError, setRetryError] = useState("");
 
   useEffect(() => {
     // One-time hydration from localStorage (an external system) on mount.
@@ -56,7 +57,10 @@ export default function ResultsPage() {
       currentQuestionIndex: 0,
       finalVerdict: null,
     };
-    saveSession(next);
+    if (!saveSession(next)) {
+      setRetryError("Couldn't save — your browser's storage is full or disabled. Free up space or switch browsers, then try again.");
+      return;
+    }
     router.push("/interview");
   }
 
@@ -161,6 +165,7 @@ export default function ResultsPage() {
         </Card>
 
         <div className="flex flex-col gap-3">
+          {retryError && <p className="text-xs text-danger">{retryError}</p>}
           <Button size="lg" onClick={retryWeakRounds}>
             <RotateCcw size={16} /> Retry with new questions
           </Button>

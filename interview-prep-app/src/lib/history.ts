@@ -28,8 +28,11 @@ export function loadHistory(): HistoryEntry[] {
   }
 }
 
-export function appendHistoryEntry(entry: Omit<HistoryEntry, "id" | "date">) {
-  if (typeof window === "undefined") return;
+/** Returns false if the write failed (storage full or disabled), so the
+ *  caller can tell the user their attempt wasn't recorded to history —
+ *  losing that silently otherwise looks like the attempt vanished. */
+export function appendHistoryEntry(entry: Omit<HistoryEntry, "id" | "date">): boolean {
+  if (typeof window === "undefined") return true;
   const existing = loadHistory();
   const next: HistoryEntry[] = [
     { ...entry, id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, date: new Date().toISOString() },
@@ -37,11 +40,9 @@ export function appendHistoryEntry(entry: Omit<HistoryEntry, "id" | "date">) {
   ].slice(0, MAX_ENTRIES);
   try {
     window.localStorage.setItem(KEY, JSON.stringify(next));
+    return true;
   } catch {
-    // Storage full or disabled. This would otherwise throw mid-way through
-    // completing a full session — right as "Compiling your report..."
-    // shows — and strand the user there with no error. History is a nice-
-    // to-have; losing it silently beats losing the finished session.
+    return false;
   }
 }
 

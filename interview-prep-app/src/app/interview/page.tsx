@@ -57,6 +57,7 @@ export default function InterviewPage() {
   const [answer, setAnswer] = useState("");
   const [grade, setGrade] = useState<QuestionResult | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [storageWarning, setStorageWarning] = useState(false);
   const [timeLeft, setTimeLeft] = useState(TIMED_SECONDS);
   const [roleTrack, setRoleTrack] = useState<RoleTrack | undefined>(undefined);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -130,6 +131,13 @@ export default function InterviewPage() {
     : 0;
   const overallProgress = totalQuestions ? (completedQuestions / totalQuestions) * 100 : 0;
 
+  // Wraps saveSession so every call site warns once (not repeatedly) if the
+  // browser's storage is full or disabled — otherwise progress silently
+  // stops persisting with no indication anything is wrong.
+  function persistSession(state: SessionState) {
+    if (!saveSession(state)) setStorageWarning(true);
+  }
+
   async function submitAnswer() {
     if (!session || !company || !roleTrack || !round || !question) return;
     speech.stop();
@@ -178,7 +186,7 @@ export default function InterviewPage() {
           ? next
           : { ...next, currentQuestionIndex: session.currentQuestionIndex + 1, questionDeadline: null };
         setSession(advanced);
-        saveSession(advanced);
+        persistSession(advanced);
         setAnswer("");
         speech.dismissLooksOff();
         setPhase(isLastQuestionInRound ? "round-summary" : "answering");
@@ -186,7 +194,7 @@ export default function InterviewPage() {
       }
 
       setSession(next);
-      saveSession(next);
+      persistSession(next);
       setGrade(result);
       setPhase("feedback");
     } catch (err) {
@@ -206,7 +214,7 @@ export default function InterviewPage() {
         questionDeadline: null,
       };
       setSession(next);
-      saveSession(next);
+      persistSession(next);
       setAnswer("");
       setGrade(null);
       speech.dismissLooksOff();
@@ -223,7 +231,7 @@ export default function InterviewPage() {
         questionDeadline: null,
       };
       setSession(next);
-      saveSession(next);
+      persistSession(next);
       setAnswer("");
       setGrade(null);
       speech.dismissLooksOff();
@@ -262,7 +270,7 @@ export default function InterviewPage() {
       const verdict = await res.json();
       const previous = session.role ? previousAttemptFor(company.id, session.role) : null;
       if (session.role) {
-        appendHistoryEntry({
+        const savedToHistory = appendHistoryEntry({
           name: session.name,
           companyId: company.id,
           companyName: company.name,
@@ -271,13 +279,14 @@ export default function InterviewPage() {
           attempt: session.attempt,
           verdict,
         });
+        if (!savedToHistory) setStorageWarning(true);
       }
       const finalSession: SessionState = {
         ...session,
         finalVerdict: verdict,
         previousProbability: previous?.verdict.probability ?? null,
       };
-      saveSession(finalSession);
+      persistSession(finalSession);
       router.push("/results");
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
@@ -306,7 +315,7 @@ export default function InterviewPage() {
       const withDeadline: SessionState = { ...session, questionDeadline: deadline };
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setSession(withDeadline);
-      saveSession(withDeadline);
+      persistSession(withDeadline);
     }
     const activeDeadline = deadline;
 
@@ -346,6 +355,13 @@ export default function InterviewPage() {
           </div>
         </header>
         <ProgressBar value={overallProgress} />
+
+        {storageWarning && (
+          <div className="flex items-center gap-2 text-xs text-danger bg-danger-soft rounded-xl px-3 py-2">
+            <TriangleAlert size={14} className="shrink-0" />
+            Your browser storage is full or disabled, so progress on this device won&apos;t be saved if you leave this page.
+          </div>
+        )}
 
         {/* popLayout takes the exiting card out of flow via position:
             absolute so the entering one can render immediately without

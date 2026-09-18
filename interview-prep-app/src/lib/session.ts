@@ -74,14 +74,16 @@ export function loadSession(): SessionState {
   }
 }
 
-export function saveSession(state: SessionState) {
-  if (typeof window === "undefined") return;
+/** Returns false if the write failed (storage full or disabled — private
+ *  browsing, quota exceeded) so callers can warn the user that progress
+ *  won't survive a reload, instead of crashing the app outright. */
+export function saveSession(state: SessionState): boolean {
+  if (typeof window === "undefined") return true;
   try {
     window.localStorage.setItem(KEY, JSON.stringify(state));
+    return true;
   } catch {
-    // Storage full or disabled (private browsing, quota exceeded). Progress
-    // for this session just won't persist across a reload — better than
-    // crashing the app on every answer submitted.
+    return false;
   }
 }
 

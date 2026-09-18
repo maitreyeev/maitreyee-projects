@@ -25,6 +25,7 @@ export default function Home() {
   const [companyId, setCompanyId] = useState<string>("");
   const [hasHistory, setHasHistory] = useState(false);
   const [timedMode, setTimedMode] = useState(false);
+  const [startError, setStartError] = useState("");
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -45,13 +46,20 @@ export default function Home() {
 
   function startInterview() {
     if (!role || !companyId) return;
-    saveSession({
+    const saved = saveSession({
       ...emptySession,
       name: name.trim(),
       companyId,
       role,
       timedMode,
     });
+    if (!saved) {
+      setStartError(
+        "Couldn't save your session — your browser's storage is full or disabled (private browsing?). Free up space or switch browsers, then try again."
+      );
+      return;
+    }
+    setStartError("");
     router.push("/interview");
   }
 
@@ -250,6 +258,7 @@ export default function Home() {
                 </div>
                 <Toggle checked={timedMode} onChange={setTimedMode} label="Timed mode" />
               </div>
+              {startError && <p className="text-xs text-danger mt-3">{startError}</p>}
               <Button size="lg" className="w-full mt-6" onClick={startInterview}>
                 Start interview <ArrowRight size={18} />
               </Button>
