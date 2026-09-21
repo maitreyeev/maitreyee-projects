@@ -122,7 +122,7 @@ export default function SyllabusView({
           />
         </div>
         <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => setReadyOnly(!readyOnly)}>
             <Toggle checked={readyOnly} onChange={setReadyOnly} label="Show only topics with an activity ready" />
             <span className="text-sm font-medium">Activity ready only</span>
           </div>
