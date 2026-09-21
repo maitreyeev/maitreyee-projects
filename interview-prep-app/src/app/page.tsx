@@ -245,7 +245,10 @@ export default function Home() {
                   selection-probability rating with what to fix.
                 </span>
               </div>
-              <div className="mt-3 flex items-center gap-3 bg-surface-muted rounded-2xl p-4">
+              <div
+                className="mt-3 flex items-center gap-3 bg-surface-muted rounded-2xl p-4 cursor-pointer"
+                onClick={() => setTimedMode(!timedMode)}
+              >
                 <div className="h-9 w-9 rounded-xl bg-accent-soft text-accent flex items-center justify-center shrink-0">
                   <Timer size={17} />
                 </div>

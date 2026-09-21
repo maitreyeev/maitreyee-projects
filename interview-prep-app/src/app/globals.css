@@ -83,6 +83,18 @@ body {
     0 12px 28px -12px hsl(var(--shadow-color) / 0.14);
 }
 
+/* Company badges mix each brand color toward the theme's own
+   foreground/background instead of using the raw brand color directly.
+   Apple's brand color (#111114) is near-black, so at full strength it was
+   invisible against the dark-mode background (text and badge both
+   near-black). Blending toward the theme foreground/background keeps every
+   company's badge readable in both themes — verified against WCAG AA via
+   scripts/check-contrast.js. */
+.company-badge {
+  background: color-mix(in srgb, var(--badge-brand) 15%, var(--background));
+  color: color-mix(in srgb, var(--badge-brand) 45%, var(--foreground));
+}
+
 .card-shadow-lg {
   box-shadow: 0 2px 4px hsl(var(--shadow-color) / 0.05),
     0 24px 48px -16px hsl(var(--shadow-color) / 0.22);

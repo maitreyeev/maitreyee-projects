@@ -15,16 +15,17 @@ export default function CompanyBadge({
   return (
     <div
       className={clsx(
-        "flex items-center justify-center rounded-2xl font-semibold shrink-0",
+        "company-badge flex items-center justify-center rounded-2xl font-semibold shrink-0",
         className
       )}
-      style={{
-        width: size,
-        height: size,
-        background: `${color}1a`,
-        color,
-        fontSize: size * 0.42,
-      }}
+      style={
+        {
+          width: size,
+          height: size,
+          fontSize: size * 0.42,
+          "--badge-brand": color,
+        } as React.CSSProperties
+      }
     >
       {initial}
     </div>
