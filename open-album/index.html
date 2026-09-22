@@ -5,52 +5,64 @@
 <title>Open Album</title>
 <meta name="description" content="A working demo of a Google Photos concept: anyone with a link can add event photos straight from their phone, no account needed.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%93%B7%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><text y=%2220%22 font-size=%2220%22>📷</text></svg>">
 <style>
   :root {
-    --paper: #faf9f7;
+    --paper: #fbf6ec;
     --surface: #ffffff;
-    --surface-muted: #f2f0ec;
-    --ink: #1a1a1a;
-    --muted: #6f6b62;
-    --faint: #a29d94;
-    --border: #eceae6;
-    --accent: #e8664c;
-    --accent-ink: #ffffff;
-    --accent-soft: #fdeee9;
-    --shadow: 20 15 10;
+    --surface-muted: #f6eeda;
+    --ink: #2a1d14;
+    --muted: #7d6b52;
+    --faint: #bbab86;
+    --border: #ead9b3;
+    --accent: #b3822f;
+    --accent-2: #d9ac52;
+    --accent-ink: #2a1608;
+    --accent-soft: #f4e5c2;
+    --wine: #6d1f34;
+    --wine-deep: #34101c;
+    --shadow: 30 18 8;
     color-scheme: light dark;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --paper: #17151b;
-      --surface: #201d25;
-      --surface-muted: #29252f;
-      --ink: #f1efee;
-      --muted: #a9a3ae;
-      --faint: #726c79;
-      --border: rgba(255,255,255,0.09);
-      --accent: #ff8468;
-      --accent-ink: #17151b;
-      --accent-soft: #3a2620;
+      --paper: #1c150e;
+      --surface: #2a2017;
+      --surface-muted: #342719;
+      --ink: #f3ead9;
+      --muted: #baa688;
+      --faint: #6f5d42;
+      --border: rgba(230,196,130,0.16);
+      --accent: #dcb35f;
+      --accent-2: #e8c476;
+      --accent-ink: #241505;
+      --accent-soft: #3d2d15;
+      --wine: #9a4560;
+      --wine-deep: #4a1728;
     }
   }
   :root[data-theme="dark"] {
-    --paper: #17151b;
-    --surface: #201d25;
-    --surface-muted: #29252f;
-    --ink: #f1efee;
-    --muted: #a9a3ae;
-    --faint: #726c79;
-    --border: rgba(255,255,255,0.09);
-    --accent: #ff8468;
-    --accent-ink: #17151b;
-    --accent-soft: #3a2620;
+    --paper: #1c150e;
+    --surface: #2a2017;
+    --surface-muted: #342719;
+    --ink: #f3ead9;
+    --muted: #baa688;
+    --faint: #6f5d42;
+    --border: rgba(230,196,130,0.16);
+    --accent: #dcb35f;
+    --accent-2: #e8c476;
+    --accent-ink: #241505;
+    --accent-soft: #3d2d15;
+    --wine: #9a4560;
+    --wine-deep: #4a1728;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    background: var(--paper);
+    background:
+      radial-gradient(600px 300px at 15% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 60%),
+      radial-gradient(500px 260px at 100% 8%, color-mix(in srgb, var(--wine) 8%, transparent), transparent 60%),
+      var(--paper);
     color: var(--ink);
     font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
   }
@@ -60,20 +72,25 @@
 
   .shell { max-width: 480px; margin: 0 auto; min-height: 100%; display: flex; flex-direction: column; padding: 0 16px 32px; }
 
-  .topbar { display: flex; align-items: center; gap: 10px; padding: 18px 4px 14px; }
-  .mark { width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
-  .mark span:nth-child(1) { background: #4285f4; }
-  .mark span:nth-child(2) { background: #34a853; }
-  .mark span:nth-child(3) { background: #fbbc05; }
-  .mark span:nth-child(4) { background: #e8664c; }
-  .wordmark { font-weight: 800; font-size: 16px; letter-spacing: -0.01em; }
+  .topbar { display: flex; align-items: center; gap: 10px; padding: 20px 4px 16px; }
+  .mark {
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(150deg, var(--accent-2), var(--accent) 60%, var(--wine));
+    box-shadow: 0 4px 14px -6px color-mix(in srgb, var(--accent) 65%, transparent);
+  }
+  .mark svg { display: block; }
+  .wordmark { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 18px; letter-spacing: 0.01em; }
   .concept-badge {
     margin-left: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px;
     font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted);
     border: 1px solid var(--border); border-radius: 999px; padding: 4px 9px; white-space: nowrap;
   }
 
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset, 0 14px 30px -22px color-mix(in srgb, var(--wine) 50%, transparent); }
+
+  .ornament { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 4px 0 2px; color: var(--accent); opacity: 0.85; }
+  .ornament::before, .ornament::after { content: ""; height: 1px; width: 34px; background: linear-gradient(90deg, transparent, currentColor); }
+  .ornament::after { background: linear-gradient(90deg, currentColor, transparent); }
 
   .banner {
     display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; font-weight: 600;
@@ -85,13 +102,18 @@
   :root[data-theme="dark"] .banner { background: #3a1f1c; color: #e8695c; }
 
   /* Host view */
-  .cover { height: 148px; border-radius: 20px; position: relative; overflow: hidden;
-    background: linear-gradient(135deg,#f3a15a,#e8664c 55%,#8e3d6b);
-    background-size: cover; background-position: center; }
+  .cover { height: 156px; border-radius: 20px; position: relative; overflow: hidden;
+    background: linear-gradient(135deg, var(--wine-deep), var(--wine) 45%, var(--accent) 120%);
+    background-size: cover; background-position: center;
+    box-shadow: 0 20px 40px -22px color-mix(in srgb, var(--wine) 60%, transparent); }
+  .cover::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    border: 1px solid rgba(255,255,255,0.22); border-radius: 20px; margin: 6px;
+  }
   .cover input {
     position: absolute; left: 14px; bottom: 12px; right: 14px; background: rgba(0,0,0,0.28);
-    border: none; border-radius: 10px; color: #fff; font-size: 17px; font-weight: 700; padding: 6px 10px;
-    font-family: 'Manrope', sans-serif; outline: none; width: calc(100% - 28px);
+    border: none; border-radius: 10px; color: #fff; font-size: 18px; font-weight: 700; padding: 6px 10px;
+    font-family: 'Playfair Display', serif; outline: none; width: calc(100% - 28px);
   }
   .cover input::placeholder { color: rgba(255,255,255,0.75); }
 
@@ -104,13 +126,19 @@
   .switch { width: 40px; height: 24px; border-radius: 999px; flex-shrink: 0; position: relative; cursor: pointer; border: none; padding: 0; transition: background 150ms; margin-top: 1px; }
   .switch .knob { position: absolute; top: 2px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: left 150ms; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
 
-  .link-box { display: flex; flex-direction: column; align-items: center; padding: 22px; background: var(--surface-muted); border-radius: 18px; }
-  .qr { width: 116px; height: 116px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+  .link-box {
+    display: flex; flex-direction: column; align-items: center; padding: 24px 22px; border-radius: 18px;
+    background: var(--surface-muted); border: 1px solid var(--border); position: relative;
+  }
+  .qr { width: 116px; height: 116px; border-radius: 10px; background: var(--surface); border: 1.5px solid var(--accent-2); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px -14px color-mix(in srgb, var(--wine) 60%, transparent); }
   .link-text { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: var(--muted); margin-top: 12px; word-break: break-all; text-align: center; }
 
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; border-radius: 999px; font-size: 13.5px; font-weight: 700; cursor: pointer; border: none; }
-  .btn-primary { background: var(--accent); color: var(--accent-ink); box-shadow: 0 10px 20px -12px color-mix(in srgb, var(--accent) 70%, transparent); }
-  .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--ink); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; border-radius: 999px; font-size: 13.5px; font-weight: 700; cursor: pointer; border: none; letter-spacing: 0.01em; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent-2), var(--accent) 70%);
+    color: var(--accent-ink); box-shadow: 0 12px 22px -12px color-mix(in srgb, var(--accent) 70%, transparent);
+  }
+  .btn-outline { background: transparent; border: 1.5px solid var(--accent-2); color: var(--ink); }
   .btn-ghost { background: transparent; color: var(--muted); font-weight: 600; height: 40px; }
   .btn-row { display: flex; gap: 10px; width: 100%; margin-top: 14px; }
   .btn-row .btn { flex: 1; }
@@ -118,14 +146,14 @@
   .stats { font-size: 13px; font-weight: 700; margin: 22px 2px 10px; display: flex; align-items: baseline; gap: 6px; }
   .stats .sub { font-weight: 500; color: var(--faint); font-size: 11.5px; }
 
-  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
-  .grid .tile { aspect-ratio: 1; border-radius: 6px; overflow: hidden; background: var(--surface-muted); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+  .grid .tile { aspect-ratio: 1; border-radius: 7px; overflow: hidden; background: var(--surface-muted); border: 1px solid var(--border); box-shadow: 0 4px 10px -8px color-mix(in srgb, var(--wine) 70%, transparent); }
   .grid .tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   .empty { padding: 34px 20px; text-align: center; color: var(--muted); font-size: 12.5px; line-height: 1.6; }
 
-  .about { margin-top: 28px; }
-  .about summary { cursor: pointer; font-size: 12px; font-weight: 700; color: var(--muted); list-style: none; }
+  .about { margin-top: 28px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .about summary { cursor: pointer; font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); list-style: none; }
   .about summary::-webkit-details-marker { display: none; }
   .about summary::before { content: "About this concept  "; }
   .about[open] summary::before { content: "About this concept  "; }
@@ -142,29 +170,42 @@
 
   /* Guest view */
   .hero-cover {
-    margin-top: 4px; padding: 34px 24px 28px; border-radius: 24px; text-align: center;
-    background: linear-gradient(135deg,#f3a15a,#e8664c 55%,#8e3d6b);
+    margin-top: 4px; padding: 40px 24px 32px; border-radius: 26px; text-align: center;
+    background: linear-gradient(160deg, var(--wine-deep), var(--wine) 45%, var(--accent) 130%);
     background-size: cover; background-position: center;
-    box-shadow: 0 1px 2px rgba(20,15,10,0.06), 0 20px 40px -20px rgba(142,61,107,0.55);
+    box-shadow: 0 1px 2px rgba(20,15,10,0.06), 0 24px 48px -20px color-mix(in srgb, var(--wine) 65%, transparent);
     position: relative; overflow: hidden;
   }
   .hero-cover::before {
     content: ""; position: absolute; inset: 0;
     background: radial-gradient(60% 50% at 85% 0%, rgba(255,255,255,0.22), transparent 70%);
   }
+  .hero-cover::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    border: 1px solid rgba(255,214,150,0.35); border-radius: 26px; margin: 8px;
+  }
   .hero-edit-btn {
-    position: absolute; top: 12px; right: 12px; z-index: 2;
+    position: absolute; top: 14px; right: 14px; z-index: 2;
     width: 32px; height: 32px; border-radius: 50%; border: none; cursor: pointer;
     background: rgba(0,0,0,0.32); display: flex; align-items: center; justify-content: center;
     overflow: hidden;
   }
   .hero-edit-btn input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
   .hero-sparkle {
-    position: relative; width: 44px; height: 44px; margin: 0 auto 12px; border-radius: 14px;
-    background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center;
+    position: relative; width: 46px; height: 46px; margin: 0 auto 14px; border-radius: 50%;
+    background: rgba(255,255,255,0.14); border: 1px solid rgba(255,214,150,0.55);
+    display: flex; align-items: center; justify-content: center;
   }
-  .hero-title { position: relative; font-size: 26px; font-weight: 800; margin: 0; color: #ffffff; text-wrap: balance; text-shadow: 0 2px 16px rgba(0,0,0,0.25); }
-  .hero-sub { position: relative; font-size: 12.5px; color: rgba(255,255,255,0.9); margin: 8px 0 0; text-shadow: 0 1px 8px rgba(0,0,0,0.2); }
+  .hero-title {
+    position: relative; font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 30px; font-weight: 700; margin: 0; color: #fff; text-wrap: balance;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.3); letter-spacing: 0.01em;
+  }
+  .hero-sub {
+    position: relative; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,232,196,0.9);
+    margin: 12px 0 0; text-shadow: 0 1px 8px rgba(0,0,0,0.2);
+  }
   .name-field { margin-top: 18px; }
   .name-field label { font-size: 11.5px; font-weight: 700; color: var(--muted); }
   .name-field input {
@@ -175,18 +216,22 @@
   .action-row { display: flex; gap: 10px; margin-top: 16px; }
   .action-btn { flex: 1; position: relative; overflow: hidden; padding: 0 8px; }
   .action-btn input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-  .gallery-heading { font-size: 13px; font-weight: 800; margin: 26px 2px 2px; }
-  .gallery-heading + .stats { margin-top: 6px; }
+  .gallery-heading {
+    font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700;
+    font-size: 17px; margin: 30px 2px 2px; text-align: center;
+  }
+  .gallery-heading + .stats { margin-top: 6px; justify-content: center; }
   .toast {
     margin-top: 14px; background: var(--accent-soft); color: var(--accent); border-radius: 12px;
     padding: 10px 14px; font-size: 12.5px; font-weight: 700; text-align: center;
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
   }
-  .back-link { text-align: center; margin-top: 22px; }
+  .back-link { text-align: center; margin-top: 24px; }
   .back-link a { font-size: 12px; font-weight: 700; color: var(--faint); text-decoration: none; }
 </style>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap">
 </head>
 <body>
 
@@ -194,7 +239,9 @@
 
 <div class="shell">
   <div class="topbar">
-    <div class="mark"><span></span><span></span><span></span><span></span></div>
+    <div class="mark">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2z" fill="#fff"/></svg>
+    </div>
     <span class="wordmark">Open Album</span>
     <span class="concept-badge">Concept · not affiliated with Google</span>
   </div>
@@ -231,7 +278,8 @@
       </div>
     </div>
 
-    <div class="stats" id="statsLine">0 photos <span class="sub">· 0 guests</span></div>
+    <div class="ornament" style="margin-top:24px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2z"/></svg></div>
+    <div class="stats" id="statsLine" style="justify-content:center; margin-top:8px;">0 photos <span class="sub">· 0 guests</span></div>
     <div id="hostGrid" class="grid"></div>
     <div id="hostEmpty" class="empty">No photos yet — copy the link above and share it to get started. Or open the guest view to try it yourself.</div>
 
