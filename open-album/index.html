@@ -204,6 +204,10 @@
   <!-- HOST VIEW -->
   <div id="hostView">
     <div class="cover" id="hostCover">
+      <button class="hero-edit-btn" id="hostPhotoBtn" aria-label="Choose a background photo for the banner">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 8a2 2 0 012-2h1.5l1-2h7l1 2H18a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V8z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" stroke="#ffffff" stroke-width="1.8"/></svg>
+        <input type="file" id="hostCoverPhotoInput" accept="image/*">
+      </button>
       <input id="albumName" maxlength="60" placeholder="Name your album">
     </div>
 
@@ -533,7 +537,7 @@
     });
   });
 
-  document.getElementById("coverPhotoInput").addEventListener("change", function (e) {
+  function handleCoverPhoto(e) {
     var file = (e.target.files || [])[0];
     e.target.value = "";
     if (!file) return;
@@ -548,7 +552,11 @@
         showBanner("Couldn't save the cover photo — " + err.message);
       });
     }, COVER_SIZE, 0.8);
-  });
+  }
+  // Reachable from both the guest-facing hero and the couple's setup
+  // screen — the setup screen had no way to change it at all before.
+  document.getElementById("coverPhotoInput").addEventListener("change", handleCoverPhoto);
+  document.getElementById("hostCoverPhotoInput").addEventListener("change", handleCoverPhoto);
 
   document.getElementById("copyBtn").addEventListener("click", function () {
     var link = location.origin + location.pathname + "?view=guest";
