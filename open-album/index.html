@@ -99,7 +99,7 @@
   .link-text { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: var(--muted); margin-top: 12px; word-break: break-all; text-align: center; }
 
   .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; border-radius: 999px; font-size: 13.5px; font-weight: 700; cursor: pointer; border: none; }
-  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); box-shadow: 0 10px 20px -12px color-mix(in srgb, var(--accent) 70%, transparent); }
   .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--ink); }
   .btn-ghost { background: transparent; color: var(--muted); font-weight: 600; height: 40px; }
   .btn-row { display: flex; gap: 10px; width: 100%; margin-top: 14px; }
@@ -123,11 +123,22 @@
   .about p b { color: var(--ink); }
 
   /* Guest view */
-  .guest-chrome { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-top: 4px; }
-  .guest-chrome .u { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; color: var(--muted); }
-  .guest-title { text-align: center; margin-top: 26px; }
-  .guest-title h1 { font-size: 20px; font-weight: 800; margin: 0; }
-  .guest-title p { font-size: 12px; color: var(--muted); margin: 5px 0 0; }
+  .hero-cover {
+    margin-top: 4px; padding: 34px 24px 28px; border-radius: 24px; text-align: center;
+    background: linear-gradient(135deg,#f3a15a,#e8664c 55%,#8e3d6b);
+    box-shadow: 0 1px 2px rgba(20,15,10,0.06), 0 20px 40px -20px rgba(142,61,107,0.55);
+    position: relative; overflow: hidden;
+  }
+  .hero-cover::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(60% 50% at 85% 0%, rgba(255,255,255,0.22), transparent 70%);
+  }
+  .hero-sparkle {
+    position: relative; width: 44px; height: 44px; margin: 0 auto 12px; border-radius: 14px;
+    background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center;
+  }
+  .hero-title { position: relative; font-size: 26px; font-weight: 800; margin: 0; color: #ffffff; text-wrap: balance; }
+  .hero-sub { position: relative; font-size: 12.5px; color: rgba(255,255,255,0.85); margin: 8px 0 0; }
   .name-field { margin-top: 18px; }
   .name-field label { font-size: 11.5px; font-weight: 700; color: var(--muted); }
   .name-field input {
@@ -203,14 +214,12 @@
 
   <!-- GUEST VIEW -->
   <div id="guestView" hidden>
-    <div class="guest-chrome">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="4" y="8" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.8" style="color:var(--faint)"/><path d="M8 8V6a4 4 0 018 0v2" stroke="currentColor" stroke-width="1.8" style="color:var(--faint)"/></svg>
-      <span class="u" id="guestUrl">open-album.demo/open/8k3f2</span>
-    </div>
-
-    <div class="guest-title">
-      <h1 id="guestAlbumName">Album!!</h1>
-      <p>Add your photos to share with everyone — no account needed</p>
+    <div class="hero-cover">
+      <div class="hero-sparkle">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2z"/></svg>
+      </div>
+      <h1 id="guestAlbumName" class="hero-title">Album!!</h1>
+      <p class="hero-sub">Add your photos to share with everyone — no account needed</p>
     </div>
 
     <div class="name-field">
@@ -365,7 +374,6 @@
 
   function renderGuest() {
     document.getElementById("guestAlbumName").textContent = state.albumName + "!!";
-    document.getElementById("guestUrl").textContent = (location.host || "open-album.demo") + location.pathname + "?view=guest";
 
     var pc = photoCount(), gc = guestCount();
     document.getElementById("guestStatsLine").innerHTML = pc + " photo" + (pc === 1 ? "" : "s") + ' <span class="sub">· ' + gc + " " + (gc === 1 ? "person" : "people") + "</span>";
@@ -410,9 +418,10 @@
     }
   }
 
-  // View routing
+  // View routing — the guest/action flow is the default landing
+  // experience; the couple's setup screen is opt-in via ?view=host.
   var params = new URLSearchParams(location.search);
-  var view = params.get("view") === "guest" ? "guest" : "host";
+  var view = params.get("view") === "host" ? "host" : "guest";
   document.getElementById("hostView").hidden = view !== "host";
   document.getElementById("guestView").hidden = view !== "guest";
 
