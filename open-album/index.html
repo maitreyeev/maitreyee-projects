@@ -75,6 +75,15 @@
 
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; }
 
+  .banner {
+    display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; font-weight: 600;
+    background: #fbe9e6; color: #b8402f; border-radius: 12px; padding: 10px 14px; margin: 0 0 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .banner { background: #3a1f1c; color: #e8695c; }
+  }
+  :root[data-theme="dark"] .banner { background: #3a1f1c; color: #e8695c; }
+
   /* Host view */
   .cover { height: 148px; border-radius: 20px; position: relative; overflow: hidden;
     background: linear-gradient(135deg,#f3a15a,#e8664c 55%,#8e3d6b);
@@ -190,6 +199,8 @@
     <span class="concept-badge">Concept · not affiliated with Google</span>
   </div>
 
+  <div id="banner" class="banner" hidden></div>
+
   <!-- HOST VIEW -->
   <div id="hostView">
     <div class="cover" id="hostCover">
@@ -277,39 +288,49 @@
 <script>
 (function () {
   "use strict";
-  var KEY = "open-album-demo-v1";
-  var MAX_STORED_THUMBS = 60;
+  // Always talk to the deployed API, regardless of where this page itself
+  // is hosted (the Vercel app directly, or embedded elsewhere) — so the
+  // same file works as one shared source without drifting between copies.
+  var API_BASE = "https://open-album.vercel.app";
   var THUMB_SIZE = 140;
   var COVER_SIZE = 1000;
+  var POLL_MS = 4000;
 
-  function defaultState() {
-    return { albumName: "Meera & Arjun's Wedding", openLink: true, contributions: [], coverPhoto: null };
+  var state = { albumName: "Meera & Arjun's Wedding", openLink: true, coverPhoto: null, contributions: [] };
+
+  function api(path, opts) {
+    opts = opts || {};
+    return fetch(API_BASE + path, {
+      method: opts.method || "GET",
+      headers: { "Content-Type": "application/json" },
+      body: opts.body ? JSON.stringify(opts.body) : undefined,
+    }).then(function (res) {
+      if (!res.ok) {
+        return res.json().catch(function () { return {}; }).then(function (body) {
+          throw new Error(body.error || ("Request failed (" + res.status + ")"));
+        });
+      }
+      return res.json();
+    });
   }
 
-  function load() {
-    try {
-      var raw = localStorage.getItem(KEY);
-      if (!raw) return defaultState();
-      var parsed = JSON.parse(raw);
-      return Object.assign(defaultState(), parsed);
-    } catch (e) { return defaultState(); }
+  var bannerTimer = null;
+  function showBanner(msg) {
+    var el = document.getElementById("banner");
+    el.textContent = msg;
+    el.hidden = false;
+    clearTimeout(bannerTimer);
+    bannerTimer = setTimeout(function () { el.hidden = true; }, 5000);
   }
 
-  var storageOk = true;
-  function save(state) {
-    try {
-      localStorage.setItem(KEY, JSON.stringify(state));
-      storageOk = true;
-    } catch (e) {
-      // Quota exceeded, private browsing, or storage disabled entirely.
-      // Stop trusting reads from storage for the rest of this session —
-      // otherwise the next poll below reloads stale/default data and
-      // silently discards whatever was just changed in memory.
-      storageOk = false;
-    }
+  function setUploading(isUploading) {
+    ["cameraInput", "fileInput"].forEach(function (id) {
+      var input = document.getElementById(id);
+      if (input) input.disabled = isUploading;
+    });
+    var row = document.querySelector(".action-row");
+    if (row) row.style.opacity = isUploading ? "0.6" : "1";
   }
-
-  var state = load();
 
   function allThumbs() {
     var out = [];
@@ -452,17 +473,6 @@
     }
   }
 
-  function trimContributions() {
-    var total = 0;
-    for (var i = state.contributions.length - 1; i >= 0; i--) {
-      var c = state.contributions[i];
-      total += (c.thumbs || []).length;
-      if (total > MAX_STORED_THUMBS) {
-        c.thumbs = [];
-      }
-    }
-  }
-
   // View routing — the guest/action flow is the default landing
   // experience; the couple's setup screen is opt-in via ?view=host.
   var params = new URLSearchParams(location.search);
@@ -471,31 +481,73 @@
   document.getElementById("guestView").hidden = view !== "guest";
 
   renderQR(document.getElementById("qrBox"));
-  renderAll();
+  renderAll(); // render with in-memory defaults immediately, then refresh from the server
+
+  function refreshAlbum() {
+    return api("/api/album").then(function (data) {
+      state.albumName = data.albumName;
+      state.openLink = data.openLink;
+      state.coverPhoto = data.coverPhoto;
+      renderAll();
+    }).catch(function (err) {
+      showBanner("Couldn't load the album settings — " + err.message);
+    });
+  }
+
+  function refreshContributions() {
+    return api("/api/contributions").then(function (data) {
+      state.contributions = data;
+      renderAll();
+    }).catch(function (err) {
+      showBanner("Couldn't load photos — " + err.message);
+    });
+  }
+
+  refreshAlbum();
+  refreshContributions();
+  setInterval(refreshContributions, POLL_MS);
+  setInterval(refreshAlbum, POLL_MS * 2);
 
   // Host interactions
   document.getElementById("albumName").addEventListener("input", function (e) {
+    // Live local preview only — committed on blur/change below, so we
+    // aren't firing a PATCH on every keystroke.
     state.albumName = e.target.value || "Untitled album";
-    save(state);
-    renderAll();
+    renderGuest();
+  });
+  document.getElementById("albumName").addEventListener("change", function (e) {
+    var name = e.target.value || "Untitled album";
+    api("/api/album", { method: "PATCH", body: { albumName: name } }).catch(function (err) {
+      showBanner("Couldn't save the album name — " + err.message);
+    });
   });
 
   document.getElementById("openToggle").addEventListener("click", function () {
-    state.openLink = !state.openLink;
-    save(state);
+    var next = !state.openLink;
+    state.openLink = next;
     renderHost();
+    api("/api/album", { method: "PATCH", body: { openLink: next } }).catch(function (err) {
+      state.openLink = !next;
+      renderHost();
+      showBanner("Couldn't save that setting — " + err.message);
+    });
   });
 
   document.getElementById("coverPhotoInput").addEventListener("change", function (e) {
     var file = (e.target.files || [])[0];
+    e.target.value = "";
     if (!file) return;
     downscale(file, function (dataUrl) {
-      if (!dataUrl) return;
+      if (!dataUrl) {
+        showBanner("Couldn't read that photo — try a different one.");
+        return;
+      }
       state.coverPhoto = dataUrl;
-      save(state);
       renderCoverBg();
+      api("/api/album", { method: "PATCH", body: { coverPhoto: dataUrl } }).catch(function (err) {
+        showBanner("Couldn't save the cover photo — " + err.message);
+      });
     }, COVER_SIZE, 0.8);
-    e.target.value = "";
   });
 
   document.getElementById("copyBtn").addEventListener("click", function () {
@@ -511,21 +563,26 @@
   });
 
   document.getElementById("resetBtn").addEventListener("click", function () {
-    state = defaultState();
-    save(state);
-    renderAll();
+    api("/api/contributions", { method: "DELETE" }).then(function () {
+      return refreshContributions();
+    }).catch(function (err) {
+      showBanner("Couldn't reset — " + err.message);
+    });
   });
 
-  // Guest interactions
+  // Guest interactions — the guest's own typed name is a per-viewer
+  // convenience only, kept locally; it is never the shared record.
   var guestNameInput = document.getElementById("guestName");
   try { guestNameInput.value = localStorage.getItem("open-album-guest-name") || ""; } catch (e) {}
 
   function handlePickedFiles(e) {
     var files = Array.prototype.slice.call(e.target.files || []).slice(0, 12);
+    e.target.value = "";
     if (files.length === 0) return;
     var name = (guestNameInput.value || "").trim() || "A guest";
     try { localStorage.setItem("open-album-guest-name", guestNameInput.value || ""); } catch (err) {}
 
+    setUploading(true);
     var thumbs = [];
     var remaining = files.length;
     files.forEach(function (f) {
@@ -535,40 +592,32 @@
         if (remaining === 0) finishUpload(name, files.length, thumbs);
       });
     });
-    e.target.value = "";
   }
 
   document.getElementById("cameraInput").addEventListener("change", handlePickedFiles);
   document.getElementById("fileInput").addEventListener("change", handlePickedFiles);
 
   function finishUpload(name, count, thumbs) {
-    state.contributions.push({ name: name, count: count, thumbs: thumbs, addedAt: Date.now() });
-    trimContributions();
-    save(state);
-    renderAll();
-    var toast = document.getElementById("toast");
-    toast.textContent = "Added " + count + " photo" + (count === 1 ? "" : "s") + " — thank you!";
-    toast.hidden = false;
-    setTimeout(function () { toast.hidden = true; }, 2600);
+    if (thumbs.length === 0) {
+      setUploading(false);
+      showBanner("Those photos couldn't be processed — try again.");
+      return;
+    }
+    // Only tell the guest it's saved once the server actually confirms it —
+    // an optimistic "thank you" here would lie if the request fails.
+    api("/api/contributions", { method: "POST", body: { name: name, count: count, thumbs: thumbs } })
+      .then(function () { return refreshContributions(); })
+      .then(function () {
+        var toast = document.getElementById("toast");
+        toast.textContent = "Added " + count + " photo" + (count === 1 ? "" : "s") + " — saved!";
+        toast.hidden = false;
+        setTimeout(function () { toast.hidden = true; }, 2600);
+      })
+      .catch(function (err) {
+        showBanner("Couldn't save your photos — " + err.message + ". Please try again.");
+      })
+      .then(function () { setUploading(false); });
   }
-
-  // Cross-tab live sync (same device/browser) — only while storage has
-  // proven writable this session; otherwise a reload would just hand
-  // back stale or default data and clobber whatever is in memory.
-  window.addEventListener("storage", function (e) {
-    if (storageOk && e.key === KEY) {
-      state = load();
-      renderAll();
-    }
-  });
-  setInterval(function () {
-    if (!storageOk) return;
-    var fresh = load();
-    if (JSON.stringify(fresh) !== JSON.stringify(state)) {
-      state = fresh;
-      renderAll();
-    }
-  }, 2500);
 })();
 </script>
 </body>
