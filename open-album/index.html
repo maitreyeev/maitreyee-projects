@@ -152,13 +152,6 @@
 
   .empty { padding: 34px 20px; text-align: center; color: var(--muted); font-size: 12.5px; line-height: 1.6; }
 
-  .about { margin-top: 28px; border-top: 1px solid var(--border); padding-top: 18px; }
-  .about summary { cursor: pointer; font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); list-style: none; }
-  .about summary::-webkit-details-marker { display: none; }
-  .about summary::before { content: "About this concept  "; }
-  .about[open] summary::before { content: "About this concept  "; }
-  .about p { font-size: 12px; color: var(--muted); line-height: 1.65; margin: 10px 0 0; }
-  .about p b { color: var(--ink); }
 
   /* Page-wide photo wash — a softened, tinted version of the chosen
      cover photo behind the whole page, once one is picked. */
@@ -306,12 +299,6 @@
     <div style="text-align:center; margin-top: 18px;">
       <button class="btn btn-ghost" id="resetBtn">Reset demo</button>
     </div>
-
-    <details class="about">
-      <summary></summary>
-      <p><b>The gap:</b> Google Photos shared-album links already let anyone view without an account — but contributing still requires signing in with one. That's exactly why a market of single-purpose apps (GuestCam, Wedibox, WedPicsQR, GuestSnap) exists to close it.</p>
-      <p><b>The idea:</b> add a permission tier — anyone with the link can add, no account needed — with a lightweight web uploader. The album still lives in Google Photos, so face grouping, duplicate detection, and the existing Highlight Video engine apply to the pooled collection automatically. Reusing shipped AI, not building new AI.</p>
-    </details>
   </div>
 
   <!-- GUEST VIEW -->
