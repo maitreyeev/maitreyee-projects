@@ -77,7 +77,8 @@
 
   /* Host view */
   .cover { height: 148px; border-radius: 20px; position: relative; overflow: hidden;
-    background: linear-gradient(135deg,#f3a15a,#e8664c 55%,#8e3d6b); }
+    background: linear-gradient(135deg,#f3a15a,#e8664c 55%,#8e3d6b);
+    background-size: cover; background-position: center; }
   .cover input {
     position: absolute; left: 14px; bottom: 12px; right: 14px; background: rgba(0,0,0,0.28);
     border: none; border-radius: 10px; color: #fff; font-size: 17px; font-weight: 700; padding: 6px 10px;
@@ -122,10 +123,19 @@
   .about p { font-size: 12px; color: var(--muted); line-height: 1.65; margin: 10px 0 0; }
   .about p b { color: var(--ink); }
 
+  /* Page-wide photo wash — a softened, tinted version of the chosen
+     cover photo behind the whole page, once one is picked. */
+  #pageBg {
+    position: fixed; inset: -5%; z-index: -1;
+    background-size: cover; background-position: center;
+    filter: blur(30px); transform: scale(1.08);
+  }
+
   /* Guest view */
   .hero-cover {
     margin-top: 4px; padding: 34px 24px 28px; border-radius: 24px; text-align: center;
     background: linear-gradient(135deg,#f3a15a,#e8664c 55%,#8e3d6b);
+    background-size: cover; background-position: center;
     box-shadow: 0 1px 2px rgba(20,15,10,0.06), 0 20px 40px -20px rgba(142,61,107,0.55);
     position: relative; overflow: hidden;
   }
@@ -133,12 +143,19 @@
     content: ""; position: absolute; inset: 0;
     background: radial-gradient(60% 50% at 85% 0%, rgba(255,255,255,0.22), transparent 70%);
   }
+  .hero-edit-btn {
+    position: absolute; top: 12px; right: 12px; z-index: 2;
+    width: 32px; height: 32px; border-radius: 50%; border: none; cursor: pointer;
+    background: rgba(0,0,0,0.32); display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-edit-btn input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
   .hero-sparkle {
     position: relative; width: 44px; height: 44px; margin: 0 auto 12px; border-radius: 14px;
     background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center;
   }
-  .hero-title { position: relative; font-size: 26px; font-weight: 800; margin: 0; color: #ffffff; text-wrap: balance; }
-  .hero-sub { position: relative; font-size: 12.5px; color: rgba(255,255,255,0.85); margin: 8px 0 0; }
+  .hero-title { position: relative; font-size: 26px; font-weight: 800; margin: 0; color: #ffffff; text-wrap: balance; text-shadow: 0 2px 16px rgba(0,0,0,0.25); }
+  .hero-sub { position: relative; font-size: 12.5px; color: rgba(255,255,255,0.9); margin: 8px 0 0; text-shadow: 0 1px 8px rgba(0,0,0,0.2); }
   .name-field { margin-top: 18px; }
   .name-field label { font-size: 11.5px; font-weight: 700; color: var(--muted); }
   .name-field input {
@@ -164,6 +181,8 @@
 </head>
 <body>
 
+<div id="pageBg" hidden></div>
+
 <div class="shell">
   <div class="topbar">
     <div class="mark"><span></span><span></span><span></span><span></span></div>
@@ -173,7 +192,7 @@
 
   <!-- HOST VIEW -->
   <div id="hostView">
-    <div class="cover">
+    <div class="cover" id="hostCover">
       <input id="albumName" maxlength="60" placeholder="Name your album">
     </div>
 
@@ -214,7 +233,11 @@
 
   <!-- GUEST VIEW -->
   <div id="guestView" hidden>
-    <div class="hero-cover">
+    <div class="hero-cover" id="heroCover">
+      <button class="hero-edit-btn" id="heroPhotoBtn" aria-label="Choose a background photo for the banner">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 8a2 2 0 012-2h1.5l1-2h7l1 2H18a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V8z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" stroke="#ffffff" stroke-width="1.8"/></svg>
+        <input type="file" id="coverPhotoInput" accept="image/*">
+      </button>
       <div class="hero-sparkle">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2z"/></svg>
       </div>
@@ -257,9 +280,10 @@
   var KEY = "open-album-demo-v1";
   var MAX_STORED_THUMBS = 60;
   var THUMB_SIZE = 140;
+  var COVER_SIZE = 1000;
 
   function defaultState() {
-    return { albumName: "Meera & Arjun's Wedding", openLink: true, contributions: [] };
+    return { albumName: "Meera & Arjun's Wedding", openLink: true, contributions: [], coverPhoto: null };
   }
 
   function load() {
@@ -384,27 +408,48 @@
   function renderAll() {
     renderHost();
     renderGuest();
+    renderCoverBg();
   }
 
-  function downscale(file, cb) {
+  function downscale(file, cb, maxSize, quality) {
+    maxSize = maxSize || THUMB_SIZE;
+    quality = quality || 0.7;
     var reader = new FileReader();
     reader.onload = function (ev) {
       var img = new Image();
       img.onload = function () {
-        var scale = Math.min(1, THUMB_SIZE / Math.max(img.width, img.height));
+        var scale = Math.min(1, maxSize / Math.max(img.width, img.height));
         var w = Math.max(1, Math.round(img.width * scale));
         var h = Math.max(1, Math.round(img.height * scale));
         var canvas = document.createElement("canvas");
         canvas.width = w; canvas.height = h;
         var ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, w, h);
-        try { cb(canvas.toDataURL("image/jpeg", 0.7)); } catch (e) { cb(null); }
+        try { cb(canvas.toDataURL("image/jpeg", quality)); } catch (e) { cb(null); }
       };
       img.onerror = function () { cb(null); };
       img.src = ev.target.result;
     };
     reader.onerror = function () { cb(null); };
     reader.readAsDataURL(file);
+  }
+
+  function renderCoverBg() {
+    var hero = document.getElementById("heroCover");
+    var hostCover = document.getElementById("hostCover");
+    var pageBg = document.getElementById("pageBg");
+    if (state.coverPhoto) {
+      var heroLayers = "linear-gradient(180deg, rgba(20,10,15,0.12), rgba(20,10,15,0.5)), url(" + state.coverPhoto + ")";
+      hero.style.backgroundImage = heroLayers;
+      if (hostCover) hostCover.style.backgroundImage = heroLayers;
+      pageBg.style.backgroundImage =
+        "linear-gradient(color-mix(in srgb, var(--paper) 80%, transparent), color-mix(in srgb, var(--paper) 80%, transparent)), url(" + state.coverPhoto + ")";
+      pageBg.hidden = false;
+    } else {
+      hero.style.backgroundImage = "";
+      if (hostCover) hostCover.style.backgroundImage = "";
+      pageBg.hidden = true;
+    }
   }
 
   function trimContributions() {
@@ -439,6 +484,18 @@
     state.openLink = !state.openLink;
     save(state);
     renderHost();
+  });
+
+  document.getElementById("coverPhotoInput").addEventListener("change", function (e) {
+    var file = (e.target.files || [])[0];
+    if (!file) return;
+    downscale(file, function (dataUrl) {
+      if (!dataUrl) return;
+      state.coverPhoto = dataUrl;
+      save(state);
+      renderCoverBg();
+    }, COVER_SIZE, 0.8);
+    e.target.value = "";
   });
 
   document.getElementById("copyBtn").addEventListener("click", function () {
