@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Open Album</title>
+<title>Mosaic</title>
 <meta name="description" content="A working demo of a Google Photos concept: anyone with a link can add event photos straight from their phone, no account needed.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><text y=%2220%22 font-size=%2220%22>📷</text></svg>">
@@ -264,7 +264,7 @@
     <div class="mark">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2z" fill="#fff"/></svg>
     </div>
-    <span class="wordmark">Open Album</span>
+    <span class="wordmark">Mosaic</span>
     <span class="concept-badge">Concept · not affiliated with Google</span>
   </div>
 
@@ -293,7 +293,7 @@
 
     <div class="link-box" style="margin-top: 14px;">
       <div class="qr" id="qrBox"></div>
-      <div class="link-text" id="linkText">open-album.demo/…</div>
+      <div class="link-text" id="linkText">mosaic.demo/…</div>
       <div class="btn-row">
         <button class="btn btn-outline" id="copyBtn">Copy link</button>
         <a class="btn btn-primary" id="openGuestBtn" href="?view=guest" style="text-decoration:none;">See guest view</a>
@@ -377,7 +377,7 @@
   // Always talk to the deployed API, regardless of where this page itself
   // is hosted (the Vercel app directly, or embedded elsewhere) — so the
   // same file works as one shared source without drifting between copies.
-  var API_BASE = "https://open-album.vercel.app";
+  var API_BASE = "https://mosaic-album.vercel.app";
   var THUMB_SIZE = 140;
   var COVER_SIZE = 1000;
   var POLL_MS = 4000;
